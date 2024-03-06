@@ -5,6 +5,11 @@
                 Главная страница
             </div>
         </a>
+        <a href="{{route('user.project')}}">
+            <div class="headerButton">
+                О проекте
+            </div>
+        </a>
         <div class="log">
             <a href="{{route('house.create')}}">
                 <div class="headerButton">

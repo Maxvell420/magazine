@@ -98,4 +98,8 @@ class UserController
     {
         return view('user.frozen');
     }
+    public function about()
+    {
+        return view('user.project');
+    }
 }

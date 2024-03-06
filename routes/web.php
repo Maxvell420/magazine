@@ -25,6 +25,7 @@ Route::get('/user-create',[UserController::class,'create'])->name('user.create')
 Route::post('user-save',[UserController::class,'save'])->name('user.save');
 Route::post('auth',[UserController::class,'auth'])->name('auth');
 Route::get('house/{house}/show',[HouseController::class,'show'])->name('house.show');
+Route::get('/about',[UserController::class,'about'])->name('user.project');
 
 Route::middleware('auth')->group(function (){
     Route::get('/userFrozen',[UserController::class,'frozen'])->name('user.frozen');
