@@ -1,0 +1,121 @@
+[
+    {
+        "value": "Иркутская область, город Усолье-Сибирское, Комсомольский проспект, 83",
+        "type": "address",
+        "address": "Комсомольский проспект, 83",
+        "street": "Комсомольский проспект",
+        "description": "Иркутская область, город Усолье-Сибирское",
+        "name": "",
+        "geo_center": {
+            "lon": 103.653444,
+            "lat": 52.747127
+        },
+        "geo_inside": {
+            "lon": 103.653444,
+            "lat": 52.747127
+        },
+        "oktmo_short": "25736000001",
+        "level": "4",
+        "oktmo_name": "город Усолье-Сибирское",
+        "oktmo_type": "г",
+        "place_name": "город Усолье-Сибирское",
+        "place_oktmo": "25736000001",
+        "levels": {
+            "1": {
+                "value": "Иркутская область",
+                "description": "",
+                "oktmo_short": "25",
+                "oktmo": "25000000",
+                "name_display": "Иркутская область",
+                "name_source": "Иркутская область",
+                "name_without_type": "Иркутская",
+                "level": "1",
+                "oktmo_type": "суб",
+                "geo_type": "polygon",
+                "siblings": "85",
+                "childs": {
+                    "2": "42",
+                    "3": "413",
+                    "4": "1536"
+                },
+                "parent_level": "0",
+                "population": "2391193",
+                "center_oktmo": "25701000001",
+                "area": 774984.225608,
+                "geo_center": {
+                    "lon": "106.36342",
+                    "lat": "57.100205"
+                },
+                "geo_center_inside": true,
+                "geo_inside": {
+                    "lon": "109.015061",
+                    "lat": "57.725633"
+                }
+            },
+            "2": {
+                "value": "городской округ Усолье-Сибирское, Иркутская область",
+                "description": "Иркутская область",
+                "oktmo_short": "25736",
+                "oktmo": "25736000",
+                "name_display": "городской округ Усолье-Сибирское",
+                "name_source": "город Усолье-Сибирское",
+                "name_without_type": "Усолье-Сибирское",
+                "level": "2",
+                "oktmo_type": "го",
+                "unique_display": 0,
+                "unique_without_type": 0,
+                "unique_source": 0,
+                "geo_type": "polygon",
+                "siblings": "42",
+                "childs": {
+                    "4": "1"
+                },
+                "parent_level": "1",
+                "population": "76047",
+                "center_oktmo": "25736000001",
+                "area": 79.008724,
+                "geo_center": {
+                    "lon": "103.631441",
+                    "lat": "52.767544"
+                },
+                "geo_center_inside": true,
+                "geo_inside": {
+                    "lon": "103.643032",
+                    "lat": "52.767045"
+                }
+            },
+            "4": {
+                "value": "город Усолье-Сибирское, Иркутская область",
+                "description": "Иркутская область",
+                "oktmo_short": "25736000001",
+                "oktmo": "25736000001",
+                "name_display": "город Усолье-Сибирское",
+                "name_source": "г Усолье-Сибирское",
+                "name_without_type": "Усолье-Сибирское",
+                "name_type_short": "г",
+                "name_type_full": "город",
+                "level": "4",
+                "oktmo_type": "г",
+                "center_level": "2",
+                "unique_display": 0,
+                "unique_without_type": 0,
+                "unique_source": 0,
+                "geo_type": "polygon",
+                "siblings": "1",
+                "parent_level": "2",
+                "population": "76047",
+                "center_of": "25736",
+                "area": 79.008724,
+                "geo_center": {
+                    "lon": "103.631441",
+                    "lat": "52.767544"
+                },
+                "geo_center_inside": true,
+                "geo_inside": {
+                    "lon": "103.643032",
+                    "lat": "52.767045"
+                }
+            }
+        }
+    }
+]
