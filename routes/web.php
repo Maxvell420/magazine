@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ComplaintController;
-use App\Http\Controllers\ParserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,3 +64,4 @@ Route::get('/migrate', function () {
     Artisan::call('migrate --seed');
     return 'Миграции успешно выполнены';
 });
+Route::get('js',[\App\Http\Controllers\JSController::class,'JS'])->name('js');

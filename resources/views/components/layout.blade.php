@@ -2,12 +2,8 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{asset('styles.css')}}">
-    @if(session()->has('message'))
-        <script>
-            let message = "{{ session('message') }}";
-        </script>
-    @endif
-    <script src="{{asset('script.js')}}"></script>
+    <link rel="icon" href="{{asset('user.png')}}" sizes="32x32">
+    <title>my cool title</title>
 </head>
 <body>
 <div class="wrapper">
@@ -20,5 +16,11 @@
         </div>
     </main>
 </div>
+@if(session()->has('message'))
+    <script>
+        let message = "{{ session('message') }}";
+    </script>
+@endif
+<script src="{{asset('script.js')}}"></script>
 </body>
 </html>
