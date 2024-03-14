@@ -6,6 +6,7 @@ use App\Models\Chat;
 use App\Models\City;
 use App\Models\House;
 use App\Models\User;
+use App\Services\DashboardService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -36,18 +37,17 @@ class UserController
     }
     public function dashboard(Request $request)
     {
-        $houses=House::getHousesFromFilter($request,House::with('city'));
-        $houses=$houses->where('archived','!=',true)->whereHas('user',function ($query){
-            $query->where('frozen',0);
-        })->simplePaginate(6);
-        $cities = City::all();
+        $user = Auth::user();
+        $service = new DashboardService();
+        $houses = $service->getFilteredHouses($request);
+        $cities = $service->getCities();
         $values = [
             'city'=> $request->input('city'),
             'rooms'=>$request->input('rooms'),
             'price'=>$request->input('price')
         ];
-        $route = 'user.dashboard';
-        return view('user.dashboard',compact(['houses','cities','values','route']));
+        $watchlist = $service->getFavouriteHouses($user);
+        return view('user.dashboard',compact(['houses','cities','values','watchlist']));
     }
     public function logout(): \Illuminate\Http\RedirectResponse
     {

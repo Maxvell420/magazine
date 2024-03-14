@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use stdClass;
 
 class House extends Model
 {
     use HasFactory,FileOperationsTrait;
-    protected $fillable=['user_id','city_id','description','rooms','price','archived'];
+    protected $fillable=['user_id','city_id','title','price','archived'];
     public static function getHousesFromFilter(Request $request,Builder $houses)
     {
         $city = $request->input('city');
@@ -68,15 +69,53 @@ class House extends Model
     }
     public function getPreviewPath()
     {
-        if (!$this->photo){
-            return $this->coordinate->getMap();
+        if (!$this->photos){
+            return $this->setAttribute('preview',$this->photos->first()->path);
         } else {
-            return $this->photo->first()->path;
+            return $this->setAttribute('preview',$this->coordinate->getMap());
         }
+    }
+    public function processExternalData()
+    {
+        $this->getPreviewPath();
+        $this->getAddress();
+//        класс который меняет дату прям здесь
+        $this->getUsabilityTime($this->created_at);
+    }
+    public function getUsabilityTime(Carbon $time):string
+    {
+        $month = $time->month;
+        $months = [
+            1 => 'янв',
+            2 => 'фев',
+            3 => 'мар',
+            4 => 'апр',
+            5 => 'май',
+            6 => 'июн',
+            7 => 'июл',
+            8 => 'авг',
+            9 => 'сен',
+            10 => 'окт',
+            11 => 'ноя',
+            12 => 'дек'
+        ];
+        return $this->setAttribute('time',"$time->day $months[$month] $time->year");
+    }
+    public function getAddress()
+    {
+        return $this->setAttribute('address',$this->coordinate->getAddress());
     }
     public function coordinate()
     {
         return $this->hasOne(Coordinate::class);
+    }
+    public function housing_attribute()
+    {
+        return $this->hasOne(Housing_attribute::class);
+    }
+    public function saveHousingAttribute(array $data)
+    {
+        $this->housing_attribute()->create($data);
     }
     public function city()
     {

@@ -39,12 +39,6 @@ class User extends Authenticatable
             return $value !== null;
         });
     }
-    public function getHousesFromWatchlist(string|int $id)
-    {
-        $watchlist = $this->getWatchlist();
-        return in_array($id,$watchlist);
-    }
-
     public function complaints()
     {
         return $this->hasMany(Complaint::class);

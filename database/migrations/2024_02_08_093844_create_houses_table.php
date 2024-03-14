@@ -17,8 +17,7 @@ class CreateHousesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('city_id')->constrained('cities');
-            $table->string('description')->nullable();
-            $table->integer('rooms');
+            $table->text('title');
             $table->integer('price');
             $table->boolean('archived')->default(0);
             $table->timestamps();

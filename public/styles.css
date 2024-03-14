@@ -1,3 +1,97 @@
 body{
-
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
+.wrapper{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+}
+.buttons{
+    display: flex;
+}
+.upperButtons{
+    display: flex;
+    justify-content: space-between;
+}
+.buttons a{
+    text-decoration: none;
+}
+.current.navButton{
+    border-color: #A390E4;
+}
+.navButton{
+    margin: 5px;
+    color: black;
+    padding: 5px;
+    background-color: white;
+    border: 2px solid #B3EBFF;
+    border-radius: 5px;
+}
+.navButton:active, .navButton:hover{
+    border-left-color: #A390E4;
+    border-top-color: #A390E4;
+}
+/*dashboard*/
+.articles{
+    display: grid;
+    width: 1050px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+/*dashboard end*/
+/*house*/
+.house{
+    border: 2px solid #dadada;
+    border-radius: 20px;
+    height: 400px;
+    margin: 10px;
+    transition: border-color 0.5s ease;
+}
+.house p{
+    margin-left: 10px;
+    color: black;
+}
+.house a{
+    text-decoration: none;
+    color: black;
+}
+.house:active, .house:hover{
+    border-color: #A390E4;
+}
+.houseButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    bottom: 100px;
+    left: 200px;
+    background-color: white;
+    border-radius: 15px;
+    transition: width 0.3s ease, height 0.3s ease;
+    border-color: #B3EBFF;
+}
+.houseButton:active,.houseButton:hover{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border-color: #A390E4;
+}
+.houseButton img{
+    width: 60%;
+}
+.house{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.housePreview{
+    width: 300px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+/*house end*/

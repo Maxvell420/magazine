@@ -6,6 +6,8 @@ use App\Classes\GeoEncoder;
 use App\Models\City;
 use App\Models\House;
 use App\Models\Photo;
+use App\Services\DashboardService;
+use App\Services\HouseService;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -16,9 +18,12 @@ class HouseController extends Controller
 {
     public function show(House $house)
     {
+        $user = Auth::user();
+        $service = new DashboardService();
+        $watchlist = $service->getFavouriteHouses($user);
         $house->load('city');
         $house->load('photos');
-        return view('house.show',['house'=>$house]);
+        return view('house.show',compact(['house','watchlist']));
     }
     public function create()
     {
@@ -27,8 +32,18 @@ class HouseController extends Controller
     public function confirmation(Request $request)
     {
         $validated = $request->validate([
+            'title'=>['required','max:15'],
             'price'=>['required','gt:0'],
-            'rooms'=>['required','gt:0'],
+            'metro'=>[],
+            'rooms'=>[],
+            'fridge'=>[],
+            'dishwasher'=>[],
+            'clothWasher'=>[],
+            'balcony'=>[],
+            'bathroom'=>[],
+            'pledge'=>[],
+            'author'=>[],
+            'infrastructure'=>['max:255'],
             'description'=>['max:255'],
         ]);
         $streetData = $request->validate([
@@ -57,16 +72,30 @@ class HouseController extends Controller
     }
     public function save(Request $request)
     {
+        $service = new HouseService();
         $address = json_decode($request->input('address'));
-        $city = City::query()->firstOrCreate(['name'=>$address->place_name],['name'=>$address->place_name]);
-        $validated = $request->validate([
+        $city = $service->cityCreate($address);
+        $houseData= $request->validate([
+            'title'=>['required','max:15'],
             'price'=>['required','gt:0'],
-            'rooms'=>['required','gt:0'],
+        ]);
+        $houseParams = $request->validate([
+            'metro'=>[],
+            'rooms'=>[],
+            'fridge'=>[],
+            'dishwasher'=>[],
+            'clothWasher'=>[],
+            'balcony'=>[],
+            'bathroom'=>[],
+            'pledge'=>[],
+            'author'=>[],
+            'infrastructure'=>['max:255'],
             'description'=>['max:255'],
         ]);
-        $validated['user_id']=Auth::user()->id;
-        $validated['city_id']=$city->id;
-        $house = House::query()->create($validated);
+        $houseData['user_id']=Auth::user()->id;
+        $houseData['city_id']=$city->id;
+        $house = $service->save($houseData);
+        $service->saveHousingAttribute($house,$houseParams);
         $coordinate = $house->createCoordinate($address);
         $coordinate->downloadMap();
         return redirect()->route('house.show',$house);

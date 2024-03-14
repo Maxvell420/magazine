@@ -2,6 +2,7 @@
     @if($house->user->frozen)
         <x-frozen :house="$house"/>
     @else
+
         <h3>{{$house->coordinate->getAddress()}}</h3>
         <div class="houseWrapper">
 

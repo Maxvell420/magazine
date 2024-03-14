@@ -1,5 +1,5 @@
 <div class="filter">
-    <form action="{{route($route)}}">
+    <form action="{{route('user.dashboard')}}">
         <label>
             Город
             <select name="city">
@@ -21,6 +21,6 @@
         <input type="submit">
     </form>
     <div>
-        <a href="{{route($route)}}">reset filter</a>
+        <a href="{{route('user.dashboard')}}">reset filter</a>
     </div>
 </div>
