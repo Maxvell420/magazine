@@ -10,6 +10,10 @@ class DashboardService
     public function getFilteredHouses(Request $request)
     {
         $houses=House::getHousesFromFilter($request,House::with('city'));
+        return $this->addUsabilityData($houses);
+    }
+    public function addUsabilityData($houses)
+    {
         $houses=$houses->where('archived','!=',true)
             ->whereHas('user',function ($query){
                 $query->where('frozen',0);

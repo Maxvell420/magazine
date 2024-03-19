@@ -1,37 +1,126 @@
 <x-content>
-    @if($house->user->frozen)
-        <x-frozen :house="$house"/>
-    @else
-
-        <h3>{{$house->coordinate->getAddress()}}</h3>
-        <div class="houseWrapper">
-
-            <x-slider :house="$house"/>
-
-            <div class="houseBlock">
-                <p>
-                    Price: {{$house->price}}
-                </p>
-                <p>
-                    Number of rooms: {{$house->rooms}}
-                </p>
-                <p>
-                    {{$house->description}}
-                </p>
-                <div class="flex">
-                    <x-buttons :house="$house"/>
-                    @auth
-                        <a href="{{route('chat.show',$house)}}"><button class="chatPut houseButton">🗨</button></a>
-                    @endauth
+    <div class="housePlate">
+        <div class="houseHeader">
+            <h2 class="fontHeader">{{$house->title}}</h2>
+            @if(in_array($house->id,$watchlist))
+                <form action="{{route('favourite.remove',$house->id)}}" method="post">
+                    @csrf
+                    <button type="submit" class="houseButton absolute" style="bottom: 0;left: 0">
+                        <img class="liked" src="{{asset('buttons/like/liked.png')}}" alt="like">
+                    </button>
+                </form>
+            @else
+                <form action="{{route('favourite.add',$house->id)}}" method="post">
+                    @csrf
+                    <button type="submit" class="houseButton absolute" style="bottom: 0;left: 0">
+                        <img src="{{asset('buttons/like/like.svg')}}" alt="like">
+                    </button>
+                </form>
+            @endif
+        </div>
+        <div class="houseOwner">
+            <div class="flexColumn">
+            <span class="fontHeader">
+                {{$house->price}} ₽
+            </span>
+                <div class="houseOwner">
+                    <a href="{{route('user.show',$user->id)}}" class="flexColumn">
+                        <span>Продавец: {{$user->name}}</span>
+                        <span>Зарегистрирован: {{$user->time}}</span>
+                    </a>
                 </div>
+                @auth
+                    @if($user->id != $house->user_id)
+                        <a href="{{route('chat.show',$house)}}"><button class="navButton">Написать продавцу</button></a>
+                        <a href="{{route('complaint.create',$house)}}"><button class="navButton">Жалоба</button></a>
+                    @endif
+                @endauth
+                @if($user->id == $house->user_id)
+                    <a href="{{route('house.edit',$house)}}"><button class="navButton">Редактировать</button></a>
+                @endif
             </div>
         </div>
-        @auth
-            @if(\Illuminate\Support\Facades\Auth::user()->id==$house->user_id)
-                <div class="houseEdit">
-                    <x-houseInfoChange :house="$house"/>
-                </div>
+            <x-house.info.slider :house="$house"/>
+        <div class="houseInfo">
+            @if(array_key_exists('rooms', $data))
+                    <span class="attribute">Количество комнат:</span>
+                    <span>{{ $data['rooms'] }}</span>
             @endif
-        @endauth
-    @endif
+
+            @if(array_key_exists('fridge', $data))
+                    <span class="attribute">Холодильник:</span>
+                    <span>Есть</span>
+            @endif
+
+            @if(array_key_exists('dishwasher', $data))
+                    <span class="attribute">Посудомоечная машина:</span>
+                    <span>Есть</span>
+            @endif
+
+            @if(array_key_exists('clothWasher', $data))
+                    <span class="attribute">Стиральная машина:</span>
+                    <span>Есть</span>
+            @endif
+
+            @if(array_key_exists('balcony', $data))
+                    <span class="attribute">Балкон:</span>
+                    @if($data['balcony']==0)
+                        <span>Нет</span>
+                    @elseif($data['balcony'==1])
+                        <span>Лоджия</span>
+                    @elseif($data['balcony'==2])
+                        <span>Балкон</span>
+                    @elseif($data['balcony'==3])
+                        <span>Несколько балконов</span>
+                    @endif
+            @endif
+
+            @if(array_key_exists('bathroom', $data))
+                    <span class="attribute">Ванная комната:</span>
+                    @if($data['bathroom']==1)
+                        <span>Совмещенный</span>
+                    @elseif($data['bathroom']==2)
+                        <span>Раздельный</span>
+                    @elseif($data['bathroom']==3)
+                        <span>Раздельный</span>
+                    @endif
+            @endif
+
+            @if(array_key_exists('pledge', $data))
+                    <span class="attribute">Залог:</span>
+                    <span>{{ $data['pledge'] }} ₽</span>
+            @endif
+
+            @if(array_key_exists('infrastructure', $data))
+                    <span class="attribute">Инфраструктура:</span>
+                    <span>{{ $data['infrastructure'] }}</span>
+            @endif
+
+            @if(array_key_exists('author', $data))
+                    <span class="attribute">Автор:</span>
+                    @if($data['author']==1)
+                        <span>Владелец</span>
+                    @elseif($data['author']==2)
+                        <span>Агенство</span>
+                    @endif
+            @endif
+
+            @if(array_key_exists('description', $data))
+                    <span class="attribute">Описание:</span>
+                    <span>{{ $data['description'] }}</span>
+            @endif
+        </div>
+    </div>
 </x-content>
+<script>
+    let button = document.querySelector('.liked')
+    if (button !== null) {
+        button.addEventListener('mouseover', function () {
+            button.src = "{{asset('buttons/like/likeDelete.png')}}";
+        });
+
+        button.addEventListener('mouseleave', function () {
+            button.src = "{{asset('buttons/like/liked.png')}}";
+        });
+    }
+</script>

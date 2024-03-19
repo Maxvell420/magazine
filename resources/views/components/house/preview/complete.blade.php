@@ -1,7 +1,7 @@
 <div class="house">
         <a href="{{route('house.show',$house)}}">
-                <img class="housePreview" src="{{asset($house->preview)}}" alt="preview">
-                <x-houseInfoPreview :house="$house"/>
+            <img class="housePreview" src="{{asset($house->preview)}}" alt="preview">
+            <x-house.info.preview :house="$house"/>
         </a>
     @if(in_array($house->id,$watchlist))
         <form action="{{route('favourite.remove',$house->id)}}" method="post">
@@ -18,7 +18,6 @@
             </button>
         </form>
     @endif
-
 </div>
 <script>
     let button = document.querySelector('.liked')

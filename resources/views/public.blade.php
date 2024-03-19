@@ -4,10 +4,6 @@
     <title>js</title></head>
 <body>
 <script src="scriptis.js" defer></script>
-<input>
-<button>press</button>
-<p>
-
-</p>
+<p id="elem" class="www ggg zzz"></p>
 </body>
 </html>

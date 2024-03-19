@@ -18,12 +18,22 @@ class HouseController extends Controller
 {
     public function show(House $house)
     {
-        $user = Auth::user();
         $service = new DashboardService();
-        $watchlist = $service->getFavouriteHouses($user);
+        $watchlist = $service->getFavouriteHouses(Auth::user());
         $house->load('city');
         $house->load('photos');
-        return view('house.show',compact(['house','watchlist']));
+        $house->processExternalData();
+        $data = $house->getInfo();
+        $data = $house->eraseNulls($data);
+        $user = $house->user;
+        $user->getUsabilityTime($user->created_at);
+        return view('house.show',compact(['house','watchlist','user','data']));
+    }
+    public function edit(House $house)
+    {
+        $info = $house->getInfo();
+        $house->load('photos');
+        return view('house.edit',compact(['house','info']));
     }
     public function create()
     {
@@ -31,8 +41,9 @@ class HouseController extends Controller
     }
     public function confirmation(Request $request)
     {
+        /* Здесь можно написать различные правила валидации для каждого инпута*/
         $validated = $request->validate([
-            'title'=>['required','max:15'],
+            'title'=>['required','max:30'],
             'price'=>['required','gt:0'],
             'metro'=>[],
             'rooms'=>[],
@@ -76,7 +87,7 @@ class HouseController extends Controller
         $address = json_decode($request->input('address'));
         $city = $service->cityCreate($address);
         $houseData= $request->validate([
-            'title'=>['required','max:15'],
+            'title'=>['required','max:30'],
             'price'=>['required','gt:0'],
         ]);
         $houseParams = $request->validate([
@@ -98,6 +109,18 @@ class HouseController extends Controller
         $service->saveHousingAttribute($house,$houseParams);
         $coordinate = $house->createCoordinate($address);
         $coordinate->downloadMap();
+        $pictures = $request->file('pictures');
+        if (isset($pictures)){
+            foreach ($pictures as $picture){
+                if ($house->photos()->get()->count()>=4){
+                    if (empty(\session('message'))){
+                        session()->flash('message','Максимум 4 фотографии в обьявлении');
+                    }
+                    continue;
+                }
+                $this->storePhoto($house,$picture);
+            }
+        }
         return redirect()->route('house.show',$house);
     }
     public function houseDelete(House $house)
@@ -125,12 +148,25 @@ class HouseController extends Controller
                 $this->storePhoto($house,$picture);
             }
         }
-        $validated = $request->validate([
+        $houseInfo = $request->validate([
+            'title'=>['required'],
             'price'=>['required','gt:0'],
-            'rooms'=>['required','gt:0'],
+        ]);
+        $houseParams = $request->validate([
+            'metro'=>[],
+            'rooms'=>['required'],
+            'fridge'=>[],
+            'dishwasher'=>[],
+            'clothWasher'=>[],
+            'balcony'=>[],
+            'bathroom'=>[],
+            'pledge'=>[],
+            'author'=>[],
+            'infrastructure'=>['max:255'],
             'description'=>['max:255'],
         ]);
-        $house->update($validated);
+        $house->update($houseInfo);
+        $house->saveHousingAttribute();
         return redirect()->back()->with('success', 'Обьявление успешно обновлено');
     }
     private function storePhoto(House $house, UploadedFile $picture)

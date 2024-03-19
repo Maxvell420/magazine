@@ -13,7 +13,7 @@ class HouseService
     }
     public function saveHousingAttribute(House $house,array $data)
     {
-        $house->saveHousingAttribute($data);
+        $house->createHousingAttribute($data);
     }
     public function cityCreate(\stdClass $address)
     {

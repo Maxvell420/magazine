@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function (){
         Route::post('/houseSave',[HouseController::class,'save'])->name('house.save');
         Route::post('/houseConfirm',[HouseController::class,'confirmation'])->name('house.confirm');
     });
-    Route::get('/userShow',[UserController::class,'show'])->name('user.show');
+    Route::get('/userShow/{id?}',[UserController::class,'show'])->name('user.show');
     Route::get('/watchlist',[WatchlistController::class,'show'])->name('watchlist.show');
     Route::post('favouriteRemove/{id}',[WatchlistController::class,'remove'])->name('favourite.remove');
     Route::post('favouriteAdd/{id}',[WatchlistController::class,'add'])->name('favourite.add');
@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function (){
         Route::get('/admin/frozen',[RoleController::class,'frozen'])->name('admin.frozen');
     });
     Route::middleware('owner')->group(function (){
+        Route::get('/houseEdit/{house}',[HouseController::class,'edit'])->name('house.edit');
         Route::post('/houseDelete/{house}',[HouseController::class,'houseDelete'])->name('house.delete');
         Route::post('/house/{house}/archive',[HouseController::class,'archive'])->name('house.archive');
         Route::post('/house/{house}/unzip',[HouseController::class,'unzip'])->name('house.unzip');

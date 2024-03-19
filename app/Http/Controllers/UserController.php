@@ -44,7 +44,13 @@ class UserController
         $values = [
             'city'=> $request->input('city'),
             'rooms'=>$request->input('rooms'),
-            'price'=>$request->input('price')
+            'price'=>$request->input('price'),
+            'fridge'=>$request->input('fridge'),
+            'author'=>$request->input('author'),
+            'dishwasher'=>$request->input('dishwasher'),
+            'clothWasher'=>$request->input('clothWasher'),
+            'balcony'=>$request->input('balcony'),
+            'bathroom'=>$request->input('bathroom'),
         ];
         $watchlist = $service->getFavouriteHouses($user);
         return view('user.dashboard',compact(['houses','cities','values','watchlist']));
@@ -69,11 +75,16 @@ class UserController
             'error' => 'The provided credentials do not match our records.',
         ]);
     }
-    public function show()
+    public function show(int $user_id = null)
     {
-        $user = Auth::user();
-        $houses = $user->houses()->get();
-        return view('user.show',compact('houses'));
+        $service = new DashboardService();
+        $user_id = $user_id ?? Auth::user()->id;
+        $user = User::find($user_id);
+        $user->getUsabilityTime($user->created_at);
+        $houses = $user->houses();
+        $houses = $service->addUsabilityData($houses);
+        $watchlist = $service->getFavouriteHouses($user);
+        return view('user.show',compact(['houses','user','watchlist']));
     }
     public function create()
     {

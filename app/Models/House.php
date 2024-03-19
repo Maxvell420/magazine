@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\CoordinateService;
 use App\Traits\FileOperationsTrait;
+use App\Traits\UsabilityTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,14 +14,21 @@ use stdClass;
 
 class House extends Model
 {
-    use HasFactory,FileOperationsTrait;
+    use HasFactory,FileOperationsTrait,UsabilityTime;
     protected $fillable=['user_id','city_id','title','price','archived'];
+    protected array $info = ['rooms','description','fridge',
+        'dishwasher','clothWasher','balcony','bathroom','pledge','infrastructure','author'];
     public static function getHousesFromFilter(Request $request,Builder $houses)
     {
         $city = $request->input('city');
         $rooms = $request->input('rooms');
         $price = $request->input('price');
-        if (isset($city)){
+        $dishwasher = $request->input('dishwasher');
+        $clothwasher = $request->input('clothWasher');
+        $bathroom = $request->input('bathroom');
+        $fridge = $request->input('fridge');
+        $author = $request->input('author');
+        if (isset($city) and $city != 0){
             $houses=$houses->where('city_id','=',$city);
         }
         if (isset($rooms)){
@@ -29,7 +37,51 @@ class House extends Model
         if (isset($price)){
             $houses=$houses->where('price','>=',$price);
         }
+        if (isset($dishwasher)){
+            $houses=$houses->whereHas('housing_attribute',function ($query) use ($dishwasher){
+                $query->where('dishwasher','=',$dishwasher);
+            });
+        }
+        if (isset($fridge)){
+            $houses=$houses->whereHas('housing_attribute',function ($query) use ($fridge){
+                $query->where('fridge','=',$fridge);
+            });
+        }
+        if (isset($clothwasher)){
+            $houses=$houses->whereHas('housing_attribute',function ($query) use ($clothwasher){
+                $query->where('clothWasher','=',$clothwasher);
+            });
+        }
+        if (isset($bathroom) and $bathroom != 0){
+            $houses=$houses->whereHas('housing_attribute',function ($query) use ($bathroom){
+                $query->where('bathroom','=',$bathroom);
+            });
+        }
+        if (isset($author)){
+            $houses=$houses->whereHas('housing_attribute',function ($query) use ($author){
+                $query->where('author','=',$author);
+            });
+        }
         return $houses;
+    }
+    public function getInfo()
+    {
+        $data = [];
+        $attributes = $this->housing_attribute;
+        $info = $this->info;
+        foreach ($info as $value){
+                $data[$value]=$attributes->$value;
+        }
+        return $data;
+    }
+    public function eraseNulls(array $info)
+    {
+        foreach ($info as $item => $value){
+            if ($value == null){
+                unset($info[$item]);
+            }
+        }
+        return $info;
     }
     public function createCoordinate(stdClass $address)
     {
@@ -69,10 +121,9 @@ class House extends Model
     }
     public function getPreviewPath()
     {
-        if (!$this->photos){
-            return $this->setAttribute('preview',$this->photos->first()->path);
-        } else {
-            return $this->setAttribute('preview',$this->coordinate->getMap());
+        if ($this->photos){
+            $photo = $this->photos->first();
+            return $this->setAttribute('preview',$photo->path.'/'.$photo->name);
         }
     }
     public function processExternalData()
@@ -81,25 +132,6 @@ class House extends Model
         $this->getAddress();
 //        класс который меняет дату прям здесь
         $this->getUsabilityTime($this->created_at);
-    }
-    public function getUsabilityTime(Carbon $time):string
-    {
-        $month = $time->month;
-        $months = [
-            1 => 'янв',
-            2 => 'фев',
-            3 => 'мар',
-            4 => 'апр',
-            5 => 'май',
-            6 => 'июн',
-            7 => 'июл',
-            8 => 'авг',
-            9 => 'сен',
-            10 => 'окт',
-            11 => 'ноя',
-            12 => 'дек'
-        ];
-        return $this->setAttribute('time',"$time->day $months[$month] $time->year");
     }
     public function getAddress()
     {
@@ -114,6 +146,10 @@ class House extends Model
         return $this->hasOne(Housing_attribute::class);
     }
     public function saveHousingAttribute(array $data)
+    {
+        $this->housing_attribute()->update($data);
+    }
+    public function createHousingAttribute(array $data)
     {
         $this->housing_attribute()->create($data);
     }
