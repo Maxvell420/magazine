@@ -6,13 +6,13 @@
 
 
 <label for="fridge">Холодильник:</label>
-<input type="checkbox" id="fridge" name="fridge" value="1">
+<input type="checkbox" id="fridge" name="fridge" value="1" {{ old('fridge') ? 'checked' : '' }}>
 
 <label for="dishwasher">Посудомойка:</label>
-<input type="checkbox" id="dishwasher" name="dishwasher" value="1">
+<input type="checkbox" id="dishwasher" name="dishwasher" value="1" {{ old('dishwasher') ? 'checked' : '' }}>
 
 <label for="clothWasher">Стиралка:</label>
-<input type="checkbox" id="clothWasher" name="clothWasher" value="1">
+<input type="checkbox" id="clothWasher" name="clothWasher" value="1" {{ old('clothWasher') ? 'checked' : '' }}>
 <label for="balcony">Балкон:</label>
 <select id="balcony" name="balcony">
     <option value="0">

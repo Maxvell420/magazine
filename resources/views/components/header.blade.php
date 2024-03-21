@@ -8,7 +8,7 @@
                 <x-buttons.navbutton :href="'house.create'" :text="'Разместить'"/>
                 @if(auth()->check())
                     @if(auth()->user()->role_id>1)
-                        <x-buttons.navbutton :href="'admin.statistics'" :text="'Админка'"/>
+{{--                        <x-buttons.navbutton :href="'admin.statistics'" :text="'Админка'"/>--}}
                     @endif
                         <x-buttons.navbutton :href="'chats.show'" :text="'Ваши чаты'"/>
                         <x-buttons.navbutton :href="'user.show'" :text="'Кабинет'"/>

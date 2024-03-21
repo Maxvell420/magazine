@@ -18,6 +18,7 @@ class HouseController extends Controller
 {
     public function show(House $house)
     {
+        $title = "Обьявление {$house->city->name}, $house->title";
         $service = new DashboardService();
         $watchlist = $service->getFavouriteHouses(Auth::user());
         $house->load('city');
@@ -25,38 +26,27 @@ class HouseController extends Controller
         $house->processExternalData();
         $data = $house->getInfo();
         $data = $house->eraseNulls($data);
-        $user = $house->user;
-        $user->getUsabilityTime($user->created_at);
-        return view('house.show',compact(['house','watchlist','user','data']));
+        $house->user->getUsabilityTime($house->user->created_at);
+        $user = Auth::user();
+        return view('house.show',compact(['house','watchlist','user','data','title']));
     }
     public function edit(House $house)
     {
+        $title = "Редактирование обьявления $house->city->name, $house->title";
         $info = $house->getInfo();
         $house->load('photos');
-        return view('house.edit',compact(['house','info']));
+        return view('house.edit',compact(['house','info','title']));
     }
     public function create()
     {
-        return view('house.create');
+        $title = 'Создание обьявления';
+        return view('house.create',compact('title'));
     }
     public function confirmation(Request $request)
     {
-        /* Здесь можно написать различные правила валидации для каждого инпута*/
-        $validated = $request->validate([
-            'title'=>['required','max:30'],
-            'price'=>['required','gt:0'],
-            'metro'=>[],
-            'rooms'=>[],
-            'fridge'=>[],
-            'dishwasher'=>[],
-            'clothWasher'=>[],
-            'balcony'=>[],
-            'bathroom'=>[],
-            'pledge'=>[],
-            'author'=>[],
-            'infrastructure'=>['max:255'],
-            'description'=>['max:255'],
-        ]);
+        $title = 'Подтверждение данных';
+        $service = new HouseService();
+        $validated = $service->validateHouseData($request);
         $streetData = $request->validate([
             'city'=>'required',
             'street'=>'required',
@@ -64,10 +54,10 @@ class HouseController extends Controller
         ]);
         $addresses = $this->addressRetrieve($streetData);
         if ($addresses){
-            return view('house.address',compact(['addresses','validated']));
+            return view('house.address',compact(['addresses','validated','title']));
         } else {
             Session::flash('message','wrong location provided');
-            $request->validate(['title'=>'required']);
+            $request->validate(['message'=>'required']);
         }
     }
     public function archive(House $house)
@@ -86,40 +76,13 @@ class HouseController extends Controller
         $service = new HouseService();
         $address = json_decode($request->input('address'));
         $city = $service->cityCreate($address);
-        $houseData= $request->validate([
-            'title'=>['required','max:30'],
-            'price'=>['required','gt:0'],
-        ]);
-        $houseParams = $request->validate([
-            'metro'=>[],
-            'rooms'=>[],
-            'fridge'=>[],
-            'dishwasher'=>[],
-            'clothWasher'=>[],
-            'balcony'=>[],
-            'bathroom'=>[],
-            'pledge'=>[],
-            'author'=>[],
-            'infrastructure'=>['max:255'],
-            'description'=>['max:255'],
-        ]);
-        $houseData['user_id']=Auth::user()->id;
-        $houseData['city_id']=$city->id;
-        $house = $service->save($houseData);
-        $service->saveHousingAttribute($house,$houseParams);
+        $house = $service->save($request,$city->id);
+        $service->createHousingAttribute($house,$request);
         $coordinate = $house->createCoordinate($address);
         $coordinate->downloadMap();
         $pictures = $request->file('pictures');
         if (isset($pictures)){
-            foreach ($pictures as $picture){
-                if ($house->photos()->get()->count()>=4){
-                    if (empty(\session('message'))){
-                        session()->flash('message','Максимум 4 фотографии в обьявлении');
-                    }
-                    continue;
-                }
-                $this->storePhoto($house,$picture);
-            }
+            $service->savePhotos($house,$pictures);
         }
         return redirect()->route('house.show',$house);
     }
@@ -136,50 +99,22 @@ class HouseController extends Controller
 
     public function update(Request $request,House $house)
     {
+
+        $service = new HouseService();
         $pictures = $request->file('pictures');
         if (isset($pictures)){
-            foreach ($pictures as $picture){
-                if ($house->photos()->get()->count()>=4){
-                    if (empty(\session('message'))){
-                        session()->flash('message','Максимум 4 фотографии в обьявлении');
-                    }
-                    continue;
-                }
-                $this->storePhoto($house,$picture);
-            }
+            $service->savePhotos($house,$pictures);
         }
-        $houseInfo = $request->validate([
-            'title'=>['required'],
-            'price'=>['required','gt:0'],
-        ]);
-        $houseParams = $request->validate([
-            'metro'=>[],
-            'rooms'=>['required'],
-            'fridge'=>[],
-            'dishwasher'=>[],
-            'clothWasher'=>[],
-            'balcony'=>[],
-            'bathroom'=>[],
-            'pledge'=>[],
-            'author'=>[],
-            'infrastructure'=>['max:255'],
-            'description'=>['max:255'],
-        ]);
-        $house->update($houseInfo);
-        $house->saveHousingAttribute();
+        $service->updateHouseInfo($house,$request);
+        $service->updateHousingAttribute($house,$request);
         return redirect()->back()->with('success', 'Обьявление успешно обновлено');
-    }
-    private function storePhoto(House $house, UploadedFile $picture)
-    {
-        $photo = $house->photos()->firstOrCreate(['name'=>$picture->getClientOriginalName(),'path'=>"houses/$house->id"],['name'=>$picture->getClientOriginalName(),'path'=>"houses/$house->id"]);
-        $photo->downloadPhoto($picture);
     }
     public function unzip(House $house)
     {
         $house->update(['archived'=>0]);
         return \redirect()->back()->with('message','Обьявление убрано из архива');
     }
-    public function photoDelete(Photo $photo)
+    public function photoDelete(House $house,Photo $photo)
     {
         $photo->photoFileDelete();
         $photo->delete();

@@ -29,7 +29,7 @@ class House extends Model
         $fridge = $request->input('fridge');
         $author = $request->input('author');
         if (isset($city) and $city != 0){
-            $houses=$houses->where('city_id','=',$city);
+            $houses=$houses->where('city_id','=',$city)->first();
         }
         if (isset($rooms)){
             $houses=$houses->where('rooms','>=',$rooms);
@@ -62,6 +62,7 @@ class House extends Model
                 $query->where('author','=',$author);
             });
         }
+
         return $houses;
     }
     public function getInfo()
@@ -82,6 +83,19 @@ class House extends Model
             }
         }
         return $info;
+    }
+    public function addNulls(array $data)
+    {
+        $info = $this->info;
+        foreach ($info as $item){
+            if ($item == 'infrastructure' or $item == 'description'){
+                continue;
+            }
+            if (!isset($data[$item])){
+                $data[$item]=0;
+            }
+        }
+        return $data;
     }
     public function createCoordinate(stdClass $address)
     {
@@ -145,7 +159,7 @@ class House extends Model
     {
         return $this->hasOne(Housing_attribute::class);
     }
-    public function saveHousingAttribute(array $data)
+    public function updateHousingAttribute(array $data)
     {
         $this->housing_attribute()->update($data);
     }

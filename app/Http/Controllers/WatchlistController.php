@@ -12,7 +12,6 @@ class WatchlistController extends Controller
 {
     public function __construct(protected WatchlistService $watchlistService)
     {}
-
     public function add(string $id)
     {
         $user = Auth::user();

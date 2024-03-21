@@ -27,8 +27,10 @@ class ChatController extends Controller
         }
         $service = new DashboardService();
         $watchlist = $service->getFavouriteHouses(Auth::user());
+        $title = "Час с пользователем:{$chat->getChatWith($house)->name}";
         $house->processExternalData();
-        return view('chat.show',compact(['chat','house','watchlist','user']));
+
+        return view('chat.show',compact(['chat','house','watchlist','user','title']));
     }
     public function messageCreate(Request $request, Chat $chat)
     {

@@ -1,4 +1,4 @@
-<x-content>
+<x-content :title="$title">
     <div class="form">
         <h2>Подтверждение</h2>
         <form action="{{route('house.save')}}" method="post" enctype="multipart/form-data">
@@ -16,7 +16,7 @@
             <x-house.crud.confirm :validated="$validated"/>
             <label for="file">Выложить фотографии:</label>
             <input type="file" id="file" name="pictures[]" multiple accept="image/*" required>
-            <input type="submit" value="confirm address">
+            <button type="submit" class="navButton">Разместить</button>
         </form>
     </div>
 </x-content>

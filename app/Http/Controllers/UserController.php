@@ -16,13 +16,15 @@ class UserController
 {
     public function login()
     {
-        return view('user.login');
+        $title = 'Вход';
+        return view('user.login',compact(['title']));
     }
     public function chats()
     {
+        $title = 'Список чатов';
         $user = Auth::user();
         $chats = $this->getChats($user);
-        return view('user.chats', compact('chats'));
+        return view('user.chats', compact(['chats','title']));
     }
     private function getChats(User $user)
     {
@@ -37,6 +39,7 @@ class UserController
     }
     public function dashboard(Request $request)
     {
+        $title = 'Аренда квартир: Наймите свой идеальный дом прямо сейчас!';
         $user = Auth::user();
         $service = new DashboardService();
         $houses = $service->getFilteredHouses($request);
@@ -53,7 +56,7 @@ class UserController
             'bathroom'=>$request->input('bathroom'),
         ];
         $watchlist = $service->getFavouriteHouses($user);
-        return view('user.dashboard',compact(['houses','cities','values','watchlist']));
+        return view('user.dashboard',compact(['houses','cities','values','watchlist','title']));
     }
     public function logout(): \Illuminate\Http\RedirectResponse
     {
@@ -84,11 +87,13 @@ class UserController
         $houses = $user->houses();
         $houses = $service->addUsabilityData($houses);
         $watchlist = $service->getFavouriteHouses($user);
-        return view('user.show',compact(['houses','user','watchlist']));
+        $title = "Обьявления пользователя:$user->name";
+        return view('user.show',compact(['houses','user','watchlist','title']));
     }
     public function create()
     {
-        return view('user.create');
+        $title = 'Регистрация';
+        return view('user.create',compact('title'));
     }
     public function save(Request $request)
     {
@@ -111,6 +116,7 @@ class UserController
     }
     public function about()
     {
-        return view('user.project');
+        $title = "О проекте Медуса";
+        return view('user.project',compact('title'));
     }
 }

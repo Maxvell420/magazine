@@ -31,9 +31,6 @@ class ChatService
     }
     public function messageCreate(Request $request, Chat $chat)
     {
-        $message=$chat->messages()->create(['user_id'=>Auth::user()->id,'text'=>$request->input('text')]);
-        if ($chat->house()->first()->user_id == Auth::user()->id){
-            $message->update(['checked'=>1]);
-        }
+        $chat->messages()->create(['user_id'=>Auth::user()->id,'text'=>$request->input('text')]);
     }
 }

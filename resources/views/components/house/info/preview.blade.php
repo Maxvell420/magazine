@@ -1,6 +1,6 @@
 <div>
     <p>
-        {{$house->address}}
+        {{$house->city->name}}
     </p>
     <p>
         {{$house->price}} ₽

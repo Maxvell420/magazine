@@ -13,13 +13,13 @@
      <input type="text" id="metro" name="metro" value="{{$validated['metro']??old('metro')}}" placeholder="Остановка метро">
 
      <label for="fridge">Холодильник:</label>
-     <input type="checkbox" id="fridge" name="fridge" value="1" @if(!empty($validated['fridge'])) checked @endif>
+     <input type="checkbox" id="fridge" name="fridge" value="1" @if(!empty($validated['fridge'])) checked @endif {{ old('fridge') ? 'checked' : '' }}>
 
      <label for="dishwasher">Посудомоечная Машина:</label>
-     <input type="checkbox" id="dishwasher" name="dishwasher" value="1" @if(!empty($validated['dishwasher'])) checked @endif>
+     <input type="checkbox" id="dishwasher" name="dishwasher" value="1" @if(!empty($validated['dishwasher'])) checked @endif {{ old('dishwasher') ? 'checked' : '' }}>
 
      <label for="clothWasher">Стиральная Машина:</label>
-         <input type="checkbox" id="clothWasher" name="clothWasher" value="1" @if(!empty($validated['clothWasher']))checked @endif>
+         <input type="checkbox" id="clothWasher" name="clothWasher" value="1" @if(!empty($validated['clothWasher']))checked @endif {{ old('clothWasher') ? 'checked' : '' }}>
      <label for="balcony">Балкон:</label>
      <select id="balcony" name="balcony">
         <option value="0" @if($validated['balcony']===0) selected @endif>

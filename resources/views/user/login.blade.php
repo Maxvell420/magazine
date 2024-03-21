@@ -1,17 +1,17 @@
-<x-content>
-    <div class="form">
-        <h3>
-            Login
-        </h3>
+<x-content :title="$title">
+    <div class="form-container">
         <form action="{{route('auth')}}" method="post">
+            <h3 class="form-title">Вход:</h3>
             @csrf
             <label>
-                <input type="text" name="name" placeholder="name" value="{{old('name')}}">
+                <span>Логин</span>
+                <input type="text" name="name" class="form-input" placeholder="Логин" value="{{old('name')}}">
             </label>
             <label>
-                <input type="password" name="password" placeholder="password" value="{{old('password')}}">
+                <span>Пароль</span>
+                <input type="password" name="password" class="form-input" placeholder="Пароль" value="{{old('password')}}">
             </label>
-            <input type="submit" value="login">
+            <button type="submit" class="form-button">Войти</button>
         </form>
     </div>
 </x-content>

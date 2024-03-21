@@ -1,7 +1,18 @@
 <div class="house">
         <a href="{{route('house.show',$house)}}">
             <img class="housePreview" src="{{asset($house->preview)}}" alt="preview">
-            <x-house.info.preview :house="$house"/>
+            <div>
+                <p>
+                    {{$house->city->name}}
+                </p>
+                <p>
+                    {{$house->price}} ₽
+                </p>
+                <p>
+                    {{$house->time}}
+                </p>
+            </div>
+
         </a>
     @if(in_array($house->id,$watchlist))
         <form action="{{route('favourite.remove',$house->id)}}" method="post">
@@ -19,15 +30,3 @@
         </form>
     @endif
 </div>
-<script>
-    let button = document.querySelector('.liked')
-    if (button !== null) {
-        button.addEventListener('mouseover', function () {
-            button.src = "{{asset('buttons/like/likeDelete.png')}}";
-        });
-
-        button.addEventListener('mouseleave', function () {
-            button.src = "{{asset('buttons/like/liked.png')}}";
-        });
-    }
-</script>

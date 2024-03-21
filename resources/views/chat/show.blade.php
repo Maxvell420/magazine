@@ -1,32 +1,34 @@
-<x-content>
+<x-content :title="$title">
     @if($house->user->frozen)
         <x-frozenUser :house="$house"/>
         @else
-        <x-house.preview.complete :house="$house" :watchlist="$watchlist"/>
-        <div class="chat">
-            <div class="messages">
-                @foreach($chat->messages as $message)
-                    @if($user->id==$message->user->id)
-                        <div class="userMessage">
-                            {{$message->text}}
-                        </div>
-                    @else
-                        <div class="message">
-                            <span class="from">{{$message->user->name}}</span>
-                            <span>{{$message->text}}</span>
-                        </div>
-                    @endif
-                @endforeach
+        <h2>{{$house->city->name}}, {{$house->title}}, чат с продавцом</h2>
+        <div class="flexColumn alignCenter">
+            <div class="chat">
+                <div class="messages">
+                    @foreach($chat->messages as $message)
+                        @if($user->id==$message->user->id)
+                            <div class="userMessage">
+                                {{$message->text}}
+                            </div>
+                        @else
+                            <div class="message">
+                                <p class="from">{{$message->user->name}}:</p>
+                                <span>{{$message->text}}</span>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+                <form action="{{route('message.create',$chat)}}" method="post" class="sendMessage">
+                    @csrf
+                    <label>
+                        <textarea name="text"></textarea>
+                    </label>
+                    <button type="submit" @if($house->archived) disabled
+                            value="archived" @else value="send message @endif" class="navButton" style="margin: 0px">Отправить</button>
+                </form>
             </div>
         </div>
-        <form action="{{route('message.create',$chat)}}" method="post">
-            @csrf
-            <label>
-                <textarea name="text"></textarea>
-            </label>
-            <input type="submit" @if($house->archived) disabled
-                   value="archived" @else value="send message @endif">
-        </form>
     @endif
 </x-content>
 <script>

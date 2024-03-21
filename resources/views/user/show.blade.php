@@ -1,4 +1,4 @@
-<x-content>
+<x-content :title="$title">
     <h3>Обьявления пользователя {{$user->name}}:</h3>
     <div class="dashboardWrapper">
         <div class="articles">

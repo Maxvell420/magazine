@@ -27,7 +27,7 @@ class Chat extends Model
         if (empty($this->messages)) {
             $this->load('messages');
         }
-        return $this->messages->sortByDesc('timestamp')->first();
+        return $this->messages()->orderByDesc('created_at')->first();
     }
     public function user()
     {
@@ -37,9 +37,9 @@ class Chat extends Model
     {
         $user = Auth::user();
         if ($house->user_id!=$user->id){
-            return User::find($user->id);
+            return $house->user;
         } else{
-            return $user;
+            return $this->user;
         }
     }
 }

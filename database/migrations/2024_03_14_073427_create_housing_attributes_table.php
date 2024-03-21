@@ -19,12 +19,12 @@ class CreateHousingAttributesTable extends Migration
             $table->string('metro')->nullable();
             $table->integer('rooms')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('fridge')->default(0);
-            $table->boolean('dishwasher')->default(0);
-            $table->boolean('clothWasher')->default(0);
-            $table->integer('balcony')->nullable();
-            $table->integer('bathroom')->nullable();
-            $table->integer('pledge')->nullable();
+            $table->integer('fridge')->default(0)->nullable();
+            $table->integer('dishwasher')->default(0)->nullable();
+            $table->integer('clothWasher')->default(0)->nullable();
+            $table->integer('balcony')->default(0)->nullable();
+            $table->integer('bathroom')->default(0)->nullable();
+            $table->integer('pledge')->default(0)->nullable();
             $table->string('infrastructure')->nullable();
             $table->string('author');
             $table->timestamps();

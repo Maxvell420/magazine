@@ -27,63 +27,131 @@ header{
     text-decoration: none;
 }
 .current.navButton{
-    border-color: #A390E4;
+    background-color: #A390E4;
 }
 .navButton{
-    margin: 5px;
-    color: black;
-    padding: 5px;
-    background-color: white;
-    border: 2px solid #B3EBFF;
+    white-space: nowrap;
+    margin: 2px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+.navButton a{
+    text-decoration: none;
+    color: white;
 }
 .navButton:active, .navButton:hover{
-    border-left-color: #A390E4;
-    border-top-color: #A390E4;
+    background-color: #2980b9;
+}
+.navButton a:active, .navButton a:hover{
+    transition: background-color 0.3s ease;
+    background-color: #2980b9;
 }
 .form{
-    background-color: #f3f3f3;
     display: flex;
     flex-direction: column;
     padding: 10px;
     border-radius: 15px;
+    background-color: #f3f3f3;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px;
     margin-bottom: 50px;
 }
 /*dashboard*/
-.articles{
-    display: grid;
-    width: 1050px;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-radius: 10px;
-}
-.dashboardWrapper{
+.dashboardWrapper {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
-.dashboardHeader{
-    font-size: 40px;
-    margin: 0px 0px 0px 10px;
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 20px; /* Регулируйте отступы между элементами по своему усмотрению */
+}
+
+.articles {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #f2f2f2; /* Фоновый цвет блока с квартирами */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.dashboardHeader {
+    grid-column: 1/4;
+    color: #3498db; /* Цвет заголовка */
+    font-size: 24px; /* Размер шрифта заголовка */
+    margin-bottom: 20px; /* Отступ между заголовком и блоком с квартирами */
+    margin-top: 0px;
 }
 /*dashboard end*/
 /*filter*/
-.filterReset{
-    padding: 3px;
-    margin:3px;
-}
-.filter{
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #f3f3f3;
-    display: flex;
-    flex-direction: column;
-}
 .filter form {
-    display: flex;
-    flex-direction: column;
+    border: 1px solid #3498db;
+    padding: 5px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
 }
-.filter form *{
-    padding: 3px;
-    margin: 3px;
+
+.filter form h3 {
+    color: #3498db;
+}
+
+.filter form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.filter form label span {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+.filter form input[type="number"] {
+    width: 194px;
+    box-sizing: border-box;
+}
+.filter form input[type="number"],
+.filter form select,
+.filter form input[type="checkbox"] {
+    width: 200px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #3498db;
+}
+
+.filter form input[type="checkbox"] {
+    width: auto;
+}
+
+.filter form button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter form button:hover {
+    background-color: #2980b9;
+}
+
+.filter form .navButton {
+    margin-top: 10px;
+}
+
+.filter form a {
+    color: #fff;
+    text-decoration: none;
 }
 /*filter end*/
 /*house*/
@@ -100,15 +168,49 @@ header{
     background-color: #f3f3f3;
 }
 .flexColumn{
-    padding: 5px;
     display: flex;
     flex-direction: column;
 }
-.houseOwner{
+.houseOwner {
     grid-column: 2/3;
     grid-row: 1/3;
-    background-color: #f0f0f0;
-    border-radius: 5px;
+    background-color: #f9f9f9; /* Цвет фона блока */
+    border-radius: 5px; /* Скругление углов блока */
+    padding: 20px; /* Внутренний отступ блока */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень блока */
+}
+
+.houseOwner .flexColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fontHeader {
+    font-size: 24px; /* Размер шрифта заголовка */
+    font-weight: bold; /* Полужирный шрифт */
+    color: #333; /* Цвет текста заголовка */
+    margin-bottom: 10px; /* Отступ снизу заголовка */
+}
+
+.houseOwner span {
+    color: #666; /* Цвет текста */
+    margin-bottom: 5px; /* Отступ между элементами */
+}
+
+.houseOwner .navButton {
+    background-color: #3498db; /* Цвет фона кнопки */
+    color: #fff; /* Цвет текста кнопки */
+    padding: 10px 20px; /* Внутренние отступы кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Скругляем углы кнопки */
+    cursor: pointer; /* Изменяем курсор при наведении */
+    margin-top: 10px; /* Отступ сверху кнопки */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета кнопки при наведении */
+}
+
+.houseOwner .navButton:hover {
+    background-color: #2980b9; /* Цвет фона кнопки при наведении */
 }
 .house{
     border: 2px solid #dadada;
@@ -141,7 +243,7 @@ header{
     background-color: white;
     border-radius: 25px;
     transition: transform 0.3s ease;
-    border-color: #B3EBFF;
+    border-color: #3498db;
 }
 .houseButton:active,.houseButton:hover{
     transform: scale(1.1);
@@ -171,10 +273,6 @@ header{
 }
 .form label{
     color: rgb(133, 133, 133);
-}
-.form button{
-    position: relative;
-    left: 1200px;
 }
 .slider{
     padding: 10px;
@@ -215,27 +313,42 @@ header{
     color: rgb(93, 92, 92);
 }
 /*house end*/
-.fontHeader{
-    font-weight: 500;
-    font-size: 30px;
-    padding: 10px;
-    margin: 0px;
+.houseHeader form{
+    margin-left: 20px;
 }
 .absolute{
     float: left;
 }
 /*chat*/
 .chat{
-    height: 300px;
-    overflow: auto;
+    border-radius: 20px;
+    width: 75%;
+    background-color: #f3f3f3;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px;
+    height: 500px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: end;
+    overflow-x: visible;
+}
+.chat textarea{
+    min-width: 400px;
+    min-height: 100px;
+    margin-right: 5px;
+}
+.sendMessage{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 .messages{
     width: 800px;
     display: flex;
     flex-direction: column;
+}
+.from{
+    margin:0px;
 }
 .userMessage{
     align-self: end;
@@ -269,10 +382,123 @@ header{
     padding: 5px;
     display: flex;
     justify-content: space-between;
-    border-radius: 5px;
     background-color: white;
+}
+.edit{
+    background-color: #f3f3f3;
+    padding: 10px;
+    border-radius: 10px;
+}
+.photos{
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .photoEdit img{
     width: 300px;
     height: 300px;
+}
+.eform{
+    padding: 10px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px;
+    margin-bottom: 50px;
+}
+.eform form{
+    display: flex;
+    flex-direction: column;
+}
+.eform form label{
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.eform form label *{
+    padding: 5px;
+}
+.eform form label:not(:first-child) {
+    border-top: 1px solid #f3f3f3;
+}
+#submit{
+    grid-column: 2/3;
+}
+textarea{
+    resize: none;
+    padding: 10px;
+}
+/*login*/
+.form-container {
+    background-color: #f3f3f3;
+    padding: 20px;
+    border-radius: 10px;
+}
+/* Стиль для заголовка */
+.form-title {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Стиль для текстовых полей */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Стиль для кнопок */
+.form-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background-color: #555;
+}
+/* Стили для заголовка списка чатов */
+.h2Chats {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Стили для блока предварительного просмотра чата */
+.chat-preview {
+    background-color: #f3f3f3;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Стили для заголовка чата */
+.chat-preview h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Стили для текста последнего сообщения */
+.chat-preview p {
+    margin-bottom: 10px;
+    color: #777;
+}
+
+/* Стили для количества новых сообщений */
+.new-messages {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.alignCenter{
+    align-items: center;
 }

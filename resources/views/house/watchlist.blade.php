@@ -1,4 +1,4 @@
-<x-content>
+<x-content :title="$title">
     <div>
         @if($houses->isNotEmpty())
             @foreach($houses as $house)

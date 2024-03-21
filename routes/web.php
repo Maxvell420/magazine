@@ -58,11 +58,14 @@ Route::middleware('auth')->group(function (){
         Route::post('/house/{house}/archive',[HouseController::class,'archive'])->name('house.archive');
         Route::post('/house/{house}/unzip',[HouseController::class,'unzip'])->name('house.unzip');
         Route::post('/house/{house}/update',[HouseController::class,'update'])->name('house.update');
-        Route::post('/photo/{photo}/delete',[HouseController::class,'photoDelete'])->name('photo.delete');
+        Route::post('/photo/{house}/{photo}/delete',[HouseController::class,'photoDelete'])->name('photo.delete');
     });
 });
 Route::get('/migrate', function () {
     Artisan::call('migrate --seed');
     return 'Миграции успешно выполнены';
 });
-Route::get('js',[\App\Http\Controllers\JSController::class,'JS'])->name('js');
+Route::get('/migrate', function () {
+    Artisan::call('migrate:rollback');
+    return 'Миграции успешно откачены';
+});

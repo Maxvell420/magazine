@@ -1,4 +1,4 @@
-<x-content>
+<x-content :title="$title">
     <div class="form">
         <h2>Создание обьявления</h2>
         <form action="{{route('house.confirm')}}" method="post">
