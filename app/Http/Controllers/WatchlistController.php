@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\House;
 use App\Models\User;
+use App\Services\DashboardService;
 use App\Services\WatchlistService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -21,10 +22,13 @@ class WatchlistController extends Controller
     }
     public function show()
     {
+        $service = new DashboardService();
         $user = Auth::user();
         $watchlist=$user->getWatchlist();
-        $houses = House::query()->find($watchlist);
-        return view('house.watchlist',compact('houses'));
+        $houses = House::query()->whereIn('id', $watchlist);
+        $houses = $service->addUsabilityData($houses);
+        $title = "Ваши избранные обьявления";
+        return view('house.watchlist',compact(['houses','title','user','watchlist']));
     }
     public function remove(string $id)
     {

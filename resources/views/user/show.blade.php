@@ -5,7 +5,11 @@
             @foreach($houses as $house)
                 <x-house.preview.complete :house="$house" :watchlist="$watchlist"/>
             @endforeach
+                {{$houses}}
         </div>
-        {{$houses}}
+        <div class="userButtons">
+            <a href="{{route('user.show')}}"><button class="navButton">Ваши обьявления</button></a>
+            <a href="{{route('watchlist.show')}}"><button class="navButton">Избранные</button></a>
+        </div>
     </div>
 </x-content>
