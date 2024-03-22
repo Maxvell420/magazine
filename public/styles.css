@@ -343,6 +343,8 @@ header{
     grid-template-columns: 2fr 1fr;
 }
 .messages{
+    padding: 10px;
+    overflow-y: auto;
     width: 800px;
     display: flex;
     flex-direction: column;

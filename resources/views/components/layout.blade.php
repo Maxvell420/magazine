@@ -17,11 +17,6 @@
         </div>
     </main>
 </div>
-@if(session()->has('message'))
-    <script>
-        let message = "{{ session('message') }}";
-    </script>
-@endif
 <script src="{{asset('script.js')}}"></script>
 </body>
 </html>
