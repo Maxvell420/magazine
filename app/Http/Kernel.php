@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Admincheck;
 use App\Http\Middleware\Frozencheck;
 use App\Http\Middleware\Ownercheck;
+use App\Http\Middleware\UpdateCartMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,8 +67,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'admin'=>Admincheck::class,
-        'owner'=>Ownercheck::class,
-        'frozen'=>Frozencheck::class,
+        'cart'=>UpdateCartMiddleware::class,
     ];
 }

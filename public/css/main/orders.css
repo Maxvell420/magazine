@@ -1,0 +1,56 @@
+.wrapper {
+    max-width: 800px; /* Максимальная ширина блока */
+    margin: 0 auto; /* Центрируем блок на странице */
+    padding: 20px; /* Добавляем внутренний отступ */
+}
+a {
+    text-decoration: none;
+}
+.ordersHead {
+    text-align: center; /* Выравниваем заголовок по центру */
+    margin-bottom: 20px; /* Добавляем отступ снизу */
+}
+
+.ordersHead h2 {
+    font-size: 24px; /* Размер шрифта заголовка */
+    color: #333; /* Цвет текста */
+}
+
+.orders {
+    padding:10px;
+    border-radius: 20px;
+    width: 900px;
+    display: flex; /* Используем flexbox для расположения заказов в ряд */
+    flex-direction: column;
+    background-color: #f9f9f9; /* Цвет фона заказа */
+}
+
+.order {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 200px 100px 200px 200px;
+    justify-content: space-around;
+    padding: 20px;
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    color: #333; /* Цвет текста */
+    /* Плавное изменение цвета фона при наведении */
+}
+.orders a{
+    transition: background-color 0.3s ease;
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.orders a:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;;
+}
+.orders p{
+    display: block;
+}
+.order p {
+    text-align: center;
+    display: block;
+    margin: 10px;
+    white-space: nowrap; /* Предотвращаем перенос текста на новую строку */
+}

@@ -1,0 +1,146 @@
+/*layout*/
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/*Макет страницы*/
+.cart {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    background-color: #f9f9f9;
+    width: 800px;
+}
+.cart form{
+    display: flex;
+    flex-direction: column;
+}
+.cart h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+/*Блок продукта*/
+.product {
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.product img {
+    width: 100px;
+    height: 100px;
+}
+
+.productName h3 {
+    margin: 0;
+}
+.productTotal{
+    display: flex;
+    align-items: center;
+}
+.productTotal span {
+    font-weight: bold;
+}
+
+.totalWrapper {
+    align-self: end;
+    margin-top: 20px;
+}
+
+.totalWrapper div {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.productName{
+    width: 100%;
+    display: flex;
+}
+.productName h3{
+    width: 99%;
+}
+.productInfo{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+/*Кнопки*/
+
+.productQuantity button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.productQuantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity {
+    margin: 0px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.quantity:hover {
+    background-color: #f0f0f0;
+}
+button[id^="minus_"]{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+button[id^="plus_"]{
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.quantity:focus {
+    outline: none;
+}
+
+.productQuantity .quantity:nth-child(2) {
+    margin: 0;
+    min-width: 30px;
+    text-align: center;
+}
+#submit {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: #45a049;
+}
+
+.deleteProduct {
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+
+}
+.deleteProduct:hover{
+    transform: scale(1.1);
+    background-color: #cccccc;
+}
+.deleteProduct img {
+    width: 20px;
+    height: 20px;
+}

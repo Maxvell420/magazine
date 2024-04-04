@@ -1,0 +1,96 @@
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.product {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.productHead {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.productHead h3:nth-child(2) {
+    color: #007bff; /* Цвет цены */
+}
+.productHead h3 {
+    font-size: 24px;
+    color: #333;
+}
+
+.MainInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.productInfo {
+    margin-right: 120px;
+    display: flex;
+    flex-direction: column;
+}
+.productInfo span{
+    padding:10px;
+}
+.buttons {
+    margin-right: 20px;
+}
+
+.buttons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.additionalInfo h4 {
+    margin-bottom: 10px;
+}
+
+.additionalInfo .properties {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.additionalInfo .properties p {
+    margin: 5px 0;
+}
+.buttons button {
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 5px;
+    border:none;
+    color: #fff; /* Цвет текста на кнопках */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.buttons button:hover {
+    border: 1px solid #007bff;
+    transform: scale(1.1);
+}
+.buttons button img{
+    padding: 0px;
+    width: 100%;
+}
+.buttons{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 145px;
+}

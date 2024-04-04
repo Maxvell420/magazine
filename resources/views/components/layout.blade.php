@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{asset('styles.css')}}">
-    <link rel="icon" href="{{asset('user.png')}}" sizes="32x32">
-    <title>{{$title??'my cool title'}}</title>
+    <title>@if(isset($title)){{$title}} @else my cool title @endif </title>
+    @if(isset($styles))
+        <link rel="stylesheet" href="{{asset($styles)}}">
+    @endif
+    <link rel="stylesheet" href="{{asset('css/layout/layout.css')}}">
 </head>
 <body>
-<div class="wrapper">
-
-    <header>
-        <x-header/>
-    </header>
+    <x-header/>
     <main>
-        <div class="content">
+        @if(isset($scripts))
+            <script src="{{asset($scripts)}}"></script>
+        @endif
             {{$slot}}
-        </div>
     </main>
-</div>
-<script src="{{asset('script.js')}}"></script>
 </body>
 </html>

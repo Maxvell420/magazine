@@ -2,12 +2,17 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\CartService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Admincheck
+class UpdateCartMiddleware
 {
+    public function __construct(private CartService $cartService)
+    {
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -17,9 +22,14 @@ class Admincheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role_id<2){
-            return redirect()->route('user.dashboard')->setStatusCode(403);
+        if (Auth::check()) {
+            $cartData = $_COOKIE['cart'] ?? null;
+            $cartValue = $this->cartService->handleCookieProducts($cartData);
+            $expiryInSeconds = now()->addMinutes(5)->diffInSeconds(now());
+            $cookie = cookie('cart', $cartValue, $expiryInSeconds, '/', null, false, false, true, 'Lax');
+            return $next($request)->cookie($cookie);
         }
+
         return $next($request);
     }
 }

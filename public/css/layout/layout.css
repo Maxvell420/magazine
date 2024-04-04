@@ -1,0 +1,42 @@
+body{
+    margin:0;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #3366cc;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.headerButtons{
+    margin-left: 15px; /* Добавляем отступ между кнопками */
+    margin-right: 20px;
+}
+.header button {
+    border: none;
+    color: black; /* Белый цвет текста */
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px; /* Закругляем углы кнопок */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+    margin-right: 15px;
+}
+
+.header button:hover {
+    background-color: #a4bfdc; /* Темнее синий цвет при наведении */
+}
+
+.header button:last-child {
+    margin-left: 0; /* Убираем отступ у последней кнопки */
+}
+button a{
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+.active{
+    background-color: darkseagreen;
+}
