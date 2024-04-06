@@ -42,6 +42,7 @@ class ProductController
     }
     public function update(Request $request,Product $product)
     {
-        return redirect()->route('main.product',$product);
+        $this->productService->updateProduct($request,$product);
+        return redirect()->route('product.edit',$product);
     }
 }

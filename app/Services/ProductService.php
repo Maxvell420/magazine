@@ -80,6 +80,13 @@ class ProductService
         }
         return $products;
     }
+    public function updateProduct(Request $request,Product $product)
+    {
+        $mainProperties = $this->validateProductProperties($request);
+        $productAdditionalProperties = ['additional_properties'=>$this->encodeProductProperties($request)];
+        $data = array_merge($mainProperties,$productAdditionalProperties);
+        return $product->update($data);
+    }
     public function loadProductsData(Collection $products): Collection
     {
         $products->map(function ($product){
