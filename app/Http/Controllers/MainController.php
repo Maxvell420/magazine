@@ -23,6 +23,15 @@ class MainController extends Controller
         $title = 'Ваша корзина';
         return view('main.cart',compact(['products','styles','scripts','title']));
     }
+    public function productEdit(Product $product)
+    {
+        $title = "Редактирование продука: {$product->name}";
+        $styles ='css/main/productEdit.css';
+        $scripts='scripts/productEdit.js';
+        $product->loadExternalData();
+        $properties = $this->pageService->getProductProperties($product);
+        return view('main.productEdit',compact(['properties','styles','scripts','title','product']));
+    }
     public function dashboard(Request $request)
     {
         $title = 'Медуса - интернет магазин самых разных вещей!';

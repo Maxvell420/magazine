@@ -14,13 +14,14 @@ class ProductController
 {
     public function __construct(private ProductService $productService,private PageService $pageService)
     {}
-    public function create(Request $request)
+    public function create()
     {
+        $title = 'Создание категорий, подкатегорий и их продуктов';
         $pageService = $this->pageService;
         $categoryNames = $pageService->getCategoriesJson(['name','id']);
         $subcategoryNames = $pageService->getSubcategoriesJson(['name','id']);
         $styles = 'css/productCreate.css';
-        return view('product.create',compact(['styles','categoryNames','subcategoryNames']));
+        return view('product.create',compact(['styles','categoryNames','subcategoryNames','title']));
     }
     public function save(Request $request)
     {
@@ -38,5 +39,9 @@ class ProductController
         $id = Auth::id();
         $product->users()->detach($id);
         return redirect()->back();
+    }
+    public function update(Request $request,Product $product)
+    {
+        return redirect()->route('main.product',$product);
     }
 }

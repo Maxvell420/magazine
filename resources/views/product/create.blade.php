@@ -1,4 +1,4 @@
-<x-layout :styles="$styles">
+<x-layout :styles="$styles" :title="$title">
     <x-adminHeader/>
     <div class="wrapper">
         <div class="form">
@@ -99,9 +99,7 @@
         dataLabel.textContent = 'Описание';
         let textArea = document.createElement('textarea');
         input.addEventListener('input', function () {
-            if (this.value) {
-                textArea.setAttribute('name', this.value);
-            }
+            textArea.setAttribute('name', this.value);
         });
         let header = document.createElement('h4')
         header.textContent = "Дополнительное свойство: "+number
