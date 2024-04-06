@@ -4,3 +4,4 @@
         <x-headbutton :href="'product.create'" :text="'Создание продукта'"></x-headbutton>
     </div>
 </div>
+<script defer>headerButtonEventManager('.adminHeaderButtons button')</script>

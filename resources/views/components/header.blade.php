@@ -19,4 +19,4 @@
     </div>
 </div>
 <script src="{{asset('scripts/header.js')}}"></script>
-<script defer>headerButtonEventManager()</script>
+<script defer>headerButtonEventManager('.headerButtons button')</script>

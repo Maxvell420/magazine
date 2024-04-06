@@ -32,6 +32,17 @@
                             </button>
                         </form>
                     @endif
+                    @auth
+                        @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
+                            <form action="{{route('product.edit',[$product])}}">
+                                <button>
+                                    <a href="{{route('product.edit',[$product])}}">
+                                        <img src="{{asset('images/buttons/edit.svg')}}" alt="product edit">
+                                    </a>
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             </div>
             <div class="additionalInfo">

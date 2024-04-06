@@ -42,3 +42,4 @@ Route::post('/product/{product}/dislike',[ProductController::class,'dislike'])->
 Route::get('adminka',[MainController::class,'adminBoard'])->name('main.admin');
 Route::post('/order{order}/edit',[OrderController::class,'edit'])->name('order.edit');
 Route::get('/product/create',[ProductController::class,'create'])->name('product.create');
+Route::get('product/{product}/edit',[MainController::class,'productEdit'])->name('product.edit');

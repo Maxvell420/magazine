@@ -1,4 +1,5 @@
 <x-layout :styles="$styles">
+    <x-adminHeader/>
     <div class="wrapper">
         <div class="form">
             <h3>Создание продукта</h3>
