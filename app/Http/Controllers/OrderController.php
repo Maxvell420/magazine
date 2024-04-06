@@ -14,7 +14,12 @@ class OrderController
     public function __construct(private PageService $pageService)
     {
     }
-
+    public function edit(Request $request, Order $order)
+    {
+        $validated = $request->validate(['payed'=>'required','status'=>'required']);
+        $order->update($validated);
+        return redirect()->back();
+    }
     public function save(Request $request)
     {
         try {

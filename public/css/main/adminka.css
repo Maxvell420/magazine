@@ -1,0 +1,73 @@
+.wrapper {
+    max-width: 800px; /* Максимальная ширина блока */
+    margin: 0 auto; /* Центрируем блок на странице */
+    padding: 20px; /* Добавляем внутренний отступ */
+}
+
+.search {
+    margin-bottom: 20px; /* Добавляем отступ снизу */
+    width: 100%;
+    display: flex;
+    margin-left: 20px;
+}
+
+.search label {
+    font-weight: bold; /* Добавляем жирный шрифт */
+    margin-right: 10px; /* Добавляем отступ справа */
+}
+
+.search input[type="text"] {
+    padding: 5px; /* Добавляем отступы внутри поля ввода */
+    border: 1px solid #ccc; /* Добавляем границу */
+    border-radius: 5px; /* Закругляем углы */
+}
+
+.search button[type="submit"] {
+    padding: 5px 10px; /* Добавляем отступы внутри кнопки */
+    background-color: #007bff; /* Синий цвет фона */
+    color: #fff; /* Белый цвет текста */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругляем углы */
+    cursor: pointer; /* Задаем курсор при наведении */
+}
+
+.search button[type="submit"]:hover {
+    background-color: #0056b3; /* Темнее синий цвет при наведении */
+}
+
+.results {
+    border: 1px solid #ccc; /* Добавляем границу */
+    border-radius: 5px; /* Закругляем углы */
+    padding: 20px; /* Добавляем внутренний отступ */
+}
+
+.resultHead {
+    display: flex; /* Используем flexbox для расположения элементов в строку */
+    justify-content: space-between; /* Равномерно распределяем пространство между элементами */
+    font-weight: bold; /* Добавляем жирный шрифт */
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+}
+
+.resultHead p {
+    width: 25%; /* Ширина каждой ячейки в заголовке */
+    text-align: center; /* Выравниваем текст по центру */
+}
+
+.order {
+    display: flex; /* Используем flexbox для расположения элементов в строку */
+    justify-content: space-between; /* Равномерно распределяем пространство между элементами */
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+    text-decoration: none;
+    border: transparent 1px solid;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.order p {
+    width: 25%; /* Ширина каждой ячейки в заголовке */
+    text-align: center; /* Выравниваем текст по центру */
+    color: black;
+}
+.order:hover{
+    border-color: #007bff;
+}

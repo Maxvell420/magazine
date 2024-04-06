@@ -59,6 +59,11 @@ class PageService
         $products = $products ?? Product::all();
         return $this->productService->getProductsAdditionalProperties($products);
     }
+    public function getOrders(Request $request)
+    {
+        $order = new Order();
+        return $this->modelService->getAllRecords($order);
+    }
     public function getProductProperties(Product $product): array
     {
         return $this->productService->getProductAdditionalProperties($product);
@@ -127,5 +132,9 @@ class PageService
             $favourites = [];
         }
         return $favourites;
+    }
+    public function attachHrefToOrder(Collection $orders)
+    {
+        $this->orderService->attachHref($orders);
     }
 }

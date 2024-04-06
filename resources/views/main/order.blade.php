@@ -28,6 +28,35 @@
                 <p>{{$orderQuantity}}</p>
                 <p>{{$order->price}}</p>
             </div>
+            <div class="orderStatus">
+                <p>Статус заказа</p>
+                <p>Статус оплаты</p>
+                <p>{{$order->status}}</p>
+                @if($order->payed)
+                    <p>Оплачен</p>
+                @else
+                    <p>Не Оплачен</p>
+                   @endif
+            </div>
+            @auth
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
+                <form action="{{route('order.edit',[$order])     }}" method="post" class="orderEdit">
+                    @csrf
+                    <label for="payment">Изменить статус оплаты заказа:</label>
+                    <select id="payment" name="payed">
+                        <option @if(!$order->payed) selected @endif value="0">Не оплачен</option>
+                        <option @if($order->payed) selected @endif value="1">Оплачен</option>
+                    </select>
+                    <label for="status">Изменить статус оплаты</label>
+                    <select id="status" name="status">
+                        <option @if($order->status == 'Подготовка заказа') selected @endif>Подготовка заказа</option>
+                        <option @if($order->status == 'Готов к получению') selected @endif>Готов к получению</option>
+                    </select>
+                    <div></div>
+                    <button type="submit">Сохранить изменения</button>
+                </form>
+                       @endif
+            @endauth
         </div>
     </div>
 </x-layout>

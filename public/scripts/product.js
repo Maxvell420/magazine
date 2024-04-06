@@ -92,6 +92,9 @@
                 button.className = 'addToCart'
             }
         }
+        function replaceUnderscoreWithSpace(str) {
+            return str.replace(/_/g, ' ');
+        }
         function removeProductIdFromCart(cart, id) {
 
             let time = new Date().toUTCString()
@@ -126,4 +129,16 @@
             return cart.products.length
         }
     }
-})()
+})();
+(function (){
+   window.replaceUnderScore = function (){
+       let ps = document.querySelectorAll('.properties p')
+       for (let p of ps) {
+           let text = p.textContent;
+           p.textContent=replaceUnderscoreWithSpace(text)
+       }
+       function replaceUnderscoreWithSpace(str) {
+           return str.replace(/_/g, ' ');
+       }
+    }
+})();

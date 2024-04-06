@@ -48,4 +48,5 @@
 </x-layout>
 <script>
     productEventManager()
+    replaceUnderScore()
 </script>

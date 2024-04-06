@@ -21,7 +21,6 @@ use App\Http\Controllers\OrderController;
 Route::get('',[MainController::class,'dashboard'])->name('main.dashboard')->middleware('cart');
 Route::get('cart',[MainController::class,'cart'])->name('main.cart')->middleware('cart');
 Route::post('checkout',[MainController::class,'checkout'])->name('main.checkout')->middleware('cart');;
-Route::get('/product/create',[ProductController::class,'create'])->name('product.create');
 Route::post('/product/save',[ProductController::class,'save'])->name('product.save');
 Route::post('/subcategory/save',[CategoryController::class,'save'])->name('category.save');
 Route::post('/category/save',[SubcategoryController::class,'save'])->name('subcategory.save');
@@ -40,3 +39,6 @@ Route::get('favourites',[MainController::class,'favourites'])->name('main.favour
 Route::get('product/{product}/show',[MainController::class,'productShow'])->name('main.product');
 Route::post('/product/{product}/like',[ProductController::class,'like'])->name('product.like');
 Route::post('/product/{product}/dislike',[ProductController::class,'dislike'])->name('product.dislike');
+Route::get('adminka',[MainController::class,'adminBoard'])->name('main.admin');
+Route::post('/order{order}/edit',[OrderController::class,'edit'])->name('order.edit');
+Route::get('/product/create',[ProductController::class,'create'])->name('product.create');

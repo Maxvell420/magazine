@@ -21,7 +21,16 @@
     margin-top: 0;
     margin-bottom: 10px;
 }
-
+.orderStatus{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: white;; /* Серый фон */
+}
 .order .file a {
     background-color: #007bff;
     color: #fff;
@@ -84,4 +93,28 @@ main{
 }
 .orderHeader{
     padding: 10px;
+}
+.orderEdit {
+    width: 75%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-self: end; /* Правый край в родительском контейнере */
+    align-self: end; /* Нижний край в родительском контейнере */
+    gap: 10px; /* Промежуток между элементами */
+    margin-top: auto; /* Оставляем свободное пространство наверху */
+}
+.orderEdit button {
+    width: 100%; /* Ширина кнопки на 100% */
+    padding: 10px 20px; /* Добавляем отступы внутри кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругляем углы */
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: #fff; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Задаем курсор при наведении */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+}
+
+.orderEdit button:hover {
+    background-color: #0056b3; /* Темнее синий цвет при наведении */
 }

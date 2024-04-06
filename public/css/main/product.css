@@ -59,8 +59,8 @@
 .additionalInfo h4 {
     margin-bottom: 10px;
 }
-
-.additionalInfo .properties {
+.additionalInfo .properties{}
+.additionalInfo .properties p{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;

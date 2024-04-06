@@ -1,18 +1,18 @@
 body{
     margin:0;
 }
-.header {
+.header,.adminHeader {
     display: flex;
     justify-content: space-between;
     background-color: #3366cc;
     padding-bottom: 10px;
     padding-top: 10px;
 }
-.headerButtons{
+.headerButtons,.adminHeaderButtons{
     margin-left: 15px; /* Добавляем отступ между кнопками */
     margin-right: 20px;
 }
-.header button {
+.adminHeader button,.header button {
     border: none;
     color: black; /* Белый цвет текста */
     padding: 10px 20px;
@@ -24,6 +24,7 @@ body{
     margin-right: 15px;
 }
 
+.adminHeader button:hover,
 .header button:hover {
     background-color: #a4bfdc; /* Темнее синий цвет при наведении */
 }

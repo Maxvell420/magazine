@@ -7,6 +7,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class OrderService
 {
@@ -37,6 +38,13 @@ class OrderService
         }
         $user_id = Auth::check() ? Auth::id() : null;
         return Order::query()->create(['delivery_id'=>$delivery->id,'products'=>$productOrder,'user_id'=>$user_id,'status'=>'Подготовка заказа','price'=>$orderPrice]);
+    }
+    public function attachHref(Collection $orders)
+    {
+        foreach ($orders as $order){
+            $url = URL::route('order.show',$order);
+            $order->setAttribute('href',$url);
+        }
     }
     public function countOrderProducts(Order $order,Collection $products)
     {

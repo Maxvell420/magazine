@@ -5,6 +5,9 @@
     </div>
     <div class="headerButtons">
         @auth
+            @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
+                <x-headbutton :href="'main.admin'" :text="'Админка'"></x-headbutton>
+            @endif
             <x-headbutton :href="'main.orders'" :text="'Ваши Заказы'"></x-headbutton>
             <x-headbutton :href="'main.favourites'" :text="'Избранные товары'"></x-headbutton>
             <x-headbutton :href="'user.logout'" :text="'Выход'"></x-headbutton>

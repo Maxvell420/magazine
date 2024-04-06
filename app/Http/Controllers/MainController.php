@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Services\PageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class MainController extends Controller
 {
@@ -85,6 +86,19 @@ class MainController extends Controller
         $delivery = $order->delivery;
         $orderQuantity = $this->pageService->getOrderQuantity($order,$products);
         return view('main.order',compact(['products','order','filepath','delivery','orderQuantity','styles','title']));
+    }
+    public function adminBoard(Request $request)
+    {
+        $styles = 'css/main/adminka.css';
+        $scripts = 'scripts/adminka.js';
+        $title = 'Панель администратора';
+        $orders = $this->pageService->getOrders($request);
+        $date = date('Y-m-d');
+        $newOrders = $orders->filter(function($order) use ($date){
+            return $date == $order->created_at->format('Y-m-d');
+        });
+        $this->pageService->attachHrefToOrder($orders);
+        return view('main.adminka',compact(['orders','newOrders','styles','scripts','title']));
     }
     public function orders()
     {

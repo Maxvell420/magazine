@@ -18,12 +18,14 @@
 .product {
     border: 1px solid #ccc;
     padding: 10px;
+
 }
 
 .productInfo {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 500px 200px 200px;
 }
+
 
 .orderInfo {
     margin-top: 20px;
@@ -49,10 +51,16 @@
     margin-bottom: 10px;
 }
 
-.productsPrice::before,
-.deliveryPrice::before,
-.totalPrice::before {
+.productsPrice::before{
     content: 'Цена: ';
+    font-weight: bold;
+}
+.totalPrice::before {
+    content: 'Итоговая цена: ';
+    font-weight: bold;
+}
+.deliveryPrice::before{
+    content: 'Доставка: ';
     font-weight: bold;
 }
 

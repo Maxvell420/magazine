@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\URL;
 use function Symfony\Component\Translation\t;
 
 class ProductService
