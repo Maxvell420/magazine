@@ -36,6 +36,11 @@ class ProductService
         foreach ($products as $product){
             $properties = json_decode($product->additional_properties);
             foreach ($properties as $property => $value){
+                if (isset($result[$product->subcategory_id][$property])){
+                    if (in_array($value,$result[$product->subcategory_id][$property])){
+                        continue;
+                    }
+                }
                 $result[$product->subcategory_id][$property][]=$value;
             }
         }

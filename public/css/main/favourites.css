@@ -4,11 +4,14 @@
     align-items: center;
 }
 .products{
+    margin-top: 20px;
+    border-radius: 10px;
     padding: 15px;
-    width: 1200px;
+    width: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #F5F5F5;
 }
 .products a{
     text-decoration: none;

@@ -15,6 +15,7 @@ class UpdateCartMiddleware
 
     /**
      * Handle an incoming request.
+     * Производит манипуляции с куками и хранилищем корзины (где данные более свежие те и сохраняются)
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next

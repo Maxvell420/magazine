@@ -4,7 +4,6 @@
         <div class="search">
             <label for="order">Поиск заказа</label>
             <input id="order" type="text" name="order" placeholder="Номер заказа" autocomplete="off">
-            <button type="submit">Искать</button>
         </div>
         <div class="results">
             <div class="resultHead">
