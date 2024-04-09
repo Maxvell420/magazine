@@ -16,13 +16,10 @@ class ProductController
     {}
     public function create()
     {
-        dump(session('message'));
         $title = 'Создание категорий, подкатегорий и их продуктов';
         $pageService = $this->pageService;
-//        $categoryNames = $pageService->getCategoriesJson(['name','id']);
-//        $subcategoryNames = $pageService->getSubcategoriesJson(['name','id']);
-        $categoryNames = '';
-        $subcategoryNames = '';
+        $categoryNames = json_encode($pageService->getCategories());
+        $subcategoryNames = json_encode($pageService->getSubcategories());
         $styles = 'css/productCreate.css';
         return view('product.create',compact(['styles','categoryNames','subcategoryNames','title']));
     }

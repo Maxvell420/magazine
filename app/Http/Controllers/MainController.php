@@ -46,8 +46,9 @@ class MainController extends Controller
         $scripts = 'scripts/dashboard.js';
         $styles = 'css/main/dashboard.css';
         $pageService = $this->pageService;
-        $categories = $pageService->getCategoriesJson();
-        $subcategories = $pageService->getSubcategoriesJson();
+//        json
+//        $categories = $pageService->getCategoriesJson();
+//        $subcategories = $pageService->getSubcategoriesJson();
         $productsProperties = json_encode($pageService->getProductsProperties());
         $products = $pageService->getFilteredProducts($request);
         $favourites = $this->pageService->getUserFavourites();

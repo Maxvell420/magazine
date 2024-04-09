@@ -4,26 +4,48 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Delivery;
+use App\Models\Language;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class PageService
 {
+    private Language $language;
     public function __construct(private ModelService $modelService,
                                 private ProductService $productService,
                                 private CartService $cartService,
                                 private OrderService $orderService,
-                                private LocalizationService $localizationService){}
+                                private LocalizationService $localizationService){
+        $lang = App::getLocale();
+        $language = Language::firstWhere('name',$lang);
+        $this->language = $language;
+    }
     public function determineLang(string $url)
     {
         return $this->localizationService->changeAppLang($url);
     }
-
+    public function getCategories()
+    {
+        $category = new Category();
+        $language = $this->language;
+        $records = $this->modelService->getRecordsManyToLanguage($category,$language);
+        $this->modelService->getPivotPropertiesWithLanguage($records);
+        return $this->modelService->flattenCollection($records,['id','name']);
+    }
+    public function getSubcategories(string|array $column = null): array
+    {
+        $subcategory = new Subcategory();
+        $language = $this->language;
+        $records = $this->modelService->getRecordsManyToLanguage($subcategory,$language);
+        $this->modelService->getPivotPropertiesWithLanguage($records);
+        return $this->modelService->flattenCollection($records,['id','name']);
+    }
     public function getProductsFromCart(): ?Collection
     {
         $product_ids = $this->cartService->getCartProductIds();
@@ -37,26 +59,9 @@ class PageService
     {
         return $this->productService->loadProductsData($products);
     }
-    public function getCategories(string|array $column = null):Collection
-    {
-        $model = new Category;
-        return $this->modelService->getAllRecords($model,$column);
-    }
     public function getCategoriesJson(string|array $column = null): bool|string
     {
         $model = new Category;
-        return $this->modelService->getAllRecordsJson($model,$column);
-    }
-    public function getSubcategories(string|array $column = null):Collection
-    {
-        if ($column){
-            return Subcategory::all($column);
-        }
-        return Subcategory::all();
-    }
-    public function getSubcategoriesJson(string|array $column = null): bool|string
-    {
-        $model = new Subcategory;
         return $this->modelService->getAllRecordsJson($model,$column);
     }
     public function getProductsProperties($products = null): array

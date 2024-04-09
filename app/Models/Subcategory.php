@@ -9,4 +9,12 @@ class Subcategory extends Model
 {
     use HasFactory;
     protected $fillable=['name','category_id'];
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class)->withPivot('name');
+    }
+    public function getPropertyFromPivot(Language $language)
+    {
+        return $this->languages()->firstWhere('language_id', $language->id)->pivot;
+    }
 }

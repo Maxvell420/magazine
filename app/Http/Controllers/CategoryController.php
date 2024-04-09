@@ -16,7 +16,7 @@ class CategoryController extends Controller
         $validated = $request->validate(['name'=>['required']]);
         $category = Category::query()->create();
         $language->categories()->attach($category,$validated);
-        $name = $category->getPropertyFromPivot($language,'name');
-        return redirect()->back()->with('message',trans('category.created',['name'=>$name]));
+        $name = $category->getPropertiesFromPivot($language)->name;
+        return redirect()->back()->with('message',trans('category.created',['name'=>$validated['name']]));
     }
 }
