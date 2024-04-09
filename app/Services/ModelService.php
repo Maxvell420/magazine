@@ -31,7 +31,7 @@ class ModelService
         }
         return $class::query()->find($id);
     }
-    private function flattenArray(Array $array,array $keys):array
+    private function flattenArray(Array $array,$keys):array
     {
         $result = [];
         $counter = count($array);

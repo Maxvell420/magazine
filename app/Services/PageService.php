@@ -17,7 +17,12 @@ class PageService
     public function __construct(private ModelService $modelService,
                                 private ProductService $productService,
                                 private CartService $cartService,
-                                private OrderService $orderService){}
+                                private OrderService $orderService,
+                                private LocalizationService $localizationService){}
+    public function determineLang(string $url)
+    {
+        return $this->localizationService->changeAppLang($url);
+    }
 
     public function getProductsFromCart(): ?Collection
     {

@@ -13,4 +13,12 @@ class Category extends Model
     {
         return $this->hasOne(Subcategory::class);
     }
+    public function language()
+    {
+        return $this->belongsToMany(Language::class);
+    }
+    public function getPropertyFromPivot(Language $language,string $propertyName)
+    {
+        return $this->language()->firstWhere('language_id', 1)->pivot->$propertyName;
+    }
 }

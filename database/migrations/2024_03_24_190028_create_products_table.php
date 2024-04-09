@@ -17,10 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('subcategory_id')->constrained('subcategories');
-            $table->string('name');
             $table->integer('quantity')->default(0);
-            $table->integer('price');
-            $table->json('additional_properties')->nullable();
             $table->timestamps();
         });
     }

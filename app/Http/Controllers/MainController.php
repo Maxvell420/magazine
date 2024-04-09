@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Product;
 use App\Services\PageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class MainController extends Controller
 {
+    private string $language;
     public function __construct(protected PageService $pageService)
     {
+        $url = \request()->path();
+        $this->pageService->determineLang($url);
     }
     public function cart()
     {
+
         $products = $this->pageService->getProductsFromCart();
         $scripts = 'scripts/cart.js';
         $styles = 'css/main/cart.css';
@@ -34,12 +40,14 @@ class MainController extends Controller
     }
     public function dashboard(Request $request)
     {
+        $locale = App::getLocale();
+        $categories = Category::first()->language()->where('language_id','=',1)->withPivot('name')->get();
         $title = 'Медуса - интернет магазин самых разных вещей!';
         $scripts = 'scripts/dashboard.js';
         $styles = 'css/main/dashboard.css';
         $pageService = $this->pageService;
-        $categories = $pageService->getCategoriesJson(['name','id']);
-        $subcategories = $pageService->getSubcategoriesJson(['name','category_id','id']);
+        $categories = $pageService->getCategoriesJson();
+        $subcategories = $pageService->getSubcategoriesJson();
         $productsProperties = json_encode($pageService->getProductsProperties());
         $products = $pageService->getFilteredProducts($request);
         $favourites = $this->pageService->getUserFavourites();
