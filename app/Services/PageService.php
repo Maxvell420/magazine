@@ -22,6 +22,8 @@ class PageService
                                 private CartService $cartService,
                                 private OrderService $orderService,
                                 private LocalizationService $localizationService){
+        $url = \request()->path();
+        $this->determineLang($url);
         $lang = App::getLocale();
         $language = Language::firstWhere('name',$lang);
         $this->language = $language;

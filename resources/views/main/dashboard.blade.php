@@ -12,7 +12,7 @@
     </div>
 </x-layout>
 <script defer>
-    appendCategoryButton()
+    appendCategoryButton(@json(trans('category.categories')))
     categoryAppend({!! $categories !!},{!! $subcategories !!},{!! $productsProperties !!})
     updateCartValue()
 </script>

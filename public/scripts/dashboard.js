@@ -28,11 +28,11 @@ function resizeDiv(div){
         list.add(invisible)
     }
 }
-function appendCategoryButton(){
+function appendCategoryButton(name){
     let header = document.querySelector('.header')
     let headerButtons = header.querySelector('.headerButtons')
     let button = document.createElement('button')
-    button.textContent='Категории'
+    button.textContent=name
     button.id='category'
     headerButtons.appendChild(button)
 }
@@ -332,7 +332,11 @@ function updateCartValue(){
 }
 function updateCartButton(value){
     let button = document.getElementById('cart')
-    button.textContent='Корзина:' + value
+    let text = extractNonDigits(button.textContent)
+    button.textContent=text + value
+}
+function extractNonDigits(str) {
+    return str.replace(/\d/g, '');
 }
 function getProductsAmount(cart){
     return cart.products.length
