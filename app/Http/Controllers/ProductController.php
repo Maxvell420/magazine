@@ -14,15 +14,6 @@ class ProductController
 {
     public function __construct(private ProductService $productService,private PageService $pageService)
     {}
-    public function create()
-    {
-        $title = 'Создание категорий, подкатегорий и их продуктов';
-        $pageService = $this->pageService;
-        $categoryNames = json_encode($pageService->getCategories());
-        $subcategoryNames = json_encode($pageService->getSubcategories());
-        $styles = 'css/productCreate.css';
-        return view('product.create',compact(['styles','categoryNames','subcategoryNames','title']));
-    }
     public function save(Request $request)
     {
         $product = $this->pageService->createProduct($request);

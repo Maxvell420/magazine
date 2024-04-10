@@ -13,14 +13,14 @@
                 <img src="" alt="heart">
             </button>
             @if(!in_array($product->id,$favourites))
-                <form action="{{route('product.like',$product)}}" method="post">
+                <form action="{{route(trans('routes.names.product.like'),$product)}}" method="post">
                     @csrf
                     <button type="submit">
                         <img src="{{asset('images/buttons/heart.svg')}}" alt="like">
                     </button>
                 </form>
             @else
-                <form action="{{route('product.dislike',$product)}}" method="post">
+                <form action="{{route(trans('routes.names.product.like'),$product)}}" method="post">
                     @csrf
                     <button type="submit">
                         <img src="{{asset('images/buttons/heart-remove.svg')}}" alt="remove like">

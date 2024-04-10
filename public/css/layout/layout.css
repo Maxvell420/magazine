@@ -41,3 +41,9 @@ button a{
 .active{
     background-color: darkseagreen;
 }
+.hidden{
+    display: none;
+}
+#languages{
+    position: absolute;
+}

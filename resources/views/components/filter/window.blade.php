@@ -6,6 +6,6 @@
         </div>
         <div class="filterInputs"></div>
         <button type="submit">{{trans('filter.apply')}}</button>
-        <button type="button"><a href="{{route('main.dashboard')}}">{{trans('filter.reset')}}</a></button>
+        <button type="button"><a href="{{route(trans('routes.names.main.dashboard'))}}">{{trans('filter.reset')}}</a></button>
     </form>
 </div>

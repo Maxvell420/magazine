@@ -5,14 +5,18 @@
     </div>
 
     <div class="headerButtons">
-        <select>
-            <option>
-                {{$data}}
-            </option>
-        </select>
+            <x-headbutton :href="$routes[app()->getLocale()]" :text="app()->getLocale()" :id="'language'"/>
+            <div class="hidden" id="languages">
+                @foreach($routes as $lang => $route)
+                    @if($lang == app()->getLocale())
+                        @continue
+                    @endif
+                    <x-headbutton :href="$route" :text="$lang"/>
+                @endforeach
+            </div>
         @auth
             @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
-                <x-headbutton :href="route(trans('routes.names.main.admin'))" :text="trans('routes.texts.main.cart')"/>
+                <x-headbutton :href="route(trans('routes.names.main.admin'))" :text="trans('routes.texts.main.admin')"/>
             @endif
             <x-headbutton :href="route(trans('routes.names.main.orders'))" :text="trans('routes.texts.main.orders')"/>
             <x-headbutton :href="route(trans('routes.names.main.favourites'))" :text="trans('routes.texts.main.favourites')"/>

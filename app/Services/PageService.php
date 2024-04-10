@@ -161,6 +161,6 @@ class PageService
     }
     public function attachHrefToOrder(Collection $orders)
     {
-        $this->orderService->attachHref($orders);
+        $this->orderService->attachHref($orders,$this->language->name);
     }
 }

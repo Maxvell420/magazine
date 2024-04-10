@@ -2,9 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Admincheck;
-use App\Http\Middleware\Frozencheck;
-use App\Http\Middleware\Ownercheck;
 use App\Http\Middleware\UpdateCartMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 

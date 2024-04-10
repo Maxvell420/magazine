@@ -10,6 +10,7 @@ use App\Services\PageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class MainController extends Controller
 {
@@ -17,6 +18,10 @@ class MainController extends Controller
     {
         $url = \request()->path();
         $this->pageService->determineLang($url);
+    }
+    public function index()
+    {
+        return redirect()->route('en.main.dashboard');
     }
     public function cart()
     {
@@ -120,5 +125,26 @@ class MainController extends Controller
         $orders = $this->pageService->getUserOrders($user);
         $styles = 'css/main/orders.css';
         return view('main.orders',compact(['orders','styles','title']));
+    }
+    public function userCreate()
+    {
+        $title = 'Регистрация на Медуса';
+        $styles = 'css/user/create.css';
+        return view('user.create',compact(['styles','title']));
+    }
+    public function login()
+    {
+        $title = 'Медуса - вход';
+        $styles = 'css/user/create.css';
+        return view('user.login',compact(['styles','title']));
+    }
+    public function productCreate()
+    {
+        $title = 'Создание категорий, подкатегорий и их продуктов';
+        $pageService = $this->pageService;
+        $categoryNames = json_encode($pageService->getCategories());
+        $subcategoryNames = json_encode($pageService->getSubcategories());
+        $styles = 'css/productCreate.css';
+        return view('product.create',compact(['styles','categoryNames','subcategoryNames','title']));
     }
 }
