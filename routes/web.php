@@ -24,7 +24,7 @@ Route::middleware('cart')->group(function (){
 Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
     Route::get('',[MainController::class,'dashboard'])->name('main.dashboard');
     Route::get('cart',[MainController::class,'cart'])->name('main.cart');
-    Route::post('checkout',[MainController::class,'checkout'])->name('main.checkout');
+    Route::get('checkout',[MainController::class,'checkout'])->name('main.checkout');
     Route::get('login',[MainController::class,'login'])->name('main.login');
     Route::get('user/create',[MainController::class,'userCreate'])->name('user.create');
     Route::get('logout',[UserController::class,'logout'])->name('main.logout');
@@ -53,7 +53,7 @@ Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
 Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
     Route::get('',[MainController::class,'dashboard'])->name('main.dashboard');
     Route::get('cart',[MainController::class,'cart'])->name('main.cart');
-    Route::post('checkout',[MainController::class,'checkout'])->name('main.checkout');
+    Route::get('checkout',[MainController::class,'checkout'])->name('main.checkout');
     Route::get('login',[MainController::class,'login'])->name('main.login');
     Route::get('user/create',[MainController::class,'userCreate'])->name('user.create');
     Route::get('logout',[UserController::class,'logout'])->name('main.logout');

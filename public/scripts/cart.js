@@ -1,8 +1,9 @@
 (function() {
-    window.ProductEventManager=function (product) {
+    window.ProductEventManager=function (product,translations) {
+        console.log(translations)
         let deleteButton = document.getElementById('delete_' + product.id)
         let cartButton = document.getElementById('cart')
-        cartButton.textContent="Корзина:"+(Number(getNumbersFromString(cartButton.textContent)[0])+1).toString()
+        cartButton.textContent=translations.cart+':'+(Number(getNumbersFromString(cartButton.textContent)[0])+1).toString()
         let positiveButton = document.getElementById('plus_'+product.id)
         let negativeButton = document.getElementById('minus_'+product.id)
         let input = document.getElementById(product.id)
@@ -22,7 +23,7 @@
                 deleteProductDiv(product)
                 let totalPriceDiv = document.getElementById('total')
                 let totalPrice = Number(getNumbersFromString(totalPriceDiv.textContent)[0])
-                totalPriceDiv.textContent="Итого: "+(totalPrice-(product.price*Number(input.value))).toString()+" ₽"
+                totalPriceDiv.textContent=translations.total+':'+(totalPrice-(product.price*Number(input.value))).toString()+" ₽"
                 if (cartAmount===0){
                     document.querySelector('.order').remove()
                 }
@@ -41,7 +42,7 @@
                     input.value=(Number(input.value)+1).toString()
                     productTotalPriceDiv.textContent=(Number(productTotalPrice)+Number(product.price)).toString()+" ₽"
                     productTotalQuantityDiv.textContent=(Number(productTotalQuantityDiv.textContent)+1).toString()
-                    totalPriceDiv.textContent="Итого: "+(totalPrice+Number(product.price)).toString()+" ₽"
+                    totalPriceDiv.textContent=translations.total+':'+(totalPrice+Number(product.price)).toString()+" ₽"
                 }
             }
         }
@@ -58,7 +59,7 @@
                     input.value-=1
                     productTotalPriceDiv.textContent=(Number(productTotalPrice)-Number(product.price)).toString()+" ₽"
                     productTotalQuantityDiv.textContent=(Number(productTotalQuantityDiv.textContent)-1).toString()
-                    totalPriceDiv.textContent="Итого: "+(totalPrice-Number(product.price)).toString()+" ₽"
+                    totalPriceDiv.textContent=translations.total+':'+(totalPrice-Number(product.price)).toString()+" ₽"
                 }
             }
         }
@@ -139,11 +140,14 @@
 
         function updateCartButton(value) {
             let button = document.getElementById('cart')
-            button.textContent = 'Корзина: ' + value
+            button.textContent = translations.cart+ ":" + value
         }
 
         function getProductsAmount(cart) {
             return cart.products.length
+        }
+        function extractNonDigits(str) {
+            return str.replace(/\d/g, '');
         }
     }
 })();

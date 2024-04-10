@@ -26,6 +26,7 @@ class MainController extends Controller
     public function cart()
     {
         $products = $this->pageService->getProductsFromCart();
+        $this->pageService->getProductsNames($products);
         $scripts = 'scripts/cart.js';
         $styles = 'css/main/cart.css';
         $title = 'Ваша корзина';
@@ -84,6 +85,7 @@ class MainController extends Controller
             $message = $e->getMessage();
             return view('error',compact(['message']));
         }
+        $this->pageService->getProductsNames($products);
         $scripts = 'scripts/checkout.js';
         $deliveries = Delivery::all();
         $totalPrice = $this->pageService->getProductsPrice($products);

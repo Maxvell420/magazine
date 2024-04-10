@@ -1,19 +1,19 @@
 <x-layout :styles="$styles" :scripts="$scripts" :title="$title">
-    <form action="{{route('order.save')}}" method="post">
+    <form action="{{route(trans('routes.names.order.save'))}}" method="post">
         @csrf
         <div class="order">
-            <h3>Оформление заказа</h3>
+            <h3>{{trans('order.create')}}</h3>
             @guest
                 <div class="warning">
-                    Настоятельно рекомендуем вам авторизоваться
+                    {{trans('message.auth.warning')}}
                 </div>
             @endguest
             <div class="products">
                 <div class="product">
                     <div class="productInfo">
-                        <p>Название продукта</p>
-                        <p>Количество</p>
-                        <p>Стоимость (₽)</p>
+                        <p>{{trans('product.name')}}</p>
+                        <p>{{trans('product.quantity')}}</p>
+                        <p>(₽) {{trans('product.price')}}</p>
                     </div>
                 </div>
                 @foreach($products as $product)
@@ -29,23 +29,23 @@
             </div>
             <div class="orderInfo">
                 <div class="delivery">
-                    <label for="pickup">Самовывоз</label>
+                    <label for="pickup">{{trans('form.pickup')}}</label>
                     <input id="pickup" name="delivery" type="radio" checked value="1" autocomplete="off">
-                    <label for="courier">Курьер</label>
+                    <label for="courier">{{trans('form.delivery')}}</label>
                     <input id="courier" name="delivery" type="radio" value="2" autocomplete="off" >
                 </div>
                 <div class="confirmation">
                     <div class="productsPrice">
-                        {{$totalPrice}} ₽
+                        {{trans('product.price')}} {{$totalPrice}} ₽
                     </div>
                     <div class="deliveryPrice">
-                        0 ₽
+                        {{trans('form.delivery')}}: 0 ₽
                     </div>
                     <div class="totalPrice">
-                        {{$totalPrice}} ₽
+                        {{trans('form.total')}}: {{$totalPrice}} ₽
                     </div>
                 </div>
-                <button type="submit">Подтвердить</button>
+                <button type="submit">{{trans('order.create')}}</button>
             </div>
         </div>
     </form>

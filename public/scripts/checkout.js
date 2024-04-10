@@ -1,5 +1,5 @@
 (function() {
-    window.OrderEventManager=function (deliveries) {
+    window.OrderEventManager=function (deliveries,translations) {
         let inputs = document.querySelectorAll('input[type="radio"]')
         inputs.forEach(function (input){
             input.addEventListener('click',radioInputEvent(deliveries))
@@ -13,7 +13,8 @@
                         deliveryPrice=delivery.price
                     }
                 }
-                deliveryPriceDiv.textContent=deliveryPrice+' ₽'
+                let text = extractNonDigitsAndSymbol(deliveryPriceDiv.textContent)
+                deliveryPriceDiv.textContent=text + deliveryPrice+' ₽'
                 totalPriceUpdate(deliveryPrice)
             }
         }
@@ -21,10 +22,15 @@
             let productsPriceDiv = document.querySelector('.productsPrice')
             let productsPrice = getNumbersFromString(productsPriceDiv.textContent)[0]
             let totalPriceDiv = document.querySelector('.totalPrice')
-            totalPriceDiv.textContent=(Number(productsPrice)+Number(deliveryPrice))+' ₽'
+            let text = extractNonDigitsAndSymbol(totalPriceDiv.textContent)
+            totalPriceDiv.textContent=text + (Number(productsPrice)+Number(deliveryPrice))+' ₽'
         }
         function getNumbersFromString(string) {
             return string.match(/\d+/g)
+        }
+        function extractNonDigitsAndSymbol(str) {
+            console.log(str)
+            return str.replace(/[\d₽]/g, '');
         }
     }
 })();

@@ -4,4 +4,9 @@ return [
     'password' => 'Password',
     'login' => 'Login',
     'register' => 'Sign Up',
+    'total'=>'Total',
+    'checkout'=>'Checkout',
+    'cart'=>'Cart',
+    'pickup'=>'Pickup',
+    'delivery'=>'Delivery',
 ];

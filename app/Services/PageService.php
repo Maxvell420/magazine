@@ -76,10 +76,12 @@ class PageService
     public function getProductsNames(Collection $products)
     {
         $language = $this->language;
-        $products = $this->modelService->getPivotPropertiesWithLanguage($products,'name',$language);
+        $products = $this->modelService->getPivotPropertiesWithLanguage($products,'properties',$language);
         $products->each(function ($item) use ($language){
             $array = json_decode($item->properties,true);
-            $item->setAttribute('name',$array['name']);
+            if ($array){
+                $item->setAttribute('name',$array['name']);
+            }
         });
     }
     public function getOrders(Request $request)
