@@ -6,7 +6,7 @@
             <h3>{{$product->price}} ₽</h3>
         </div>
         @if($product->quantity>0)
-            <span>В наличии:☑</span>
+            <span>{{trans('product.inStock')}}☑</span>
         @endif
         <div class="buttons">
             <button type="button">
@@ -28,7 +28,7 @@
                 </form>
             @endif
         </div>
-        <span>Добавлен: {{$product->time}}</span>
+        <span>{{trans('product.added')}}{{$product->time}}</span>
     </div>
 </div>
 

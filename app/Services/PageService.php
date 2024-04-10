@@ -35,7 +35,7 @@ class PageService
         $category = new Category();
         $language = $this->language;
         $records = $this->modelService->getRecordsManyToLanguage($category,$language);
-        $this->modelService->getPivotPropertiesWithLanguage($records);
+        $this->modelService->getPivotPropertiesWithLanguage($records,'name',$language);
         return $this->modelService->flattenCollection($records,['id','name']);
     }
     public function getSubcategories(string|array $column = null): array
@@ -43,8 +43,8 @@ class PageService
         $subcategory = new Subcategory();
         $language = $this->language;
         $records = $this->modelService->getRecordsManyToLanguage($subcategory,$language);
-        $this->modelService->getPivotPropertiesWithLanguage($records);
-        return $this->modelService->flattenCollection($records,['id','name']);
+        $this->modelService->getPivotPropertiesWithLanguage($records,'name',$language);
+        return $this->modelService->flattenCollection($records,['id','name','category_id']);
     }
     public function getProductsFromCart(): ?Collection
     {
@@ -55,19 +55,30 @@ class PageService
         }
         return $products;
     }
+    public function createProduct(Request $request)
+    {
+        $language = $this->language;
+        return $this->productService->saveProduct($request,$language);
+    }
     public function loadProductsData(Collection $products):Collection
     {
         return $this->productService->loadProductsData($products);
     }
-    public function getCategoriesJson(string|array $column = null): bool|string
-    {
-        $model = new Category;
-        return $this->modelService->getAllRecordsJson($model,$column);
-    }
     public function getProductsProperties($products = null): array
     {
-        $products = $products ?? Product::all();
-        return $this->productService->getProductsAdditionalProperties($products);
+        $language = $this->language;
+        $products = $products ?? $language->products()->get();
+        $this->modelService->getPivotPropertiesWithLanguage($products,'properties',$language);
+        return $this->productService->getProductsAdditionalProperties($products,$language);
+    }
+    public function getProductsNames(Collection $products)
+    {
+        $language = $this->language;
+        $products = $this->modelService->getPivotPropertiesWithLanguage($products,'name',$language);
+        $products->each(function ($item) use ($language){
+            $array = json_decode($item->properties,true);
+            $item->setAttribute('name',$array['name']);
+        });
     }
     public function getOrders(Request $request)
     {
@@ -80,7 +91,10 @@ class PageService
     }
     public function getFilteredProducts(Request $request):Collection
     {
-        $products = $this->productService->getFilteredProducts($request);
+        $language = $this->language;
+        $products = $this->productService->filterMainProperties($request, $language);
+        $this->modelService->getPivotPropertiesWithLanguage($products,'properties',$language);
+        $products = $this->productService->getFilteredProducts($request,$products);
         return $this->loadProductsData($products);
     }
 //    Метод getProductsPrice используется только после того как были добавлены аттрибуты в productService методом setProductsCartParams

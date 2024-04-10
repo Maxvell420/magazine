@@ -12,4 +12,6 @@ return [
     'description'=>'Product description:',
     'deleteProperty'=>'Delete property',
     'additionalProperty'=>'Additional property:',
+    'inStock'=>'In stock:',
+    'added'=>'product added:',
 ];

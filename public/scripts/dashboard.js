@@ -139,6 +139,9 @@ function showSubcategoryParams(radio,productParams){
     let params = productParams[id];
     let counter = 1;
     for (let paramsKey in params) {
+        if(paramsKey==='name'){
+            continue;
+        }
         let span = createSpan(paramsKey);
         div.appendChild(span);
         span.addEventListener('click', (function(counter) {

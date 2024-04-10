@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory,UsabilityTime;
-    protected $fillable=['price','quantity','type','name','category_id','subcategory_id','additional_properties'];
+    protected $fillable=['price','quantity','type','name','category_id','subcategory_id','properties'];
     public function loadExternalData()
     {
         $this->getUsabilityTime($this->created_at);
@@ -28,6 +28,10 @@ class Product extends Model
     public function subcategory()
     {
         return $this->belongsTo(Subcategory::class);
+    }
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class)->withPivot('properties');
     }
     public function images()
     {

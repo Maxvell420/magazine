@@ -8,7 +8,8 @@
                 <label for="name">{{trans('product.name')}}</label>
                 <input type="text" name="name" id="name" value="{{old('name')}}">
                 <label for="subcategoryInput1">{{trans('product.subcategory')}}</label>
-                <input type="text" name="subcategory" id="subcategoryInput1" value="{{old('subcategory')}}">
+                <input type="text" id="subcategoryInput1" value="{{old('subcategory')}}">
+                <input type="hidden" id="subcategory" name="subcategory" value="{{old('subcategory')}}">
                 <ul id="subcategoryList1" class="dropdown"></ul>
                 <label for="price">{{trans('product.price')}}</label>
                 <input type="number" id="price" name="price" min="1" value="{{old('price')}}">
@@ -71,6 +72,7 @@
     })
 
     let subcategoryInput1 = document.getElementById('subcategoryInput1')
+    let hiddenInput = document.getElementById('subcategory')
     subcategoryInput1.addEventListener('input',function (){
         let ul = document.getElementById('subcategoryList1')
         ul.innerHTML=''
@@ -83,6 +85,7 @@
                 li.textContent = filteredElement['name']
                 li.addEventListener('click',function (){
                     subcategoryInput1.value = li.textContent
+                    hiddenInput.value = filteredElement['id']
                     ul.innerHTML=''
                 })
                 ul.appendChild(li)

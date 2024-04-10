@@ -25,7 +25,7 @@ class ProductController
     }
     public function save(Request $request)
     {
-        $product = $this->productService->saveProduct($request);
+        $product = $this->pageService->createProduct($request);
         return view('product.show',compact(['product']));
     }
     public function like(Product $product)

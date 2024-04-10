@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Language;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -19,22 +20,22 @@ class ProductService
         $products_ids=$products_ids??[];
         return Product::query()->whereIn('id',$products_ids)->get();
     }
-    public function saveProduct(Request $request)
+    public function saveProduct(Request $request,Language $language)
     {
         $productMainProperties = $this->validateProductProperties($request);
         $subcategory = $this->getSubcategory($request);
         $productMainProperties['subcategory_id']=$subcategory->id;
         $productMainProperties['category_id']=$subcategory->category_id;
         $product = Product::query()->create($productMainProperties);
-        $this->saveAdditionalProperties($request,$product);
+        $this->saveAdditionalProperties($request,$language,$product);
         $this->saveImagesOfProduct($request,$product);
         return $product;
     }
-    public function getProductsAdditionalProperties(\Illuminate\Support\Collection $products):array
+    public function getProductsAdditionalProperties(\Illuminate\Support\Collection $products,Language $language):array
     {
         $result = [];
         foreach ($products as $product){
-            $properties = json_decode($product->additional_properties);
+            $properties = json_decode($product->properties);
             foreach ($properties as $property => $value){
                 if (isset($result[$product->subcategory_id][$property])){
                     if (in_array($value,$result[$product->subcategory_id][$property])){
@@ -50,11 +51,10 @@ class ProductService
     {
         return json_decode($product->additional_properties,true);
     }
-    public function getFilteredProducts(Request $request):Collection
+    public function filterMainProperties(Request $request, Language $language):Collection
     {
-        $products = Product::query();
+        $products = $language->products();
         $price = $request->input('price');
-        $additionalProperties = $request->except(['subcategory','price']);
         $subcategory_id=$request->input('subcategory');
         if (isset($price)){
             $products=$products->where('price','<',$price);
@@ -62,14 +62,18 @@ class ProductService
         if (isset($subcategory_id)){
             $products=$products->where('subcategory_id','=',$subcategory_id);
         }
-        $products=$products->get();
+        return $products->get();
+    }
+    public function getFilteredProducts(Request $request, Collection $products):Collection
+    {
+        $additionalProperties = $request->except(['subcategory','price']);
         if (isset($additionalProperties)){
             /*
              * Первый цикл проходит по свойствам из запроса, а во вложенном цикле происходит проверка,
              * есть ли значение и равно ли оно значению из запроса, при неправильности значение убирается из коллекции
              */
-            $products=$products->filter(function ($product) use ($additionalProperties){
-                $properties = json_decode($product->additional_properties);
+        $products=$products->filter(function ($product) use ($additionalProperties){
+                $properties = json_decode($product->properties);
                 foreach ($additionalProperties as $propertyName => $values){
                     foreach ($values as $value){
                         if (!property_exists($properties,$propertyName)){
@@ -125,11 +129,11 @@ class ProductService
         }
         return $products;
     }
-    private function saveAdditionalProperties(Request $request,Product $product)
+    private function saveAdditionalProperties(Request $request,Language $language,Product $product):void
     {
         $json = $this->encodeProductProperties($request);
         if ($json){
-            $product->update(['additional_properties'=>$json]);
+            $language->products()->attach($product->id,['properties'=>$json]);
         }
     }
     private function validateProductProperties(Request $request):array
@@ -137,25 +141,24 @@ class ProductService
         return $request->validate([
             'price'=>'required',
             'quantity'=>'required',
-            'name'=>'required',
         ]);
     }
     private function encodeProductProperties(Request $request): bool|string
     {
-        $properties = $request->except(['price','quantity','type','name','_token','subcategory','images']);
+        $properties = $request->except(['price','quantity','type','_token','subcategory','images']);
         return json_encode($properties);
     }
     private function getSubcategory(Request $request): object
     {
-        $subcategoryName = $request->validate([
+        $subcategory_id = $request->validate([
             'subcategory'=>'required'
         ]);
-        return Subcategory::query()->where('name',$subcategoryName)->first();
+        return Subcategory::find($subcategory_id)->first();
     }
     private function saveImagesOfProduct(Request $request,Product $product): void
     {
         $images = $request->file(['images']);
-        $path = "photos/{$product->category->name}/{$product->subcategory->name}/$product->id";
+        $path = "photos/{$product->category->id}/{$product->subcategory->id}/$product->id";
         if (isset($images)){
             foreach ($images as $image){
                 $this->fileService->downloadFile($image,$path);

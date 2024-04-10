@@ -26,10 +26,10 @@ class ModelService
             $query->where('language_id', $language->id);
         })->get();
     }
-    public function getPivotPropertiesWithLanguage(Collection $collection)
+    public function getPivotPropertiesWithLanguage(Collection $collection,string $column,Language $language)
     {
-        $collection->each(function ($item) {
-            $item->setAttribute('name', $item->languages->pluck('pivot.name')->implode(', '));
+        $collection->each(function ($item)  use ($column,$language){
+            $item->setAttribute($column, $item->languages->where('id','=',$language->id)->pluck('pivot.'.$column)->implode(', '));
         });
         return $collection;
     }
