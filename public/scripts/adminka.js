@@ -1,5 +1,5 @@
 (function (){
-   window.adminkaEventManager = function (orders){
+   window.adminkaEventManager = function (orders,translations){
        let input = document.getElementById('order')
        input.addEventListener('input',function (){
            let text = this.value
@@ -16,13 +16,9 @@
                         let secondP = document.createElement('p')
                         secondP.textContent=order.price
                         let thirdP = document.createElement('p')
-                        if (order.payed){
-                            thirdP.textContent='Оплачен'
-                        } else {
-                            thirdP.textContent='Не оплачен'
-                        }
+                        thirdP.textContent=translations.payed+order.payed
                         let fourthP = document.createElement('p')
-                        fourthP.textContent=order.status
+                        fourthP.textContent=translations.orderStatus+order.status
                         div.appendChild(firstP)
                         div.appendChild(secondP)
                         div.appendChild(thirdP)

@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('delivery_id')->constrained('deliveries');
             $table->boolean('payed')->default(0);
-            $table->string('status');
+            $table->integer('status')->default(0);
             $table->integer('price');
             $table->json('products');
             $table->string('filepath')->nullable();

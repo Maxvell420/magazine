@@ -1,7 +1,7 @@
 <div class="adminHeader">
     <div class="adminHeaderButtons">
-        <x-headbutton :href="'main.admin'" :text="'Поиск по заказам'"></x-headbutton>
-        <x-headbutton :href="'product.create'" :text="'Создание продукта'"></x-headbutton>
+        <x-headbutton :href="route(trans('routes.names.main.admin'))" :text="trans('routes.texts.main.admin')"/>
+        <x-headbutton :href="route(trans('routes.names.product.create'))" :text="trans('routes.texts.product.create')"/>
     </div>
 </div>
-<script defer>headerButtonEventManager('.adminHeaderButtons button')</script>
+<script defer>adminHeaderButtonEventManager('.adminHeaderButtons button')</script>

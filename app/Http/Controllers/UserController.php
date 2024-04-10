@@ -25,7 +25,8 @@ class UserController extends Controller
     }
     public function logout()
     {
+        $lang = App::getLocale();
         Auth::logout();
-        return redirect()->route('main.dashboard');
+        return redirect()->route($lang.'.'.'main.dashboard');
     }
 }

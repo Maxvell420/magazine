@@ -2,28 +2,23 @@
     <x-adminHeader/>
     <div class="wrapper">
         <div class="search">
-            <label for="order">Поиск заказа</label>
-            <input id="order" type="text" name="order" placeholder="Номер заказа" autocomplete="off">
+            <label for="order">{{trans('order.search')}}</label>
+            <input id="order" type="text" name="order" placeholder="{{trans('order.id')}}" autocomplete="off">
         </div>
         <div class="results">
             <div class="resultHead">
-                <p>Номер заказа</p>
-                <p>Сумма заказа (₽)</p>
-                <p>Статус оплаты</p>
-                <p>Статус заказа</p>
+                <p>{{trans('order.id')}}</p>
+                <p>{{trans('order.price')}}(₽)</p>
+                <p>{{trans('order.payment')}}</p>
+                <p>{{trans('order.status')}}</p>
             </div>
             <div class="searchOrders">
                 @foreach($newOrders as $order)
                     <a href="{{route('order.show',[$order])}}" class="order">
-                            <p>{{$order->id}}</p>
-                            <p>{{$order->price}}</p>
-                            <p>@if($order->payed)
-                                    Оплачен
-                                @else
-                                    Не оплачен
-                                @endif
-                            </p>
-                            <p>{{$order->status}}</p>
+                        <p>{{$order->id}}</p>
+                        <p>{{$order->price}}</p>
+                        <p>{{trans("order.payed.{$order->payed}")}}</p>
+                        <p>{{$order->status}}</p>
                     </a>
                 @endforeach
             </div>
@@ -31,5 +26,5 @@
     </div>
 </x-layout>
 <script defer>
-    adminkaEventManager({!! $orders !!})
+    adminkaEventManager({!! $orders !!},@json(trans('order')))
 </script>

@@ -18,6 +18,7 @@ return [
             'save'=>'en.user.save',
         ],
         'product'=>[
+            'create'=>'en.product.create',
             'edit'=>'en.product.edit',
             'save'=>'en.product.save',
             'like'=>'en.product.like',
@@ -53,6 +54,7 @@ return [
             'save'=>'Sign Up',
         ],
         'product'=>[
+            'create'=>'Create Product',
             'edit'=>'Edit Product',
             'save'=>'Save Product',
             'update'=>'Update Product',

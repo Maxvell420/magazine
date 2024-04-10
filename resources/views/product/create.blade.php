@@ -3,7 +3,7 @@
     <div class="wrapper">
         <div class="form">
             <h3>{{trans('product.create')}}</h3>
-            <form action="{{route(trans('test.productSave.name'))}}" method="post" enctype="multipart/form-data">
+            <form action="{{route(trans('routes.names.product.save'))}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <label for="name">{{trans('product.name')}}</label>
                 <input type="text" name="name" id="name" value="{{old('name')}}">
@@ -23,7 +23,7 @@
         </div>
         <div class="form">
             <h3>{{trans('category.create')}}</h3>
-            <form action="{{route(trans('test.categorySave.name'))}}"method="post">
+            <form action="{{route(trans('routes.names.category.save'))}}"method="post">
                 @csrf
                 <label for="name">{{trans('category.name')}}</label>
                 <input type="text" name="name" id="name">
@@ -32,7 +32,7 @@
         </div>
         <div class="form">
             <h3>{{trans('subcategory.create')}}</h3>
-            <form action="{{route(trans('test.subcategorySave.name'))}}" method="post">
+            <form action="{{route(trans('routes.names.subcategory.save'))}}" method="post">
                 @csrf
                 <label for="categoryInput2">{{trans('category.name')}}</label>
                 <input type="text" id="categoryInput2" name="category" placeholder="Категория">
