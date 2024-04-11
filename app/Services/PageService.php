@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -86,16 +87,20 @@ class PageService
             }
         });
     }
-    public function getProductProperties(Product $product)
+    public function getModelProperties(Model $model,string $column)
     {
         $language = $this->language;
-        $product = $this->modelService->getModelPivotPropertiesWithLanguage($product,'properties',$language);
-        $this->productService->setProductProperties($product);
+        $model = $this->modelService->getModelPivotPropertiesWithLanguage($model,$column,$language);
+        $this->modelService->setModelProperties($model,$column);
     }
     public function getOrders(Request $request)
     {
         $order = new Order();
         return $this->modelService->getAllRecords($order);
+    }
+    public function getAllRecorts(Model $model)
+    {
+        return $this->modelService->getAllRecords($model);
     }
     public function getFilteredProducts(Request $request):Collection
     {

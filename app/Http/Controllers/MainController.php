@@ -43,7 +43,7 @@ class MainController extends Controller
         $styles ='css/main/productEdit.css';
         $scripts='scripts/productEdit.js';
         try {
-            $this->pageService->getProductProperties($product);
+            $this->pageService->getModelProperties($product,'properties');
         } catch (\Exception $e) {
             $message = $e->getMessage();
             session()->flash('warning', $message);
@@ -81,7 +81,7 @@ class MainController extends Controller
     {
         $title = "Продукт: {$product->name}";
         try {
-            $this->pageService->getProductProperties($product);
+            $this->pageService->getModelProperties($product,'properties');
         } catch (\Exception $e) {
             $message = $e->getMessage();
             return view('main.error',compact(['message']));
@@ -167,15 +167,37 @@ class MainController extends Controller
         $styles = 'css/productCreate.css';
         return view('product.create',compact(['styles','categoryNames','subcategoryNames','title']));
     }
-    public function editProducts()
+    public function products()
+    {
+        $product = new Product();
+        $products = $this->pageService->getAllRecorts($product);
+    }
+    public function categories()
+    {
+        $title = '';
+        $styles = 'css/main/categories.css';
+        $category = new Category();
+        try {
+            $categories = $this->pageService->getAllRecorts($category);
+            $categories->each(function ($category){
+                $category->getUsabilityTime($category->created_at);
+                $this->pageService->getModelProperties($category,'name');
+            });
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            session()->flash('warning', $message);
+        }
+        return view('main.categories',compact(['categories','styles','title']));
+    }
+    public function categoryEdit(Category $category)
     {
 
     }
-    public function editCategories()
+    public function subcategoryEdit()
     {
 
     }
-    public function editSubcategories()
+    public function subcategories()
     {
 
     }

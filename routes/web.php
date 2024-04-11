@@ -47,6 +47,14 @@ Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
         Route::post('/category/save',[CategoryController::class,'save'])->name('category.save');
         Route::post('/subcategory/save',[SubcategoryController::class,'save'])->name('subcategory.save');
         Route::get('/user/orders',[MainController::class,'orders'])->name('main.orders');
+//        new
+        Route::get('/categories',[MainController::class,'categories'])->name('main.categories');
+        Route::get('/category/{category}/show',[MainController::class,'categoryEdit'])->name('category.edit');
+        Route::get('/subcategory/{subcategory}/show',[MainController::class,'subcategoryEdit'])->name('subcategory.edit');
+        Route::get('/products',[MainController::class,'products'])->name('main.products');
+        Route::get('/subcategories',[MainController::class,'subcategories'])->name('main.subcategories');
+        Route::post('/category/{category}/update',[CategoryController::class,'update'])->name('category.update');
+        Route::post('/subcategory/{subcategory}/update',[SubcategoryController::class,'update'])->name('subcategory.update');
     });
 });
 
@@ -76,5 +84,11 @@ Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
         Route::post('/category/save',[CategoryController::class,'save'])->name('category.save');
         Route::post('/subcategory/save',[SubcategoryController::class,'save'])->name('subcategory.save');
         Route::get('/user/orders',[MainController::class,'orders'])->name('main.orders');
+
+        Route::get('/categories',[MainController::class,'categories'])->name('main.categories');
+        Route::get('/products',[MainController::class,'products'])->name('main.products');
+        Route::get('/subcategories',[MainController::class,'subcategories'])->name('main.subcategories');
+        Route::post('/category/{category}/update',[CategoryController::class,'update'])->name('category.update');
+        Route::post('/subcategory/{subcategory}/update',[SubcategoryController::class,'update'])->name('subcategory.update');
     });
 });

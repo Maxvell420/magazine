@@ -26,6 +26,37 @@ class ModelService
             $query->where('language_id', $language->id);
         })->get();
     }
+    public function setModelProperties(Model $model,string $attribute)
+    {
+        if ($model->$attribute === null) {
+            throw new \Exception(trans('messages.notfound'));
+        }
+        // Декодирование JSON-строки свойств продукта
+        $properties = json_decode($model->$attribute, true);
+        // Проверяем, удалось ли декодировать JSON
+        if ($properties === null) {
+            return $model;
+        }
+        $additionalProperties = [];
+        // Устанавливаем свойства продукта
+        foreach ($properties as $property => $value) {
+            // Проверяем, есть ли у продукта свойство "name"
+            if ($property === 'name') {
+                $model->name = $value;
+            } else {
+                // Добавляем дополнительные свойства продукта в виде массива
+                $additionalProperties[$property] = $value;
+            }
+        }
+        // Проверяем, установлено ли имя продукта
+        if ($model->name === null) {
+            throw new \Exception(trans('messages.notfound'));
+        }
+        // Если есть дополнительные свойства, устанавливаем их
+        if (!empty($additionalProperties)) {
+            $model->additional_properties = $additionalProperties;
+        }
+    }
     public function getPivotPropertiesWithLanguage(Collection $collection,string $column,Language $language)
     {
         $collection->each(function ($item)  use ($column,$language){

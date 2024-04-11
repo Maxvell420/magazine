@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\UsabilityTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, UsabilityTime;
     protected $fillable=['name'];
     public function subcategory()
     {
@@ -21,4 +22,9 @@ class Category extends Model
     {
         return $this->languages()->firstWhere('language_id', $language->id)->pivot;
     }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

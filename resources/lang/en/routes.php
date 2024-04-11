@@ -11,6 +11,9 @@ return [
             'login'=>'en.main.login',
             'product'=>'en.main.product',
             'checkout'=>'en.main.checkout',
+            'categories'=>'en.main.categories',
+            'subcategories'=>'en.main.subcategories',
+            'products'=>'en.main.products',
         ],
         'user'=>[
             'create'=>'en.user.create',
@@ -27,9 +30,13 @@ return [
         ],
         'category'=>[
             'save'=>'en.category.save',
+            'update'=>'en.category.update',
+            'edit'=>'en.category.edit',
         ],
         'subcategory'=>[
             'save'=>'en.subcategory.save',
+            'update'=>'en.subcategory.update',
+            'edit'=>'en.subcategory.edit',
         ],
         'order'=>[
             'edit'=>'en.order.edit',
@@ -47,6 +54,9 @@ return [
             'favourites'=>'Favourites',
             'logout'=>'Logout',
             'login'=>'Login',
+            'products'=>'Products',
+            'subcategories'=>'Subcategories',
+            'categories'=>'Categories',
         ],
         'user'=>[
             'create'=>'Sign Up',
