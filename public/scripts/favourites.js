@@ -35,13 +35,6 @@ function appendAfter(nodeToInsert,parentNode,nextNode){
         parentNode.insertBefore(nodeToInsert,nextNode)
     }
 }
-function addCurrentClass(div){
-    let current = document.querySelector('.current')
-    if(current!==null){
-        current.className=current.className.replace('current','')
-    }
-    div.className+=' current'
-}
 function showSubcategories(subcategories,productParams){
     let current = document.querySelector('.current')
     let form = document.querySelector('.filterWindow form .filterInputs')
@@ -239,10 +232,10 @@ function generateButtonForProduct(product) {
     let img = document.createElement('img')
     if (productInCart(cart, product)) {
         button.className = 'addToCart'
-        img.src='images/buttons/shopping-cart.svg'
+        img.src='../images/buttons/shopping-cart.svg'
     } else {
         button.className = 'removeFromCart'
-        img.src='images/buttons/remove-from-cart-icon.svg'
+        img.src='../images/buttons/remove-from-cart-icon.svg'
     }
     div.appendChild(button)
     button.appendChild(img)
@@ -256,9 +249,9 @@ function changeProductButton(button,cart,product) {
     let img = button.querySelector('img')
     if (productInCart(cart,product)){
         button.className = 'removeFromCart'
-        img.src='images/buttons/remove-from-cart-icon.svg'
+        img.src='../images/buttons/remove-from-cart-icon.svg'
     } else{
-        img.src='images/buttons/shopping-cart.svg'
+        img.src='../images/buttons/shopping-cart.svg'
         button.className = 'addToCart'
     }
 }

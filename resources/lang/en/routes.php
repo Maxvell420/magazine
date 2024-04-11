@@ -81,7 +81,38 @@ return [
             'save'=>'Save Order',
             'show'=>'Show Order',
         ],
-    ]
+    ],
+    'titles'=>[
+        'main'=>[
+            'checkout'=>'Order confirmation',
+            'dashboard'=>'Медуса - online store for a variety of things!',
+            'admin'=>'Admin board',
+            'orders'=>"Yours orders",
+            'favourites'=>'Your Favourite products',
+            'login'=>'Login',
+            'products'=>'Products',
+            'subcategories'=>'Subcategories',
+            'categories'=>'Categories',
+            'product'=>'Showing Product :name',
+            'cart'=>'Shopping Cart',
+        ],
+        'user'=>[
+            'create'=>'Sign Up',
+        ],
+        'product'=>[
+            'create'=>'Create one of product,category,subcategory',
+            'edit'=>'Edit Product :product_id',
+        ],
+        'category'=>[
+            'edit'=>'Edit window for Category :category_id',
+        ],
+        'subcategory'=>[
+            'edit'=>'Save Edit window for SubCategory :subcategory_id',
+        ],
+        'order'=>[
+            'show'=>'Show Order :Order_id',
+        ],
+    ],
 ];
 //
 //'categorySave'=>['name'=>'category.save'],

@@ -1,5 +1,5 @@
 <div class="product" id="likeProduct_{{$product->id}}">
-        <img src="{{$product->preview}}" alt="preview" class="preview">
+        <img src="{{asset($product->preview)}}" alt="preview" class="preview">
     <div class="productAbout">
         <div class="productHead">
             <h3>{{$product->name}}</h3>
@@ -20,7 +20,7 @@
                     </button>
                 </form>
             @else
-                <form action="{{route(trans('routes.names.product.like'),$product)}}" method="post">
+                <form action="{{route(trans('routes.names.product.dislike'),$product)}}" method="post">
                     @csrf
                     <button type="submit">
                         <img src="{{asset('images/buttons/heart-remove.svg')}}" alt="remove like">
