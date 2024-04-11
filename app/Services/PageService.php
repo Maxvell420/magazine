@@ -86,14 +86,16 @@ class PageService
             }
         });
     }
+    public function getProductProperties(Product $product)
+    {
+        $language = $this->language;
+        $product = $this->modelService->getModelPivotPropertiesWithLanguage($product,'properties',$language);
+        $this->productService->setProductProperties($product);
+    }
     public function getOrders(Request $request)
     {
         $order = new Order();
         return $this->modelService->getAllRecords($order);
-    }
-    public function getProductProperties(Product $product): array
-    {
-        return $this->productService->getProductAdditionalProperties($product);
     }
     public function getFilteredProducts(Request $request):Collection
     {
@@ -170,5 +172,10 @@ class PageService
     public function deleteProductsFromCart(Collection $products)
     {
         return $this->cartService->deleteProductsFromCart($products);
+    }
+    public function updateProduct(Request $request,Product $product)
+    {
+        $language = $this->language;
+        return $this->productService->updateProduct($request,$product,$language);
     }
 }

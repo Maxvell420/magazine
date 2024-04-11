@@ -10,22 +10,32 @@ return [
             'logout'=>'ru.main.logout',
             'login'=>'ru.main.login',
             'product'=>'ru.main.product',
+            'checkout'=>'ru.main.checkout',
         ],
         'user'=>[
-            'create'=>'ru.user.create'
-        ]
-        ,
+            'create'=>'ru.user.create',
+            'auth'=>'ru.user.auth',
+            'save'=>'ru.user.save',
+        ],
         'product'=>[
+            'create'=>'ru.product.create',
+            'edit'=>'ru.product.edit',
             'save'=>'ru.product.save',
             'like'=>'ru.product.like',
             'dislike'=>'ru.product.dislike',
+            'update'=>'ru.product.update',
         ],
         'category'=>[
             'save'=>'ru.category.save',
         ],
         'subcategory'=>[
             'save'=>'ru.subcategory.save',
-        ]
+        ],
+        'order'=>[
+            'edit'=>'ru.order.edit',
+            'save'=>'ru.order.save',
+            'show'=>'ru.order.show',
+        ],
     ],
 
     'texts'=>[
@@ -36,11 +46,30 @@ return [
             'orders'=>"Ваши заказы",
             'favourites'=>'Избранное',
             'logout'=>'Выход',
-            'login'=>'Логин',
+            'login'=>'Вход',
         ],
         'user'=>[
-            'create'=>'Регистрация'
-        ]
+            'create'=>'Регистрация',
+            'auth'=>'Войти',
+            'save'=>'Зарегистрироваться',
+        ],
+        'product'=>[
+            'create'=>'Создать продукта',
+            'edit'=>'Редактировать продукт',
+            'save'=>'Сохранить',
+            'update'=>'Обновить Продукт',
+        ],
+        'category'=>[
+            'save'=>'Сохранить Категорию',
+        ],
+        'subcategory'=>[
+            'save'=>'Сохранить подкатегорию',
+        ],
+        'order'=>[
+            'edit'=>'Редактировать заказ',
+            'save'=>'Сохраниь заказ',
+            'show'=>'Показать заказ',
+        ],
     ]
 ];
 //

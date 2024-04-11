@@ -14,7 +14,7 @@
             </div>
             <div class="searchOrders">
                 @foreach($newOrders as $order)
-                    <a href="{{route('order.show',[$order])}}" class="order">
+                    <a href="{{route(trans('routes.names.order.show'),[$order])}}" class="order">
                         <p>{{$order->id}}</p>
                         <p>{{$order->price}}</p>
                         <p>{{trans("order.payed.{$order->payed}")}}</p>

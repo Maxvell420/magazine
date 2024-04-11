@@ -10,4 +10,5 @@ return [
     'pickup'=>'Pickup',
     'delivery'=>'Delivery',
     'totalPrice'=>'Total Price',
+    'save'=>'Save'
 ];

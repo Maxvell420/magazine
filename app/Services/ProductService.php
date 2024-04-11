@@ -89,12 +89,23 @@ class ProductService
         }
         return $products;
     }
-    public function updateProduct(Request $request,Product $product)
+    public function updateProduct(Request $request,Product $product,Language $language):product
     {
         $mainProperties = $this->validateProductProperties($request);
-        $productAdditionalProperties = ['additional_properties'=>$this->encodeProductProperties($request)];
-        $data = array_merge($mainProperties,$productAdditionalProperties);
-        return $product->update($data);
+        $this->updatePivotOfProduct($request,$product,$language);
+        $product->update($mainProperties);
+        return $product;
+    }
+    private function updatePivotOfProduct(Request $request,Product $product,Language $language)
+    {
+        $productAdditionalProperties = ['properties'=>$this->encodeProductProperties($request)];
+        $pivot = $product->languages->firstWhere('id',$language->id);
+        if ($pivot){
+            $pivot->pivot->update($productAdditionalProperties);
+        } else{
+            $language->products()->attach($product->id,$productAdditionalProperties);
+        }
+        return $product;
     }
     public function loadProductsData(Collection $products): Collection
     {
@@ -128,6 +139,34 @@ class ProductService
             }
         }
         return $products;
+    }
+    public function setProductProperties(Product $product)
+    {
+        // Декодирование JSON-строки свойств продукта
+        $properties = json_decode($product->properties, true);
+        // Проверяем, удалось ли декодировать JSON
+        if ($properties === null) {
+            throw new \Exception(trans('messages.notfound'));
+        }
+        $additionalProperties = [];
+        // Устанавливаем свойства продукта
+        foreach ($properties as $property => $value) {
+            // Проверяем, есть ли у продукта свойство "name"
+            if ($property === 'name') {
+                $product->name = $value;
+            } else {
+                // Добавляем дополнительные свойства продукта в виде массива
+                $additionalProperties[$property] = $value;
+            }
+        }
+        // Проверяем, установлено ли имя продукта
+        if ($product->name === null) {
+            throw new \Exception(trans('messages.notfound'));
+        }
+        // Если есть дополнительные свойства, устанавливаем их
+        if (!empty($additionalProperties)) {
+            $product->additional_properties = $additionalProperties;
+        }
     }
     private function saveAdditionalProperties(Request $request,Language $language,Product $product):void
     {

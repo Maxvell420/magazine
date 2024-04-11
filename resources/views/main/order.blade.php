@@ -2,60 +2,56 @@
     <div class="wrapper">
         @guest
             <div class="warning">
-                Настоятельно рекомендуем вам сохранить номер вашего заказа и загрузить файл заказа
+                {{trans('messages.auth.warning')}}
             </div>
         @endguest
         <div class="order">
             <div class="orderHeader">
-                <h3>Заказ№-{{$order->id}}</h3>
-                <div class="file"><a href="{{asset($filepath)}}">Скачать заказ</a></div>
+                <h3>{{trans('order.order')}}:{{$order->id}}</h3>
+                <div class="file"><a href="{{asset($filepath)}}">{{trans('order.download')}}</a></div>
             </div>
             <div class="products">
-                <p>Название продукта</p>
-                <p>Количество</p>
-                <p>Стоимость (₽)</p>
+                <p>{{trans('product.name')}}</p>
+                <p>{{trans('product.quantity')}}</p>
+                <p>{{trans('product.price')}}(₽)</p>
                 @foreach($products as $product)
                     <p>{{$product->name}}</p>
                     <p>{{$product->total_quantity}}</p>
                     <p>{{$product->total_price}}</p>
                 @endforeach
                 @if($delivery->id>1)
-                    <p>Доставка</p>
+                    <p>{{trans('form.delivery')}}</p>
                     <p>1</p>
                     <p>{{$delivery->price}}</p>
                 @endif
-                <p>Итого:</p>
+                <p>{{trans('form.total')}}</p>
                 <p>{{$orderQuantity}}</p>
                 <p>{{$order->price}}</p>
             </div>
             <div class="orderStatus">
-                <p>Статус заказа</p>
-                <p>Статус оплаты</p>
-                <p>{{$order->status}}</p>
-                @if($order->payed)
-                    <p>Оплачен</p>
-                @else
-                    <p>Не Оплачен</p>
-                   @endif
+                <p>{{trans('order.status')}}</p>
+                <p>{{trans('order.payment')}}</p>
+                <p>{{trans("order.orderStatus.$order->status")}}</p>
+                <p>{{trans("order.payed.$order->payed")}}</p>
             </div>
             @auth
-            @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
-                <form action="{{route('order.edit',[$order])     }}" method="post" class="orderEdit">
-                    @csrf
-                    <label for="payment">Изменить статус оплаты заказа:</label>
-                    <select id="payment" name="payed">
-                        <option @if(!$order->payed) selected @endif value="0">Не оплачен</option>
-                        <option @if($order->payed) selected @endif value="1">Оплачен</option>
-                    </select>
-                    <label for="status">Изменить статус оплаты</label>
-                    <select id="status" name="status">
-                        <option @if($order->status == 'Подготовка заказа') selected @endif>Подготовка заказа</option>
-                        <option @if($order->status == 'Готов к получению') selected @endif>Готов к получению</option>
-                    </select>
-                    <div></div>
-                    <button type="submit">Сохранить изменения</button>
-                </form>
-                       @endif
+                @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
+                    <form action="{{route(trans('routes.names.order.edit'),[$order])}}" method="post" class="orderEdit">
+                        @csrf
+                        <label for="payment">{{trans('order.changePayment')}}</label>
+                        <select id="payment" name="payed">
+                            <option @if(!$order->payed) selected @endif value="0">{{trans('order.payed.0')}}</option>
+                            <option @if($order->payed) selected @endif value="1">{{trans('order.payed.1')}}</option>
+                        </select>
+                        <label for="status">{{trans('order.changeStatus')}}</label>
+                        <select id="status" name="status">
+                            <option @if($order->status == 0) selected @endif>{{trans('order.orderStatus.0')}}</option>
+                            <option @if($order->status == 1) selected @endif>{{trans('order.orderStatus.1')}}</option>
+                        </select>
+                        <div></div>
+                        <button type="submit">{{trans('form.save')}}</button>
+                    </form>
+                @endif
             @endauth
         </div>
     </div>

@@ -42,8 +42,14 @@ class MainController extends Controller
         $title = "Редактирование продука: {$product->name}";
         $styles ='css/main/productEdit.css';
         $scripts='scripts/productEdit.js';
+        try {
+            $this->pageService->getProductProperties($product);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            session()->flash('warning', $message);
+        }
         $product->loadExternalData();
-        $properties = $this->pageService->getProductProperties($product);
+        $properties = $product->additional_properties??[];
         return view('main.productEdit',compact(['properties','styles','scripts','title','product']));
     }
     public function dashboard(Request $request)
@@ -74,7 +80,14 @@ class MainController extends Controller
     public function productShow(Product $product)
     {
         $title = "Продукт: {$product->name}";
-        $properties = $this->pageService->getProductProperties($product);
+        try {
+            $this->pageService->getProductProperties($product);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return view('main.error',compact(['message']));
+        }
+        $properties = $product->additional_properties;
+
         $favourites = $this->pageService->getUserFavourites();
         $product->loadExternalData();
         $styles = 'css/main/product.css';
@@ -153,5 +166,17 @@ class MainController extends Controller
         $subcategoryNames = json_encode($pageService->getSubcategories());
         $styles = 'css/productCreate.css';
         return view('product.create',compact(['styles','categoryNames','subcategoryNames','title']));
+    }
+    public function editProducts()
+    {
+
+    }
+    public function editCategories()
+    {
+
+    }
+    public function editSubcategories()
+    {
+
     }
 }

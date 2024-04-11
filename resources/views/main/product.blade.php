@@ -9,23 +9,23 @@
                 <img src="{{asset($product->preview)}}" alt="{{$product->name}}" class="preview">
                 <div class="productInfo">
                     @if($product->quantity > 0)
-                        <span>В наличии:☑</span>
+                        <span>{{trans('product.inStock')}} : ☑</span>
                     @endif
-                    <span>Добавлен: {{$product->time}}</span>
+                    <span>{{trans('product.added')}} : {{$product->time}}</span>
                 </div>
                 <div class="buttons">
                     <button type="button">
                         <img src="" alt="heart">
                     </button>
                     @if(!in_array($product->id,$favourites))
-                        <form action="{{route('product.like',$product)}}" method="post">
+                        <form action="{{route(trans('routes.names.product.like'),$product)}}" method="post">
                             @csrf
                             <button type="submit">
                                 <img src="{{asset('images/buttons/heart.svg')}}" alt="like">
                             </button>
                         </form>
                     @else
-                        <form action="{{route('product.dislike',$product)}}" method="post">
+                        <form action="{{route(trans('routes.names.product.dislike'),$product)}}" method="post">
                             @csrf
                             <button type="submit">
                                 <img src="{{asset('images/buttons/heart-remove.svg')}}" alt="remove like">
@@ -34,9 +34,9 @@
                     @endif
                     @auth
                         @if(\Illuminate\Support\Facades\Auth::user()->role_id>1)
-                            <form action="{{route('product.edit',[$product])}}">
+                            <form action="{{route(trans('routes.names.product.edit'),[$product])}}">
                                 <button>
-                                    <a href="{{route('product.edit',[$product])}}">
+                                    <a href="{{route(trans('routes.names.product.edit'),[$product])}}">
                                         <img src="{{asset('images/buttons/edit.svg')}}" alt="product edit">
                                     </a>
                                 </button>
@@ -45,19 +45,21 @@
                     @endauth
                 </div>
             </div>
-            <div class="additionalInfo">
-                <h4>Характеристики продукта</h4>
-                <div class="properties">
-                    @foreach($properties as $key => $value)
-                        <p>{{$key}}: {{$value}}</p>
-                    @endforeach
+            @if(isset($properties))
+                <div class="additionalInfo">
+                    <h4>Характеристики продукта</h4>
+                    <div class="properties">
+                        @foreach($properties as $key => $value)
+                            <p>{{$key}}: {{$value}}</p>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 
 </x-layout>
 <script>
-    productEventManager()
+    productEventManager(@json(trans('form')))
     replaceUnderScore()
 </script>

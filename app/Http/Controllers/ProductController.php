@@ -8,6 +8,7 @@ use App\Models\Subcategory;
 use App\Services\PageService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController
@@ -33,7 +34,8 @@ class ProductController
     }
     public function update(Request $request,Product $product)
     {
-        $this->productService->updateProduct($request,$product);
-        return redirect()->route('product.edit',$product);
+        $lang = App::getLocale();
+        $product = $this->pageService->updateProduct($request,$product);
+        return redirect()->route($lang.'.'.'product.edit',$product);
     }
 }

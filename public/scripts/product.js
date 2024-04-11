@@ -1,5 +1,5 @@
 (function (){
-    window.productEventManager = function (){
+    window.productEventManager = function (translations){
         let cartButton = document.querySelector('.buttons button:first-child')
         let cart = getCookie('cart')
         let parent = cartButton.closest('.product')
@@ -23,8 +23,6 @@
                 updateCartButton(productsAmount)
             }
         })
-        updateCartButton(productsAmount)
-        changeProductButton(cartButton,cart,value)
         function getCookie(cookieName) {
             let cookies = document.cookie.split('; ');
 
@@ -82,6 +80,7 @@
         function productInCart(cart, product_id) {
             return cart.products.includes(product_id)
         }
+        changeProductButton(cartButton,cart,value)
         function changeProductButton(button,cart,product) {
             let img = button.querySelector('img')
             if (productInCart(cart,product)){
@@ -123,7 +122,7 @@
         }
         function updateCartButton(value){
             let button = document.getElementById('cart')
-            button.textContent='Корзина:' + value
+            button.textContent=translations.cart+ ':' + value
         }
         function getProductsAmount(cart){
             return cart.products.length

@@ -1,18 +1,23 @@
 <x-layout :styles="$styles" :scripts="$scripts" :title="$title">
     <div class="wrapper">
-        <h2>Редактирование продукта: {{$product->name}}</h2>
-        <form action="{{route('product.update',$product)}}" method="post">
+        @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
+        <h2>{{trans('product.edit')}}: {{$product->name}}</h2>
+        <form action="{{route(trans('routes.names.product.update'),$product)}}" method="post">
             @csrf
-            <h3>Информация о товаре</h3>
+            <h3>{{trans('product.info')}}</h3>
             <div class="productInfo">
-                <label for="name">Имя продукта:</label>
+                <label for="name">{{trans('product.name')}}</label>
                 <input id="name" type="text" required name="name" placeholder="Название продукта" value="{{old('name')??$product->name}}">
-                <label for="price">Цена продукта:</label>
+                <label for="price">{{trans('product.price')}}</label>
                 <input id="price" type="number" min="1" required step="1" name="price" placeholder="Цена продукта" value="{{old('price')??$product->price}}">
-                <label for="quantity">Количество товаров:</label>
+                <label for="quantity">{{trans('product.quantity')}}</label>
                 <input id="quantity" type="number" min="0" step="1" required name="quantity" placeholder="Количество товаров" value="{{old('quantity')??$product->quantity}}">
             </div>
-            <h3>Характеристики товара</h3>
+            <h3>{{trans('product.characteristics')}}</h3>
             <div class="additionalInfo">
                 {{--Слабое место что при валидации свойста которые сделал пользователь не сохранятся из-за того что имя textarea динамически формируется в js--}}
                 @foreach($properties as $key => $value)

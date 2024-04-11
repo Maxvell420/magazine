@@ -33,6 +33,11 @@ class ModelService
         });
         return $collection;
     }
+    public function getModelPivotPropertiesWithLanguage(Model $model,string $column,Language $language)
+    {
+        $model->setAttribute($column,$model->languages->where('id','=',$language->id)->pluck('pivot.'.$column)->implode(', '));
+        return $model;
+    }
     public function getRecord(Model $class, int|string $id, string|array $column = null):Model
     {
         if ($column){

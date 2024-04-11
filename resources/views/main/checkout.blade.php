@@ -13,7 +13,7 @@
                     <div class="productInfo">
                         <p>{{trans('product.name')}}</p>
                         <p>{{trans('product.quantity')}}</p>
-                        <p>(₽) {{trans('product.price')}}</p>
+                        <p>{{trans('product.price')}}(₽)</p>
                     </div>
                 </div>
                 @foreach($products as $product)

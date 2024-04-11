@@ -69,7 +69,7 @@ class WordService
         }
         // Добавляем строку с итогами
         $totalRow = $table->addRow();
-        $totalRow->addCell(5000)->addText(trans('form.totalPrice'));
+        $totalRow->addCell(5000)->addText(trans('form.total'));
         $totalRow->addCell(2000)->addText($totalQuantity+1);
         $totalRow->addCell(2000)->addText($order->price);
         foreach ($table->getRows() as $row) {

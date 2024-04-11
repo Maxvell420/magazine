@@ -16,9 +16,9 @@
                         let secondP = document.createElement('p')
                         secondP.textContent=order.price
                         let thirdP = document.createElement('p')
-                        thirdP.textContent=translations.payed+order.payed
+                        thirdP.textContent=translations.payed[order.payed]
                         let fourthP = document.createElement('p')
-                        fourthP.textContent=translations.orderStatus+order.status
+                        fourthP.textContent=translations.orderStatus[order.status]
                         div.appendChild(firstP)
                         div.appendChild(secondP)
                         div.appendChild(thirdP)
