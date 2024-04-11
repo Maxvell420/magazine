@@ -1,0 +1,52 @@
+.wrapper {
+    width: 100%;
+    max-width: 800px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    padding: 20px; /* Отступы вокруг контейнера */
+}
+
+.category {
+    margin-bottom: 20px; /* Отступ между категорией и продуктами */
+}
+
+.category form {
+    display: flex; /* Отображение элементов формы в строку */
+    flex-direction: column; /* Выстраиваем элементы в столбец */
+}
+
+.category label {
+    margin-bottom: 5px; /* Отступ между меткой и полем ввода */
+}
+
+.category input[type="text"] {
+    padding: 10px; /* Отступы внутри поля ввода */
+    margin-bottom: 10px; /* Отступ снизу поля ввода */
+    border: 1px solid #ccc; /* Граница поля ввода */
+    border-radius: 5px; /* Скругление углов */
+}
+
+.category button[type="submit"] {
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: #fff; /* Цвет текста кнопки */
+    border: none; /* Убираем границу кнопки */
+    border-radius: 5px; /* Скругление углов */
+    cursor: pointer; /* Изменяем курсор при наведении */
+    transition: background-color 0.3s; /* Плавное изменение цвета фона */
+}
+
+.category button[type="submit"]:hover {
+    background-color: #0056b3; /* Цвет фона кнопки при наведении */
+}
+
+.products a {
+    display: block; /* Каждая ссылка на продукт на новой строке */
+    margin-bottom: 10px; /* Отступ между ссылками на продукт */
+    color: #000; /* Цвет текста ссылки */
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    transition: color 0.3s; /* Плавное изменение цвета текста */
+}
+
+.products a:hover {
+    color: #007bff; /* Цвет текста ссылки при наведении */
+}

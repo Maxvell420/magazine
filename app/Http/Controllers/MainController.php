@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Subcategory;
 use App\Services\PageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -191,14 +192,49 @@ class MainController extends Controller
     }
     public function categoryEdit(Category $category)
     {
-
+        $styles = 'css/main/category.css';
+        $title = '';
+        $category->load('products');
+        try {
+            $category->load('products');
+            $this->pageService->getModelProperties($category,'name');
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            session()->flash('warning', $message);
+        }
+        return view('main.category',compact(['category','styles','title']));
     }
-    public function subcategoryEdit()
+    public function subcategoryEdit(Subcategory $subcategory)
     {
-
+        $styles = 'css/main/subcategory.css';
+        $title = '';
+        $subcategory->load('products');
+        try {
+            $subcategory->load('products');
+            $this->pageService->getModelProperties($subcategory,'name');
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            session()->flash('warning', $message);
+        }
+        return view('main.subcategory',compact(['subcategory','styles','title']));
     }
     public function subcategories()
     {
-
+        {
+            $title = '';
+            $styles = 'css/main/subcategories.css';
+            $subcategory = new Subcategory();
+            try {
+                $subcategories = $this->pageService->getAllRecorts($subcategory);
+                $subcategories->each(function ($subcategory){
+                    $subcategory->getUsabilityTime($subcategory->created_at);
+                    $this->pageService->getModelProperties($subcategory,'name');
+                });
+            } catch (\Exception $e) {
+                $message = $e->getMessage();
+                session()->flash('warning', $message);
+            }
+            return view('main.subcategories',compact(['subcategories','styles','title']));
+        }
     }
 }

@@ -5,5 +5,6 @@ return [
     'edit'=>'Edit Category:',
     'save'=>'Save Category',
     'created'=>'Category :name has been created',
-    'categories'=>'Categories'
+    'categories'=>'Categories',
+    'products'=>'Products of this category',
 ];

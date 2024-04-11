@@ -89,6 +89,7 @@ class PageService
     }
     public function getModelProperties(Model $model,string $column)
     {
+        //    Колонка которая сюда отправляется это колонка в промежуточной таблице какую нужно получить
         $language = $this->language;
         $model = $this->modelService->getModelPivotPropertiesWithLanguage($model,$column,$language);
         $this->modelService->setModelProperties($model,$column);

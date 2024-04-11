@@ -57,6 +57,7 @@ return [
             'products'=>'Products',
             'subcategories'=>'Subcategories',
             'categories'=>'Categories',
+            'product'=>'Show Product with ID: :product_id',
         ],
         'user'=>[
             'create'=>'Sign Up',

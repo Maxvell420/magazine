@@ -18,7 +18,7 @@
                         <p>{{$order->id}}</p>
                         <p>{{$order->price}}</p>
                         <p>{{trans("order.payed.{$order->payed}")}}</p>
-                        <p>{{$order->status}}</p>
+                        <p>{{trans("order.orderStatus.$order->status")}}</p>
                     </a>
                 @endforeach
             </div>
