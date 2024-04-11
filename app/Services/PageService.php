@@ -81,6 +81,8 @@ class PageService
             $array = json_decode($item->properties,true);
             if ($array){
                 $item->setAttribute('name',$array['name']);
+            } else {
+                throw new \Exception(trans('messages.notfound'));
             }
         });
     }
@@ -164,5 +166,9 @@ class PageService
     public function attachHrefToOrder(Collection $orders)
     {
         $this->orderService->attachHref($orders,$this->language->name);
+    }
+    public function deleteProductsFromCart(Collection $products)
+    {
+        return $this->cartService->deleteProductsFromCart($products);
     }
 }

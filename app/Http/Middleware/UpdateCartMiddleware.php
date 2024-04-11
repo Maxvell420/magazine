@@ -26,8 +26,7 @@ class UpdateCartMiddleware
         if (Auth::check()) {
             $cartData = $_COOKIE['cart'] ?? null;
             $cartValue = $this->cartService->handleCookieProducts($cartData);
-            $expiryInSeconds = now()->addMinutes(5)->diffInSeconds(now());
-            $cookie = cookie('cart', $cartValue, $expiryInSeconds, '/', null, false, false, true, 'Lax');
+            $cookie = $this->cartService->createNewCartCookie($cartValue);
             return $next($request)->cookie($cookie);
         }
 

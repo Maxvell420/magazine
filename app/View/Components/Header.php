@@ -23,13 +23,14 @@ class Header extends Component
 
     /**
      * Get the view / contents that represent the component.
+     * Кнопка lang позволяет перейти по ссылке на другой язык
      *
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render()
     {
         $lang = App::getLocale();
-        $url = URL::current();
+        $url = URL::full();
         $routes = [];
         $languages = Language::query()->where('name','!=',$lang)->get();
         $routes[$lang]= $url;

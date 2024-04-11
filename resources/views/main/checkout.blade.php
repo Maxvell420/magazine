@@ -5,7 +5,7 @@
             <h3>{{trans('order.create')}}</h3>
             @guest
                 <div class="warning">
-                    {{trans('message.auth.warning')}}
+                    {{trans('messages.auth.warning')}}
                 </div>
             @endguest
             <div class="products">

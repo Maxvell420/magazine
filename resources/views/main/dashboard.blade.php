@@ -14,6 +14,5 @@
 <script defer>
     appendCategoryButton(@json(trans('category.categories')))
     categoryAppend({!! $categories !!},{!! $subcategories !!},{!! $productsProperties !!})
-    updateCartValue()
 </script>
 

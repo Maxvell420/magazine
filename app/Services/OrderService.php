@@ -37,7 +37,7 @@ class OrderService
             $orderPrice+=$delivery->price;
         }
         $user_id = Auth::check() ? Auth::id() : null;
-        return Order::query()->create(['delivery_id'=>$delivery->id,'products'=>$productOrder,'user_id'=>$user_id,'status'=>'Подготовка заказа','price'=>$orderPrice]);
+        return Order::query()->create(['delivery_id'=>$delivery->id,'products'=>$productOrder,'user_id'=>$user_id,'price'=>$orderPrice]);
     }
     public function attachHref(Collection $orders,string $lang)
     {

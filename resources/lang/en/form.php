@@ -9,4 +9,5 @@ return [
     'cart'=>'Cart',
     'pickup'=>'Pickup',
     'delivery'=>'Delivery',
+    'totalPrice'=>'Total Price',
 ];

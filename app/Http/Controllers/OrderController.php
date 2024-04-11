@@ -7,6 +7,7 @@ use App\Services\OrderService;
 use App\Services\PageService;
 use App\Services\WordService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class OrderController
 {
@@ -24,15 +25,18 @@ class OrderController
     {
         try {
             $products = $this->pageService->getOrderedProductsFromRequest($request);
+            $this->pageService->getProductsNames($products);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             return view('error',compact(['message']));
         }
         $delivery = $this->pageService->getDelivery($request);
         $order = $this->pageService->createOrder($products,$delivery);
-        $path = '../public/sample/Шаблон.docx';
+        $lang = App::getLocale();
+        $path = '../public/sample/'.$lang.'/Шаблон.docx';
         $this->wordService=new WordService($path, $products, $order);
         $this->wordService->createWordDocument();
-        return redirect()->route('order.show',[$order]);
+        $cookie = $this->pageService->deleteProductsFromCart($products);
+        return redirect()->route($lang.'.'.'order.show',[$order])->withCookie($cookie);
     }
 }

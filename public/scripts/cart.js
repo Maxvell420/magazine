@@ -1,9 +1,8 @@
 (function() {
     window.ProductEventManager=function (product,translations) {
-        console.log(translations)
         let deleteButton = document.getElementById('delete_' + product.id)
-        let cartButton = document.getElementById('cart')
-        cartButton.textContent=translations.cart+':'+(Number(getNumbersFromString(cartButton.textContent)[0])+1).toString()
+        // let cartButton = document.getElementById('cart')
+        // cartButton.textContent=translations.cart+':'+(Number(getNumbersFromString(cartButton.textContent)[0])+1).toString()
         let positiveButton = document.getElementById('plus_'+product.id)
         let negativeButton = document.getElementById('minus_'+product.id)
         let input = document.getElementById(product.id)

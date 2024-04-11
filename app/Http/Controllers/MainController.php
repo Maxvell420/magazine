@@ -25,8 +25,13 @@ class MainController extends Controller
     }
     public function cart()
     {
-        $products = $this->pageService->getProductsFromCart();
-        $this->pageService->getProductsNames($products);
+        try {
+            $products = $this->pageService->getProductsFromCart();
+            $this->pageService->getProductsNames($products);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return view('main.error',compact(['message']));
+        }
         $scripts = 'scripts/cart.js';
         $styles = 'css/main/cart.css';
         $title = 'Ваша корзина';
@@ -81,11 +86,11 @@ class MainController extends Controller
         $title = "Подтверждение заказа";
         try {
             $products = $this->pageService->getOrderedProductsFromRequest($request);
+            $this->pageService->getProductsNames($products);
         } catch (\Exception $e) {
             $message = $e->getMessage();
-            return view('error',compact(['message']));
+            return view('main.error',compact(['message']));
         }
-        $this->pageService->getProductsNames($products);
         $scripts = 'scripts/checkout.js';
         $deliveries = Delivery::all();
         $totalPrice = $this->pageService->getProductsPrice($products);
@@ -99,7 +104,7 @@ class MainController extends Controller
             $products = $this->pageService->getOrderedProducts($order);
         } catch (\Exception $e) {
             $message = $e->getMessage();
-            return view('error',compact(['message']));
+            return view('main.notfound',compact(['message']));
         }
         $styles = 'css/main/order.css';
         $filepath=$order->filepath.$order->filename;

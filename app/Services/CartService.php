@@ -35,6 +35,28 @@ class CartService
         // Декодируем данные корзины и возвращаем идентификаторы продуктов
         return json_decode($cartData)->products;
     }
+    public function createNewCartCookie(string $cartValue)
+    {
+        $expiryInSeconds = now()->addMinutes(5)->diffInSeconds(now());
+        return cookie('cart', $cartValue, $expiryInSeconds, '/', null, false, false, true, 'Lax');
+    }
+    public function deleteProductsFromCart(Collection $products)
+    {
+        $user_id = Auth::user()->id;
+        $key = "UserID:$user_id";
+
+        $productsToDeleteIds = $products->pluck('id')->toArray();
+        $ids = $this->getCartProductIds();
+        $remainingProductIds = array_diff_assoc($ids,$productsToDeleteIds);
+        $cart = [
+            'products' => $remainingProductIds,
+            'last_access' => gmdate('D, d M Y H:i:s \G\M\T', strtotime(now()))
+        ];
+
+        $jsonCart = json_encode($cart);
+        $this->updateCartStorage($jsonCart,$key);
+        return $this->createNewCartCookie($jsonCart);
+    }
 
     /*
      * Вызывать метод только если пользователь авторизован

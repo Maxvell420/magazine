@@ -63,13 +63,13 @@ class WordService
         // Добавляем информацию о доставке, если есть
         if ($order->delivery_id > 0) {
             $deliveryRow = $table->addRow();
-            $deliveryRow->addCell(5000)->addText('Доставка');
+            $deliveryRow->addCell(5000)->addText(trans('form.delivery'));
             $deliveryRow->addCell(2000)->addText(1);
             $deliveryRow->addCell(2000)->addText($order->delivery->price);
         }
         // Добавляем строку с итогами
         $totalRow = $table->addRow();
-        $totalRow->addCell(5000)->addText("Итого:");
+        $totalRow->addCell(5000)->addText(trans('form.totalPrice'));
         $totalRow->addCell(2000)->addText($totalQuantity+1);
         $totalRow->addCell(2000)->addText($order->price);
         foreach ($table->getRows() as $row) {
