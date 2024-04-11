@@ -22,7 +22,9 @@ class PageService
                                 private ProductService $productService,
                                 private CartService $cartService,
                                 private OrderService $orderService,
-                                private LocalizationService $localizationService){
+                                private LocalizationService $localizationService,
+                                private CategoryService $categoryService,
+                                private SubcategoryService $subcategoryService){
         $url = \request()->path();
         $this->determineLang($url);
         $lang = App::getLocale();
@@ -183,5 +185,25 @@ class PageService
     {
         $language = $this->language;
         return $this->productService->updateProduct($request,$product,$language);
+    }
+    public function saveCategory(Request $request)
+    {
+        $language = $this->language;
+        return $this->categoryService->save($request,$language);
+    }
+    public function saveSubcategory(Request $request)
+    {
+        $language = $this->language;
+        return $this->subcategoryService->save($request,$language);
+    }
+    public function updateCategory(Request $request,Category $category)
+    {
+        $language = $this->language;
+        return $this->categoryService->update($request,$category,$language);
+    }
+    public function updateSubcategory(Request $request,Subcategory $subcategory)
+    {
+        $language = $this->language;
+        return $this->subcategoryService->update($request,$subcategory,$language);
     }
 }

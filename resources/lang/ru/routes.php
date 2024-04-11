@@ -11,6 +11,9 @@ return [
             'login'=>'ru.main.login',
             'product'=>'ru.main.product',
             'checkout'=>'ru.main.checkout',
+            'categories'=>'ru.main.categories',
+            'subcategories'=>'ru.main.subcategories',
+            'products'=>'ru.main.products',
         ],
         'user'=>[
             'create'=>'ru.user.create',
@@ -27,9 +30,13 @@ return [
         ],
         'category'=>[
             'save'=>'ru.category.save',
+            'update'=>'ru.category.update',
+            'edit'=>'ru.category.edit',
         ],
         'subcategory'=>[
             'save'=>'ru.subcategory.save',
+            'update'=>'ru.subcategory.update',
+            'edit'=>'ru.subcategory.edit',
         ],
         'order'=>[
             'edit'=>'ru.order.edit',
@@ -47,6 +54,10 @@ return [
             'favourites'=>'Избранное',
             'logout'=>'Выход',
             'login'=>'Вход',
+            'products'=>'Продукты',
+            'subcategories'=>'Подкатегории',
+            'categories'=>'Категории',
+            'product'=>'Показать продукт с идентификатором: :product_id',
         ],
         'user'=>[
             'create'=>'Регистрация',

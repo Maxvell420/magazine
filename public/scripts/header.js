@@ -86,7 +86,6 @@
 (function() {
     window.adminHeaderButtonEventManager=function (selector) {
         let buttons = document.querySelectorAll(selector)
-        console.log(buttons)
         buttons.forEach(function (button){
             button.addEventListener('click', hrefRedirect)
         })
