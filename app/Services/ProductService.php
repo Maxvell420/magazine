@@ -79,12 +79,12 @@ class ProductService
                         if (!property_exists($properties,$propertyName)){
                             return false;
                         }
-                        if ($properties->$propertyName != $value){
-                            return false;
+                        if ($properties->$propertyName == $value){
+                            return true;
                         }
                     }
                 }
-                return true;
+                return false;
             });
         }
         return $products;

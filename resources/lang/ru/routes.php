@@ -108,7 +108,7 @@ return [
             'edit'=>'Страница редактирования Подкатегории :subcategory_id',
         ],
         'order'=>[
-            'show'=>'Показать заказ :Order_id',
+            'show'=>'Заказ :Order_id',
         ],
     ],
 ];

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController
 {
-    public function __construct(private ProductService $productService,private PageService $pageService)
+    public function __construct(private PageService $pageService)
     {}
     public function save(Request $request)
     {

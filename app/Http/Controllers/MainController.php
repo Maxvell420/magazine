@@ -67,6 +67,7 @@ class MainController extends Controller
         $favourites = $this->pageService->getUserFavourites();
         return view('main.dashboard',compact(['categories','subcategories','products','productsProperties','styles','scripts','favourites','title']));
     }
+
     public function favourites()
     {
         $title = trans('routes.titles.main.favourites');

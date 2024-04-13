@@ -10,7 +10,9 @@ use Predis\Client;
 
 class CartService
 {
-    public function __construct(private Client $redis,private TimeService $timeService)
+    public function __construct(private TimeService $timeService,
+                                private StorageService $storageService,
+    )
     {}
     public function getCartProductIds(): ?array
     {
@@ -20,11 +22,10 @@ class CartService
         // Формируем ключ для доступа к данным корзины
         // Если пользователь не аутентифицирован, ключ будет "UserID:"
         // Если пользователь аутентифицирован, ключ будет "UserID:<user_id>"
-        $key = "UserID:$user_id";
 
         // Получаем данные корзины из хранилища или из куков
         // В случае если ключ в Redis не задан возвращает null
-        $cartData = $this->getCartStorage($key) ?? $_COOKIE['cart'] ?? null;
+        $cartData = $this->getCartStorage($user_id) ?? $_COOKIE['cart'] ?? null;
 
 
         // Если данные корзины не найдены, возвращаем null
@@ -42,8 +43,7 @@ class CartService
     }
     public function deleteProductsFromCart(Collection $products)
     {
-        $user_id = Auth::user()->id;
-        $key = "UserID:$user_id";
+        $user_id = Auth::id();
 
         $productsToDeleteIds = $products->pluck('id')->toArray();
         $ids = $this->getCartProductIds();
@@ -54,7 +54,7 @@ class CartService
         ];
 
         $jsonCart = json_encode($cart);
-        $this->updateCartStorage($jsonCart,$key);
+        $this->updateCartStorage($jsonCart,$user_id);
         return $this->createNewCartCookie($jsonCart);
     }
 
@@ -63,16 +63,15 @@ class CartService
      */
     public function handleCookieProducts(string $jsonCookieData = null): ?string
     {
-        $user_id = Auth::user()->id;
-        $key = "UserID:$user_id";
-        $cartDataJson = $this->getCartStorage($key);
+        $user_id = Auth::id();
+        $cartDataJson = $this->getCartStorage($user_id);
         if (!$cartDataJson) {
             // Если нет данных в Redis
             if (!$jsonCookieData) {
                 return null; // Нет данных ни в Redis, ни в cookie
             } else {
                 // Обновляем данные в хранилище
-                $this->updateCartStorage($jsonCookieData, $key);
+                $this->updateCartStorage($jsonCookieData, $user_id);
                 return $jsonCookieData;
             }
         } else {
@@ -86,7 +85,7 @@ class CartService
 
                 if ($this->isCookieFresher($cookieData->last_access,$cartData->last_access)) {
                     // Если данные в cookie более актуальны, обновляем Redis
-                    $this->updateCartStorage($jsonCookieData, $key);
+                    $this->updateCartStorage($jsonCookieData, $user_id);
                     return $jsonCookieData;
                 } else {
                     return $cartDataJson; // Возвращаем данные из Redis
@@ -100,12 +99,15 @@ class CartService
         $redisUnix = $this->timeService->getUnixTime($redisTimeStr);
         return  $this->timeService->compareUnixDates($cookieUnix,$redisUnix);
     }
-    private function updateCartStorage(string $jsonData,string $key): void
+    private function updateCartStorage(string $jsonData,string $user_id): void
     {
-        $this->redis->set($key,$jsonData);
+        $this->storageService->updateCartStorage($jsonData,$user_id);
     }
-    private function getCartStorage(string $key): ?string
+    private function getCartStorage(?string $user_id): ?string
     {
-        return $this->redis->get($key);
+        if (!$user_id){
+            return null;
+        }
+        return $this->storageService->getCartStorage($user_id);
     }
 }
