@@ -67,7 +67,7 @@ class ProductService
     public function getFilteredProducts(Request $request, Collection $products):Collection
     {
         $additionalProperties = $request->except(['subcategory','price']);
-        if (isset($additionalProperties)){
+        if ($additionalProperties){
             /*
              * Первый цикл проходит по свойствам из запроса, а во вложенном цикле происходит проверка,
              * есть ли значение и равно ли оно значению из запроса, при неправильности значение убирается из коллекции
@@ -79,12 +79,12 @@ class ProductService
                         if (!property_exists($properties,$propertyName)){
                             return false;
                         }
-                        if ($properties->$propertyName == $value){
-                            return true;
+                        if (!in_array($properties->$propertyName,$values)){
+                            return false;
                         }
                     }
                 }
-                return false;
+                return true;
             });
         }
         return $products;
