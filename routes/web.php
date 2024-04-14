@@ -100,3 +100,4 @@ Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
         Route::post('/subcategory/{subcategory}/update',[SubcategoryController::class,'update'])->name('subcategory.update');
     });
 });
+Route::get('/dash',[\App\Http\Controllers\JSController::class,'dash'])->name('dash');

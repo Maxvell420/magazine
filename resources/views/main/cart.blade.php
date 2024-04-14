@@ -1,4 +1,4 @@
-<x-layout :styles="$styles" :scripts="$scripts" :title="$title">
+<x-layout :styles="$styles" :title="$title">
     <div class="cart">
         <h2>{{trans('form.cart')}}</h2>
         <form class="order" action="{{route(trans('routes.names.main.checkout'))}}">

@@ -1,4 +1,4 @@
-<x-layout :styles="$styles" :scripts="$scripts" :title="$title">
+<x-layout :styles="$styles" :title="$title">
     <x-filter.head :categories="$categories" :subcategories="$subcategories"/>
     <div class="dashboardWrapper">
         <x-filter.window :categories:="$categories" :subcategories="$subcategories"/>

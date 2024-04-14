@@ -1,4 +1,4 @@
-<x-layout :styles="$styles" :scripts="$scripts" :title="$title">
+<x-layout :styles="$styles" :title="$title">
     <x-adminHeader/>
     <div class="wrapper">
         <div class="search">

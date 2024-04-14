@@ -1,4 +1,4 @@
-<x-layout :styles="$styles" :scripts="$scripts" :title="$title">
+<x-layout :styles="$styles" :title="$title">
     <div class="wrapper">
         @if (session('warning'))
             <div class="alert alert-warning">

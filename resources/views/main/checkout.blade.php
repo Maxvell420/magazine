@@ -1,4 +1,4 @@
-<x-layout :styles="$styles" :scripts="$scripts" :title="$title">
+<x-layout :styles="$styles" :title="$title">
     <form action="{{route(trans('routes.names.order.save'))}}" method="post">
         @csrf
         <div class="order">

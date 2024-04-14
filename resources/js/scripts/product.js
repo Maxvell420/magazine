@@ -1,5 +1,4 @@
-(function (){
-    window.productEventManager = function (translations){
+export function productEventManager (translations){
         let cartButton = document.querySelector('.buttons button:first-child')
         let cart = getCookie('cart')
         let parent = cartButton.closest('.product')
@@ -127,10 +126,8 @@
         function getProductsAmount(cart){
             return cart.products.length
         }
-    }
-})();
-(function (){
-   window.replaceUnderScore = function (){
+}
+export function replaceUnderScore(){
        let ps = document.querySelectorAll('.properties p')
        for (let p of ps) {
            let text = p.textContent;
@@ -139,5 +136,4 @@
        function replaceUnderscoreWithSpace(str) {
            return str.replace(/_/g, ' ');
        }
-    }
-})();
+}

@@ -10,6 +10,7 @@
 <body>
     <x-header/>
     <main>
+        <script src="{{asset('bundle.js')}}"></script>
         @if(isset($scripts))
             <script src="{{asset($scripts)}}"></script>
         @endif

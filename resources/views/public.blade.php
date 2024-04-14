@@ -1,9 +1,11 @@
 <html>
 <head>
 
-<body style="width: 1000px;height: 1000px">
-<script src="script.js" defer></script>
-<button id="elem">нажми</button>
-
+<body>
+<script src="{{asset('bundle.js')}}"></script>
+<link rel="stylesheet" href="{{asset('styles.css')}}">
+<script>
+    console.log(test())
+</script>
 </body>
 </html>

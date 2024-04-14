@@ -34,15 +34,13 @@ class MainController extends Controller
             $message = $e->getMessage();
             return view('main.error',compact(['message']));
         }
-        $scripts = 'scripts/cart.js';
         $styles = 'css/main/cart.css';
-        return view('main.cart',compact(['products','styles','scripts','title']));
+        return view('main.cart',compact(['products','styles','title']));
     }
     public function productEdit(Product $product)
     {
         $title = trans('routes.titles.product.edit',['product_id'=>$product->name]);
         $styles ='css/main/productEdit.css';
-        $scripts='scripts/productEdit.js';
         try {
             $this->pageService->getModelProperties($product,'properties');
         } catch (\Exception $e) {
@@ -51,12 +49,11 @@ class MainController extends Controller
         }
         $product->loadExternalData();
         $properties = $product->additional_properties??[];
-        return view('main.productEdit',compact(['properties','styles','scripts','title','product']));
+        return view('main.productEdit',compact(['properties','styles','title','product']));
     }
     public function dashboard(Request $request)
     {
         $title = trans('routes.titles.main.dashboard');
-        $scripts = 'scripts/dashboard.js';
         $styles = 'css/main/dashboard.css';
         $pageService = $this->pageService;
         $subcategories = json_encode($pageService->getSubcategories());
@@ -65,7 +62,7 @@ class MainController extends Controller
         $products = $pageService->getFilteredProducts($request);
         $this->pageService->getProductsNames($products);
         $favourites = $this->pageService->getUserFavourites();
-        return view('main.dashboard',compact(['categories','subcategories','products','productsProperties','styles','scripts','favourites','title']));
+        return view('main.dashboard',compact(['categories','subcategories','products','productsProperties','styles','favourites','title']));
     }
 
     public function favourites()
@@ -93,8 +90,7 @@ class MainController extends Controller
         $product->loadExternalData();
         $title = trans('routes.titles.main.product',['name'=>$product->name??'']);
         $styles = 'css/main/product.css';
-        $scripts = 'scripts/product.js';
-        return view('main.product',compact(['properties','styles','product','favourites','scripts','title']));
+        return view('main.product',compact(['properties','styles','product','favourites','title']));
     }
     public function checkout(Request $request)
     {
@@ -106,11 +102,10 @@ class MainController extends Controller
             $message = $e->getMessage();
             return view('main.error',compact(['message']));
         }
-        $scripts = 'scripts/checkout.js';
         $deliveries = Delivery::all();
         $totalPrice = $this->pageService->getProductsPrice($products);
         $styles = 'css/main/checkout.css';
-        return view('main.checkout',compact(['products','styles','deliveries','totalPrice','scripts','title']));
+        return view('main.checkout',compact(['products','styles','deliveries','totalPrice','title']));
     }
     public function orderShow(Order $order)
     {
@@ -130,7 +125,6 @@ class MainController extends Controller
     public function adminBoard(Request $request)
     {
         $styles = 'css/main/adminka.css';
-        $scripts = 'scripts/adminka.js';
         $orders = $this->pageService->getOrders($request);
         $date = date('Y-m-d');
         $newOrders = $orders->filter(function($order) use ($date){
@@ -138,7 +132,7 @@ class MainController extends Controller
         });
         $title = trans('routes.titles.main.admin');
         $this->pageService->attachHrefToOrder($orders);
-        return view('main.adminka',compact(['orders','newOrders','styles','scripts','title']));
+        return view('main.adminka',compact(['orders','newOrders','styles','title']));
     }
     public function orders()
     {

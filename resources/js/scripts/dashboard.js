@@ -1,4 +1,4 @@
-function categoryAppend(categories,subcategories,productParams){
+export function categoryAppend(categories,subcategories,productParams){
     let categoryButton = document.getElementById('category')
     let head = document.querySelector('.filterHead')
     categoryButton.addEventListener('click',function (){
@@ -28,7 +28,7 @@ function resizeDiv(div){
         list.add(invisible)
     }
 }
-function appendCategoryButton(name){
+export function appendCategoryButton(name){
     let header = document.querySelector('.header')
     let headerButtons = header.querySelector('.headerButtons')
     let button = document.createElement('button')
@@ -36,7 +36,7 @@ function appendCategoryButton(name){
     button.id='category'
     headerButtons.appendChild(button)
 }
-function generateCartButtons(){
+export function generateCartButtons(){
     let buttons = document.querySelectorAll('.buttons button:first-child')
     let cart = getCookie('cart')
     if (!cart) {

@@ -1,5 +1,4 @@
-(function() {
-    window.OrderEventManager=function (deliveries,translations) {
+export function OrderEventManager(deliveries,translations) {
         let inputs = document.querySelectorAll('input[type="radio"]')
         inputs.forEach(function (input){
             input.addEventListener('click',radioInputEvent(deliveries))
@@ -32,5 +31,5 @@
             console.log(str)
             return str.replace(/[\d₽]/g, '');
         }
-    }
-})();
+}
+

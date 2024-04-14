@@ -1,5 +1,4 @@
-(function (){
-   window.productEditEventManager = function (){
+export function productEditEventManager(){
        let additionalInfoDiv = document.querySelector('.additionalInfo')
        let moreButton = document.getElementById('more')
        let deleteButtons = document.querySelectorAll('form .property .button button')
@@ -74,5 +73,5 @@
        function changeElementName(name,input){
            input.setAttribute('name',name)
        }
-   }
-})()
+}
+
