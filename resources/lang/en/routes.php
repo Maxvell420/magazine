@@ -14,6 +14,7 @@ return [
             'categories'=>'en.main.categories',
             'subcategories'=>'en.main.subcategories',
             'products'=>'en.main.products',
+            'ajaxDashboard'=>'en.main.ajaxDashboard',
         ],
         'user'=>[
             'create'=>'en.user.create',

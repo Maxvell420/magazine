@@ -14,6 +14,7 @@ return [
             'categories'=>'ru.main.categories',
             'subcategories'=>'ru.main.subcategories',
             'products'=>'ru.main.products',
+            'ajaxDashboard'=>'ru.main.ajaxDashboard'
         ],
         'user'=>[
             'create'=>'ru.user.create',

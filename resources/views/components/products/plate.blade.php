@@ -1,3 +1,4 @@
+<a href="{{route(trans('routes.names.main.product'),$product)}}">
 <div class="product" id="likeProduct_{{$product->id}}">
         <img src="{{asset($product->preview)}}" alt="preview" class="preview">
     <div class="productAbout">
@@ -14,14 +15,14 @@
             </button>
             @if(!in_array($product->id,$favourites))
                 <form action="{{route(trans('routes.names.product.like'),$product)}}" method="post">
-                    @csrf
+                    <input type="hidden" name="_token" value="{{$token}}">
                     <button type="submit">
                         <img src="{{asset('images/buttons/heart.svg')}}" alt="like">
                     </button>
                 </form>
             @else
                 <form action="{{route(trans('routes.names.product.dislike'),$product)}}" method="post">
-                    @csrf
+                    <input type="hidden" name="_token" value="{{$token}}">
                     <button type="submit">
                         <img src="{{asset('images/buttons/heart-remove.svg')}}" alt="remove like">
                     </button>
@@ -32,6 +33,7 @@
     </div>
 </div>
 
-<script defer>
-    generateCartButtons()
-</script>
+{{--<script>--}}
+{{--    generateCartButtons()--}}
+{{--</script>--}}
+</a>

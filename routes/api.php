@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
+    Route::post('/ajax/dashboard', [MainController::class, 'ajaxDashboard'])->name('main.ajaxDashboard');
+});
+
+Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
+    Route::post('/ajax/dashboard', [MainController::class, 'ajaxDashboard'])->name('main.ajaxDashboard');
 });

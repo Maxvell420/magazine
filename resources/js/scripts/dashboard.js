@@ -38,6 +38,7 @@ export function appendCategoryButton(name){
 }
 export function generateCartButtons(){
     let buttons = document.querySelectorAll('.buttons button:first-child')
+    console.log(buttons)
     let cart = getCookie('cart')
     if (!cart) {
         createCartCookie()
@@ -340,4 +341,65 @@ function extractNonDigits(str) {
 }
 function getProductsAmount(cart){
     return cart.products.length
+}
+function getAllParams(data) {
+    let queryString = window.location.search;
+    let params = new URLSearchParams(queryString);
+
+    for (const [key, value] of params.entries()) {
+        data.set(key, value);
+    }
+
+    return data;
+}
+export function createAjaxProductsButton(url){
+    let inputs = document.querySelectorAll('input')
+    // let token = ''
+    // for (let input of inputs) {
+    //     if (input.name ==="_token"){
+    //         token=input.value
+    //     }
+    // }
+    let headerCookie = getCookie('XSRF-TOKEN')
+    let wrapper = document.querySelector('.dashboardWrapper')
+    let button = document.createElement('button')
+    button.textContent = 'more'
+    button.addEventListener('click',async function (){
+        let productsDiv = document.querySelector('.products')
+        let products = document.querySelectorAll('.product')
+        let ids = []
+        for (let product of products) {
+            ids.push(getNumbersFromString(product.id)[0])
+        }
+        let data = new FormData;
+        data = getAllParams(data)
+        ids.forEach(id => {
+            data.append('products[]', id);
+        });
+        // data.set('_token',token)
+        let promise = await fetch(url,{
+            headers: {
+                'Cookie': 'XSRF-TOKEN='+headerCookie
+            },
+            method:"post",
+            body:data,
+        })
+        let product = await promise.text();
+        if (product){
+            let tempDiv = document.createElement('div');
+
+            tempDiv.innerHTML = product;
+
+            let a = tempDiv.firstChild;
+
+            productsDiv.appendChild(a);
+            generateCartButtons()
+        } else{
+            let div = document.createElement('div')
+            div.textContent='Предложения закончились'
+            productsDiv.appendChild(div)
+        }
+    })
+    generateCartButtons()
+    wrapper.appendChild(button)
 }

@@ -66,7 +66,7 @@ class ProductService
     }
     public function getFilteredProducts(Request $request, Collection $products):Collection
     {
-        $additionalProperties = $request->except(['subcategory','price']);
+        $additionalProperties = $request->except(['subcategory','price','products']);
         if ($additionalProperties){
             /*
              * Первый цикл проходит по свойствам из запроса, а во вложенном цикле происходит проверка,

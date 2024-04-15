@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Language;
+use App\Models\Product;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,6 @@ class Header extends Component
      */
     public function __construct()
     {
-        //
     }
 
     /**

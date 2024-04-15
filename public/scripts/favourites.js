@@ -1,33 +1,33 @@
-function generateCartButtons(){
-    let buttons = document.querySelectorAll('.buttons button:first-child')
-    let cart = getCookie('cart')
-    if (!cart) {
-        createCartCookie()
-        cart = getCookie('cart')
-    }
-    cart = parseCookieValue(cart)
-    buttons.forEach(function (button){
-        let parent = button.closest('.product')
-        let value = getNumbersFromString(parent.id)[0]
-        let productsAmount = getProductsAmount(cart);
-        button.addEventListener('click',function (event){
-            event.preventDefault()
-            if (!isNaN(value)) {
-                if (!cart){
-                    productsAmount=addProductIdToCart(cart,value);
-                }  else if(!productInCart(cart,value)){
-                    productsAmount=addProductIdToCart(cart,value);
-                } else{
-                    productsAmount=removeProductIdFromCart(cart,value)
-                }
-                changeProductButton(this,cart,value)
-                updateCartButton(productsAmount)
-            }
-        })
-        updateCartButton(productsAmount)
-        changeProductButton(button,cart,value)
-    })
-}
+// function generateCartButtons(){
+//     let buttons = document.querySelectorAll('.buttons button:first-child')
+//     let cart = getCookie('cart')
+//     if (!cart) {
+//         createCartCookie()
+//         cart = getCookie('cart')
+//     }
+//     cart = parseCookieValue(cart)
+//     buttons.forEach(function (button){
+//         let parent = button.closest('.product')
+//         let value = getNumbersFromString(parent.id)[0]
+//         let productsAmount = getProductsAmount(cart);
+//         button.addEventListener('click',function (event){
+//             event.preventDefault()
+//             if (!isNaN(value)) {
+//                 if (!cart){
+//                     productsAmount=addProductIdToCart(cart,value);
+//                 }  else if(!productInCart(cart,value)){
+//                     productsAmount=addProductIdToCart(cart,value);
+//                 } else{
+//                     productsAmount=removeProductIdFromCart(cart,value)
+//                 }
+//                 changeProductButton(this,cart,value)
+//                 updateCartButton(productsAmount)
+//             }
+//         })
+//         updateCartButton(productsAmount)
+//         changeProductButton(button,cart,value)
+//     })
+// }
 function appendAfter(nodeToInsert,parentNode,nextNode){
     if (nextNode===null){
         return parentNode.appendChild(nodeToInsert)

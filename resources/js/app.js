@@ -1,7 +1,8 @@
-import {appendCategoryButton,categoryAppend,generateCartButtons} from "./scripts/dashboard.js";
+import {createAjaxProductsButton,appendCategoryButton,categoryAppend,generateCartButtons} from "./scripts/dashboard.js";
 window.appendCategoryButton=appendCategoryButton
 window.categoryAppend=categoryAppend
 window.generateCartButtons=generateCartButtons
+window.createAjaxProductsButton= createAjaxProductsButton
 
 import {adminkaEventManager} from "./scripts/adminka.js"
 window.adminkaEventManager = adminkaEventManager

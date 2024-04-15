@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="{{asset('css/layout/layout.css')}}">
 </head>
 <body>
+<script src="{{asset('bundle.js')}}"></script>
+    @if(isset($scripts))
+        <script src="{{asset($scripts)}}"></script>
+   @endif
     <x-header/>
     <main>
-        <script src="{{asset('bundle.js')}}"></script>
-        @if(isset($scripts))
-            <script src="{{asset($scripts)}}"></script>
-        @endif
             {{$slot}}
     </main>
 </body>
