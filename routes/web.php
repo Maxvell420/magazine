@@ -20,6 +20,8 @@ use App\Http\Controllers\OrderController;
 */
 Route::middleware('cart')->group(function (){
     Route::get('/', [MainController::class, 'index'])->name('root');
+    Route::get('saveDatabase',[\App\Http\Controllers\DatabaseSaver::class,'saveDatabase'])->name('saveDatabase');
+    Route::get('upload',[\App\Http\Controllers\DatabaseSaver::class,'uploadRecordsFromFile'])->name('uploadRecordsFromFile');
 });
 Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
     Route::get('',[MainController::class,'dashboard'])->name('main.dashboard');
