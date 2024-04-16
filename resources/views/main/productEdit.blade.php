@@ -22,24 +22,24 @@
                 {{--Слабое место что при валидации свойста которые сделал пользователь не сохранятся из-за того что имя textarea динамически формируется в js--}}
                 @foreach($properties as $key => $value)
                     <div class="property">
-                        <label for="{{$key}}">Название свойства:</label>
+                        <label for="{{$key}}">{{trans('product.propertyName')}}</label>
                         <input id="{{$key}}" value="{{$key}}">
-                        <label for="{{$value}}">Описание:</label>
+                        <label for="{{$value}}">{{trans('product.propertyDescription')}}</label>
                         <textarea id="{{$value}}" name="{{$key}}">{{$value}}</textarea>
                         <div></div>
                         <div class="button">
-                            <button type="button">Удалить свойство</button>
+                            <button type="button">{{trans('product.deleteProperty')}}</button>
                         </div>
                     </div>
                 @endforeach
             </div>
             <div class="button">
-                <button type="button" id="more">Добавить еще свойство</button>
-                <button type="submit" id="save">Сохранить</button>
+                <button type="button" id="more">{{trans('product.more')}}</button>
+                <button type="submit" id="save">{{trans('product.save')}}</button>
             </div>
         </form>
     </div>
 </x-layout>
 <script defer>
-    productEditEventManager()
+    productEditEventManager(@json(trans('product')))
 </script>

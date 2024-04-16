@@ -59,6 +59,7 @@ return [
             'subcategories'=>'Подкатегории',
             'categories'=>'Категории',
             'product'=>'Показать продукт с идентификатором: :product_id',
+            'ajaxDashboard'=>'Показать еще',
         ],
         'user'=>[
             'create'=>'Регистрация',

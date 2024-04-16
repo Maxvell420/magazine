@@ -59,7 +59,7 @@ class MainController extends Controller
         $subcategories = json_encode($pageService->getSubcategories());
         $categories = json_encode($pageService->getCategories());
         $productsProperties = json_encode($pageService->getProductsProperties());
-        $products = $pageService->getFilteredProducts($request)->take(1);
+        $products = $pageService->getFilteredProducts($request)->take(4);
         $this->pageService->getProductsNames($products);
         $favourites = $this->pageService->getUserFavourites();
         return view('main.dashboard',compact(['categories','subcategories','products','productsProperties','styles','favourites','title']));
@@ -69,17 +69,21 @@ class MainController extends Controller
         $pageService = $this->pageService;
         $ids = $request->input('products');
         $products = $pageService->getFilteredProducts($request);
-        $product = $products->reject(function($product) use ($ids){
+        $products = $products->reject(function($product) use ($ids){
             return in_array($product->id, $ids);
-        })->first();
-        if ($product){
-            $token = csrf_token();
-            $this->pageService->getModelProperties($product,'properties');
-            $favourites = $this->pageService->getUserFavourites();
-            return view('components.products.plate',compact(['product','favourites','token']));
-        } else {
-            return null;
+        })->take(2);
+        if ($products->isNotEmpty()){
+            $result = [];
+            foreach ($products as $product){
+                $token = csrf_token();
+                $this->pageService->getProductsNames($products);
+//            $this->pageService->getModelProperties($product,'properties');
+                $favourites = $this->pageService->getUserFavourites();
+                $result[$product->id] = view('components.products.plate', compact(['product', 'favourites', 'token']))->render();
+            }
+            return json_encode($result);
         }
+        return null;
     }
 
     public function favourites()

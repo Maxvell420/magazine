@@ -1,4 +1,4 @@
-export function productEditEventManager(){
+export function productEditEventManager(translations){
        let additionalInfoDiv = document.querySelector('.additionalInfo')
        let moreButton = document.getElementById('more')
        let deleteButtons = document.querySelectorAll('form .property .button button')
@@ -31,13 +31,13 @@ export function productEditEventManager(){
            let nameInput = document.createElement('input')
            nameInput.id = ('data_'+num+1).toString()
            let nameInputLabel = document.createElement('label')
-           nameInput.setAttribute('placeholder','Название свойства:')
-           nameInputLabel.textContent = 'Название свойства:'
+           nameInput.setAttribute('placeholder',translations.propertyName)
+           nameInputLabel.textContent = translations.propertyName
            nameInputLabel.setAttribute('for',nameInput.id)
            let dataTextarea = document.createElement('textarea')
            let dataInputLabel = document.createElement('label')
-           dataInputLabel.textContent='Описание'
-           dataTextarea.setAttribute('placeholder','Данные свойства')
+           dataInputLabel.textContent=translations.propertyDescription
+           dataTextarea.setAttribute('placeholder',translations.propertyDescription)
            dataTextarea.id = (num+1).toString()
            dataInputLabel.setAttribute('for',dataTextarea.id)
            nameInput.addEventListener('input',function (){
@@ -59,7 +59,7 @@ export function productEditEventManager(){
            div.className = 'button'
            let deleteButton = document.createElement('button')
            deleteButton.setAttribute('type','button');
-           deleteButton.textContent='Удалить свойство'
+           deleteButton.textContent=translations.deleteProperty
            deleteButton.addEventListener("click",function (){
                deleteProperty(this)
            })

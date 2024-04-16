@@ -1,5 +1,11 @@
 body{
     margin:0;
+    background-color: #f9f9f9;
+}
+.dashboardHead{
+    margin: 0px;
+    padding: 15px;
+    font-family: Arial, sans-serif;
 }
 .filterWindow {
     padding: 15px;
@@ -14,7 +20,7 @@ body{
     margin-bottom: 10px;
     padding: 15px;
     border-radius: 5px;
-    background-color: #3399ff;
+    background-color: #6da6f6;
     color: white;
 }
 
@@ -79,6 +85,9 @@ input[type="radio"] {
     grid-row-gap:1px;
     grid-template-columns: 3fr 1fr;
 }
+.paramsInputs input{
+    height: 20px;
+}
 .paramsInputs label{
     width: 100%;
     display: inline-block;
@@ -105,15 +114,66 @@ input[type="radio"] {
     width: 50%;
     left: 25%; /* Положение слева на 50% */
 }
+
+.filterWindow form button {
+    border: none;
+    color: black; /* Белый цвет текста */
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px; /* Закругляем углы кнопок */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+    margin-right: 15px;
+}
+
+.filterWindow form button:hover {
+    background-color: #a4bfdc; /* Темнее синий цвет при наведении */
+}
+
 button a{
     width: 100%;
     display: inline-block;
     text-decoration: none;
     color: black;
 }
+.productsOver {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 18px;
+    color: #888; /* Серый цвет текста */
+    text-align: center; /* Выравнивание текста по центру */
+    padding: 20px; /* Отступы внутри элемента */
+    background-color: #f9f9f9; /* Цвет фона */
+    border-top: 1px solid #ccc; /* Горизонтальная линия сверху */
+    position: relative; /* Позиционирование элемента */
+    margin-top: 20px; /* Отступ сверху */
+    left: 1000px;
+}
+.moreProducts{
+    position: relative;
+    left: 1200px;
+    width: 200px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+.moreProducts{
+    border: none;
+    color: black; /* Белый цвет текста */
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px; /* Закругляем углы кнопок */
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+    margin-right: 15px;
+}
+
+.moreProducts:hover {
+    background-color: #a4bfdc; /* Темнее синий цвет при наведении */
+}
 .filterHead{
-    position: absolute;
     z-index: 2;
+    position: absolute;
     display: flex;
     width: 100%;
     background-color: #3366cc;
@@ -152,13 +212,16 @@ button a{
 
 }
 .product {
+    background: white;
     border: 2px solid transparent;
     display: flex;
     padding: 30px;
     border-radius: 10px;
     transition: border-color 0.3s;
     margin-bottom: 10px;
-    box-shadow: 2px 2px 5px #3399ff;
+    box-shadow: 2px 2px 5px #d0d0d0;
+    max-height: 270px;
+    min-height: 270px;
 }
 
 .preview {
@@ -178,6 +241,7 @@ button a{
 }
 
 .productHead h3 {
+    font-family: Arial , sans-serif;
     margin: 0;
 }
 

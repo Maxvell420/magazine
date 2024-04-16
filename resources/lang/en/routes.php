@@ -59,6 +59,7 @@ return [
             'subcategories'=>'Subcategories',
             'categories'=>'Categories',
             'product'=>'Show Product with ID: :product_id',
+            'ajaxDashboard'=>'Show more',
         ],
         'user'=>[
             'create'=>'Sign Up',

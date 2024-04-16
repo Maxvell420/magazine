@@ -38,7 +38,6 @@ export function appendCategoryButton(name){
 }
 export function generateCartButtons(){
     let buttons = document.querySelectorAll('.buttons button:first-child')
-    console.log(buttons)
     let cart = getCookie('cart')
     if (!cart) {
         createCartCookie()
@@ -352,7 +351,7 @@ function getAllParams(data) {
 
     return data;
 }
-export function createAjaxProductsButton(url){
+export function createAjaxProductsButton(url,name){
     let inputs = document.querySelectorAll('input')
     // let token = ''
     // for (let input of inputs) {
@@ -363,7 +362,8 @@ export function createAjaxProductsButton(url){
     let headerCookie = getCookie('XSRF-TOKEN')
     let wrapper = document.querySelector('.dashboardWrapper')
     let button = document.createElement('button')
-    button.textContent = 'more'
+    button.textContent = name
+    button.className = 'moreProducts button'
     button.addEventListener('click',async function (){
         let productsDiv = document.querySelector('.products')
         let products = document.querySelectorAll('.product')
@@ -384,20 +384,26 @@ export function createAjaxProductsButton(url){
             method:"post",
             body:data,
         })
-        let product = await promise.text();
-        if (product){
-            let tempDiv = document.createElement('div');
+        let result = await promise.text();
+        if (result){
+            let newProducts = JSON.parse(result)
+            for (let newProduct in newProducts) {
+                let tempDiv = document.createElement('div');
 
-            tempDiv.innerHTML = product;
+                tempDiv.innerHTML = newProducts[newProduct];
 
-            let a = tempDiv.firstChild;
+                let a = tempDiv.firstChild;
 
-            productsDiv.appendChild(a);
+                productsDiv.appendChild(a);
+            }
             generateCartButtons()
-        } else{
+        }
+        else{
             let div = document.createElement('div')
+            div.className = 'productsOver'
             div.textContent='Предложения закончились'
-            productsDiv.appendChild(div)
+            button.remove()
+            wrapper.appendChild(div)
         }
     })
     generateCartButtons()

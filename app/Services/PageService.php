@@ -83,11 +83,20 @@ class PageService
         $products->each(function ($item) use ($language){
             $array = json_decode($item->properties,true);
             if ($array){
-                $item->setAttribute('name',$array['name']);
+                $name = $this->shortenString($array['name'],20);
+                $item->setAttribute('name',$name);
             } else {
                 throw new \Exception(trans('messages.notfound'));
             }
         });
+    }
+    public function shortenString(string $string, int $length): string
+    {
+        $newString = mb_substr($string,0,$length);
+        if (strlen($newString) >19){
+            return mb_substr($string,0,$length).'...';
+        }
+        return mb_substr($string,0,$length);
     }
     public function getModelProperties(Model $model,string $column)
     {
@@ -111,6 +120,7 @@ class PageService
         $products = $this->productService->filterMainProperties($request, $language);
         $this->modelService->getPivotPropertiesWithLanguage($products,'properties',$language);
         $products = $this->productService->getFilteredProducts($request,$products);
+//        Здесь можно выводить сообщение если продуктов 0 что вероятно нужно поменять язык
         return $this->loadProductsData($products);
     }
 //    Метод getProductsPrice используется только после того как были добавлены аттрибуты в productService методом setProductsCartParams

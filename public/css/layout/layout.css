@@ -11,6 +11,7 @@ body{
 .headerButtons,.adminHeaderButtons{
     margin-left: 15px; /* Добавляем отступ между кнопками */
     margin-right: 20px;
+    z-index: 2;
 }
 .adminHeader button,.header button {
     border: none;

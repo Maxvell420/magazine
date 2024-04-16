@@ -14,4 +14,5 @@ return [
     'added'=>'Added',
     'id'=>'Id',
     'notfound'=>'Not found',
+    'noMoreProducts'=>'No more products',
 ];

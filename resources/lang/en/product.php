@@ -6,7 +6,7 @@ return [
     'subcategory'=>'Subcategory of product',
     'name'=>'Product name',
     'photo'=>'Product photo',
-    'more'=>'Add product property',
+    'more'=>'Add property',
     'save'=>'Save product',
     'propertyName'=>'Property name',
     'description'=>'Product description',
@@ -17,4 +17,5 @@ return [
     'characteristics'=>'Product characteristics',
     'info'=>'Product information',
     'edit'=>'Edit product',
+    'propertyDescription'=>'Property description',
 ];
