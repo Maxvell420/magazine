@@ -15,8 +15,11 @@ class SubcategoryService
         $category = $language->categories()->wherePivot('name',$categoryName['category'])->first();
         $subcategoryName = $request->validate(
             ['name'=>['required']]);
-        $subcategory = Subcategory::create(['category_id'=>$category->id]);
-        $language->subcategories()->attach($subcategory->id,['name'=>$subcategoryName['name']]);
+        $subcategory = $language->subcategories()->where('name',$categoryName['name'])->first();
+        if (!$subcategory){
+            $subcategory = Subcategory::create(['category_id'=>$category->id]);
+            $language->subcategories()->attach($subcategory->id,['name'=>$subcategoryName['name']]);
+        }
         return $subcategoryName;
     }
     public function update(Request $request, Subcategory $subcategory,Language $language)

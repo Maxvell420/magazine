@@ -12,7 +12,7 @@ class DatabaseSaver extends Controller
         'subcategories',
         'products',
         'images',
-        'deliveries',
+//        'deliveries',
         'roles',
         'users',
         'orders',

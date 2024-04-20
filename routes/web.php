@@ -61,6 +61,7 @@ Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
 });
 
 Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
+    Route::get('/parse',[\App\Http\Controllers\ParserController::class,'parse'])->name('parse');
     Route::get('',[MainController::class,'dashboard'])->name('main.dashboard');
     Route::get('cart',[MainController::class,'cart'])->name('main.cart');
     Route::get('checkout',[MainController::class,'checkout'])->name('main.checkout');

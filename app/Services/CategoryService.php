@@ -11,8 +11,11 @@ class CategoryService
     public function save(Request $request,Language $language)
     {
         $validated = $request->validate(['name'=>['required']]);
-        $category = Category::query()->create();
-        $language->categories()->attach($category,$validated);
+        $category = $language->categories()->where('name',$validated['name'])->first();
+        if (!$category){
+            $category = Category::query()->create();
+            $language->categories()->attach($category,$validated);
+        }
         return $validated;
     }
     public function update(Request $request, Category $category,Language $language)
