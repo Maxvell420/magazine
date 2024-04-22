@@ -45,16 +45,14 @@
                     @endauth
                 </div>
             </div>
-            @if(isset($properties))
-                <div class="additionalInfo">
-                    <h4>Характеристики продукта</h4>
-                    <div class="properties">
-                        @foreach($properties as $key => $value)
-                            <p>{{$key}}: {{$value}}</p>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
+            <div class="productSections">
+                <div class="productButton" id="characteristics">{{trans('product.characteristics')}}</div>
+                <div class="productButton" id="reviews">{{trans('product.reviews')}}</div>
+            </div>
+            <div class="productActive">
+                <x-products.characteristics :properties="$properties"/>
+                <x-products.reviews :reviews="$reviews" :product="$product"/>
+            </div>
         </div>
     </div>
 

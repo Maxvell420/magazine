@@ -11,7 +11,7 @@ class CategoryService
     public function save(Request $request,Language $language)
     {
         $validated = $request->validate(['name'=>['required']]);
-        $category = $language->categories()->where('name',$validated['name'])->first();
+        $category = $language->categories()->wherePivot('name',$validated['name'])->first();
         if (!$category){
             $category = Category::query()->create();
             $language->categories()->attach($category,$validated);

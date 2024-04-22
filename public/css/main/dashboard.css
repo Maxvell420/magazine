@@ -3,11 +3,12 @@ body{
     background-color: #f9f9f9;
 }
 .dashboardHead{
+    font-size: 30px;
     margin: 0px;
     padding: 15px;
-    font-family: Arial, sans-serif;
 }
 .filterWindow {
+    min-width: 400px;
     padding: 15px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -15,7 +16,6 @@ body{
 }
 /* Стили для формы */
 .filterWindow form {
-    font-family: Arial, sans-serif;
     position: relative;
     margin-bottom: 10px;
     padding: 15px;
@@ -138,7 +138,6 @@ button a{
     color: black;
 }
 .productsOver {
-    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 18px;
     color: #888; /* Серый цвет текста */
     text-align: center; /* Выравнивание текста по центру */
@@ -178,12 +177,11 @@ button a{
     width: 100%;
     background-color: #3366cc;
     opacity: 1;
+    overflow-x: auto;
     transition: opacity 0.3s ease;
 }
 .filterHead div{
-    margin-left: 15px;
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin: 10px 15px 15px;
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
@@ -202,9 +200,10 @@ button a{
 }
 .products{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 20px;
     padding: 15px;
+    grid-template-rows: 300px;
 }
 .products a{
     text-decoration: none;
@@ -215,13 +214,12 @@ button a{
     background: white;
     border: 2px solid transparent;
     display: flex;
-    padding: 30px;
+    flex-direction: column;
+    padding: 15px;
     border-radius: 10px;
     transition: border-color 0.3s;
     margin-bottom: 10px;
     box-shadow: 2px 2px 5px #d0d0d0;
-    max-height: 270px;
-    min-height: 270px;
 }
 
 .preview {
@@ -232,29 +230,41 @@ button a{
 }
 
 .productAbout {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1; /* Расширяем блок, чтобы он занимал доступное пространство */
+}
+
+.productInfo{
+    display: flex;
 }
 
 .productHead {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
-.productHead h3 {
-    font-family: Arial , sans-serif;
+.productHead h3{
+    line-height: 18px;
+    font-size: 18px;
     margin: 0;
+    white-space: nowrap;
 }
-
-.productHead h3:nth-child(2) {
+.productHead span {
+    line-height: 18px;
+    font-size: 20px;
     color: #007bff; /* Цвет цены */
 }
-
-.productAbout > div:last-child {
-    margin-top: 10px; /* Расстояние между содержимым блока */
+.productAddition{
+    height: 100%;
+    justify-content: end;
+    align-items: end;
     display: flex;
-    justify-content: flex-end; /* Выравнивание кнопок по правому краю */
+    flex-direction: column;
 }
-
 .buttons button {
     margin: 10px;
     width: 50px;
@@ -281,9 +291,6 @@ button a{
 }
 .buttons{
     display: flex;
-    justify-content: end;
-    align-items: center;
-    height: 145px;
 }
 .product:hover{
     border: #6faffc 2px solid;

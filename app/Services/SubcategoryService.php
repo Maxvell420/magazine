@@ -10,13 +10,13 @@ class SubcategoryService
 {
     public function save(Request $request,Language $language)
     {
-        $categoryName = $request->validate(
-            ['category'=>'required']);
-        $category = $language->categories()->wherePivot('name',$categoryName['category'])->first();
         $subcategoryName = $request->validate(
             ['name'=>['required']]);
-        $subcategory = $language->subcategories()->where('name',$categoryName['name'])->first();
+        $subcategory = $language->subcategories()->wherePivot('name',$subcategoryName['name'])->first();
         if (!$subcategory){
+            $categoryName = $request->validate(
+                ['category'=>'required']);
+            $category = $language->categories()->wherePivot('name',$categoryName['category'])->first();
             $subcategory = Subcategory::create(['category_id'=>$category->id]);
             $language->subcategories()->attach($subcategory->id,['name'=>$subcategoryName['name']]);
         }

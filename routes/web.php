@@ -35,8 +35,10 @@ Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
     Route::post('order/save',[OrderController::class,'save'])->name('order.save');
     Route::get('order/{order}/show',[MainController::class,'orderShow'])->name('order.show');
     Route::get('product/{product}/show',[MainController::class,'productShow'])->name('main.product');
+    Route::post('product/{product_id}/reviews',[ProductController::class,'productReviews'])->name('product.reviews');
 
     Route::middleware('auth')->group(function (){
+        Route::post('review/{product}/save',[\App\Http\Controllers\ReviewController::class,'save'])->name('product.review');
         Route::get('favourites',[MainController::class,'favourites'])->name('main.favourites');
         Route::post('/product/{product}/dislike',[ProductController::class,'dislike'])->name('product.dislike');
         Route::get('adminka',[MainController::class,'adminBoard'])->name('main.admin');
@@ -49,7 +51,6 @@ Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
         Route::post('/category/save',[CategoryController::class,'save'])->name('category.save');
         Route::post('/subcategory/save',[SubcategoryController::class,'save'])->name('subcategory.save');
         Route::get('/user/orders',[MainController::class,'orders'])->name('main.orders');
-//        new
         Route::get('/categories',[MainController::class,'categories'])->name('main.categories');
         Route::get('/category/{category}/show',[MainController::class,'categoryEdit'])->name('category.edit');
         Route::get('/subcategory/{subcategory}/show',[MainController::class,'subcategoryEdit'])->name('subcategory.edit');
@@ -73,8 +74,10 @@ Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
     Route::post('order/save',[OrderController::class,'save'])->name('order.save');
     Route::get('order/{order}/show',[MainController::class,'orderShow'])->name('order.show');
     Route::get('product/{product}/show',[MainController::class,'productShow'])->name('main.product');
+    Route::get('product/{product_id}/reviews',[ProductController::class,'productReviews'])->name('product.reviews');
 
     Route::middleware('auth')->group(function (){
+        Route::post('review/{product}/save',[\App\Http\Controllers\ReviewController::class,'save'])->name('product.review');
         Route::get('favourites',[MainController::class,'favourites'])->name('main.favourites');
         Route::post('/product/{product}/dislike',[ProductController::class,'dislike'])->name('product.dislike');
         Route::get('adminka',[MainController::class,'adminBoard'])->name('main.admin');
@@ -87,13 +90,11 @@ Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
         Route::post('/category/save',[CategoryController::class,'save'])->name('category.save');
         Route::post('/subcategory/save',[SubcategoryController::class,'save'])->name('subcategory.save');
         Route::get('/user/orders',[MainController::class,'orders'])->name('main.orders');
-
         Route::get('/categories',[MainController::class,'categories'])->name('main.categories');
         Route::get('/products',[MainController::class,'products'])->name('main.products');
         Route::get('/subcategories',[MainController::class,'subcategories'])->name('main.subcategories');
         Route::post('/category/{category}/update',[CategoryController::class,'update'])->name('category.update');
         Route::post('/subcategory/{subcategory}/update',[SubcategoryController::class,'update'])->name('subcategory.update');
-
         Route::get('/categories',[MainController::class,'categories'])->name('main.categories');
         Route::get('/category/{category}/show',[MainController::class,'categoryEdit'])->name('category.edit');
         Route::get('/subcategory/{subcategory}/show',[MainController::class,'subcategoryEdit'])->name('subcategory.edit');

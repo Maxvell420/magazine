@@ -11,11 +11,11 @@ class Language extends Model
     protected $fillable = ['name'];
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withPivot('name');
     }
     public function subcategories()
     {
-        return $this->belongsToMany(Subcategory::class);
+        return $this->belongsToMany(Subcategory::class)->withPivot('name');
     }
     public function products()
     {

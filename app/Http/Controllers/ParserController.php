@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
+use App\Services\NewParserService;
+use App\Services\NodeService;
 use App\Services\PageService;
 use App\Services\TechnoparkParserService;
 
@@ -14,7 +16,10 @@ class ParserController
 
     public function parse()
     {
-        $root = 'https://spb.technopark.ru/';
+//        $test = new NewParserService();
+//        $test->testGetPageContent();
+
+        $root = 'https://www.techport.ru/';
         $parser = new TechnoparkParserService($this->pageService,$root);
         $model = new Link();
         $parser->getContent($model);

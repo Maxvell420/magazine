@@ -76,14 +76,14 @@ class PageService
         $this->modelService->getPivotPropertiesWithLanguage($products,'properties',$language);
         return $this->productService->getProductsAdditionalProperties($products,$language);
     }
-    public function getProductsNames(Collection $products)
+    public function getProductsNames(Collection $products, int $length)
     {
         $language = $this->language;
         $products = $this->modelService->getPivotPropertiesWithLanguage($products,'properties',$language);
-        $products->each(function ($item) use ($language){
+        $products->each(function ($item) use ($language,$length){
             $array = json_decode($item->properties,true);
             if ($array){
-                $name = $this->shortenString($array['name'],20);
+                $name = $this->shortenString($array['name'],$length);
                 $item->setAttribute('name',$name);
             } else {
                 throw new \Exception(trans('messages.notfound'));
@@ -92,9 +92,9 @@ class PageService
     }
     public function shortenString(string $string, int $length): string
     {
-        $newString = mb_substr($string,0,$length);
-        if (strlen($newString) >19){
-            return mb_substr($string,0,$length).'...';
+        $newString = mb_substr($string,0);
+        if (mb_strlen($newString)>$length){
+            return mb_substr($string,0,$length-3).'...';
         }
         return mb_substr($string,0,$length);
     }
@@ -215,5 +215,15 @@ class PageService
     {
         $language = $this->language;
         return $this->subcategoryService->update($request,$subcategory,$language);
+    }
+    function getCategoryByName(string $name)
+    {
+        $language = $this->language;
+        return $language->categories()->wherePivot('name','=',$name)->first();
+    }
+    function getSubcategoryByName(string $name)
+    {
+        $language = $this->language;
+        return $language->subcategories()->wherePivot('name','=',$name)->first();
     }
 }

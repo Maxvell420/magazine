@@ -7,14 +7,15 @@
     "require": {
         "php": "8.0.30",
         "ext-curl": "*",
+        "chrome-php/chrome": "^1.11",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "imangazaliev/didom": "^2.0",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "phpoffice/phpword": "^1.2",
-        "predis/predis": "^2.2",
-        "imangazaliev/didom": "^2.0"
+        "predis/predis": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

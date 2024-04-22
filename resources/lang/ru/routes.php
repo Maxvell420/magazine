@@ -28,6 +28,8 @@ return [
             'like'=>'ru.product.like',
             'dislike'=>'ru.product.dislike',
             'update'=>'ru.product.update',
+            'reviews'=>'ru.product.reviews',
+            'review'=>'ru.product.review',
         ],
         'category'=>[
             'save'=>'ru.category.save',

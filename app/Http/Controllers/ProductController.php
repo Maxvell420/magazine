@@ -38,4 +38,12 @@ class ProductController
         $product = $this->pageService->updateProduct($request,$product);
         return redirect()->route($lang.'.'.'product.edit',$product);
     }
+    public function ajaxReviews(int $product_id)
+    {
+
+    }
+    public function ajaxCharacteristics(int $product_id)
+    {
+
+    }
 }

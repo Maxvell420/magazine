@@ -27,7 +27,10 @@ abstract class ParserService
         foreach ($options as $option => $value){
             $this->setCurlOptions($curl,$option,$value);
         }
-        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Cookie: pageviewTimer=231.075; pageviewTimerFired15=true; pageviewTimerFired30=true; pageviewTimerFired60=true; qrator_jsr=1713603628.862.uWlq6PUdQKRRs590-efvojs601pa9ecnc3g5rvjtlav1fad84-00; _ga_RD4H4CBNJ3=GS1.1.1713603133.3.1.1713603628.60.0.0; _ga_010M8X07NE=GS1.1.1713603142.1.1.1713603628.60.0.0; qrator_jsid=1713603628.862.uWlq6PUdQKRRs590-one0rlkb7hbrnagn9rvlsl1qdsd8tb9t']);
+//        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Cookie: pageviewTimer=230.078; pageviewTimerFired15=true; pageviewTimerFired30=true; pageviewTimerFired60=true; afUserId=b8f6e8a0-7508-4685-a59a-9059dba5037e-p; qrator_jsr=1713721815.352.SYRSKFUcCb8HrAJK-m0frepamteqsn38thpmb5ugsoepq5i4q-00; _ga_RD4H4CBNJ3=GS1.1.1713721442.2.1.1713721815.60.0.0; _ga_010M8X07NE=GS1.1.1713721442.4.1.1713721815.60.0.0; qrator_ssid=1713721815.792.oJkXSXH12mn1A7N3-d104novsr4s3p4l81lgm9c31dk3a0kog; qrator_jsid=1713721815.352.SYRSKFUcCb8HrAJK-m5o8nhf50dpd85sbppm1v464pnnbpi52; stest201=0; stest207=acc0; stest209=ct1; tp_city_id=39943; PHPSESSID=b7f865b9bb0d9fee3f7fb1a1b2413397; user_public_id=7uilCBpCdatUB4MMtPSVKJyWNUPl47aRsXo5NHReTV%2BJ9yxRReb4jInhEcSC1%2F2X; mindboxDeviceUUID=514b7206-c5b5-44a9-9705-98cbbcedb29f; experiment_id=w00; variant_id=w00_0']);
+        $cookieFilePath ='cookie.txt';
+        curl_setopt($curl, CURLOPT_COOKIEFILE, $cookieFilePath);
+        curl_setopt($curl, CURLOPT_COOKIEJAR,  $cookieFilePath);
         $page = curl_exec($curl);
 //        file_put_contents('text.txt',$page);
 //        die();

@@ -23,9 +23,15 @@ class ProductService
     public function saveProduct(Request $request,Language $language)
     {
         $productMainProperties = $this->validateProductProperties($request);
-        $subcategory = $this->getSubcategory($request);
-        $productMainProperties['subcategory_id']=$subcategory->id;
-        $productMainProperties['category_id']=$subcategory->category_id;
+        $category = $request->input('category_id');
+        if (!isset($category)){
+            $subcategory = $this->getSubcategory($request);
+            $productMainProperties['subcategory_id']=$subcategory->id;
+            $productMainProperties['category_id']=$subcategory->category_id;
+        } else{
+            $productMainProperties['subcategory_id']=$request->input('subcategory_id');
+            $productMainProperties['category_id']=$request->input('category_id');
+        }
         $product = Product::query()->create($productMainProperties);
         $this->saveAdditionalProperties($request,$language,$product);
         $this->saveImagesOfProduct($request,$product);
@@ -76,10 +82,11 @@ class ProductService
                 $properties = json_decode($product->properties);
                 foreach ($additionalProperties as $propertyName => $values){
                     foreach ($values as $value){
-                        if (!property_exists($properties,$propertyName)){
+                        $name = preg_replace('#_#', ' ', $propertyName);
+                        if (!property_exists($properties,$name)){
                             return false;
                         }
-                        if (!in_array($properties->$propertyName,$values)){
+                        if (!in_array($properties->$name,$values)){
                             return false;
                         }
                     }
@@ -156,7 +163,7 @@ class ProductService
     }
     private function encodeProductProperties(Request $request): bool|string
     {
-        $properties = $request->except(['price','quantity','type','_token','subcategory','images']);
+        $properties = $request->except(['price','quantity','type','_token','subcategory','images','subcategory_id','category_id']);
         return json_encode($properties);
     }
     private function getSubcategory(Request $request): object
