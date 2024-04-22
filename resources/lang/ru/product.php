@@ -14,10 +14,11 @@ return [
     'additionalProperty'=>'Дополнительное свойство',
     'inStock'=>'В наличии',
     'added'=>'Добавлен:',
-    'characteristics'=>'Характеристики продукта',
+    'characteristics'=>'Характеристики',
     'info'=>'Информация о продукте',
     'edit'=>'Редактирование продукта',
     'propertyDescription'=>'Описание свойства',
     'reviews'=>'Отзывы',
     'reviewCreate'=>'Оставить отзыв',
+    'reviewsNone'=>'Отзывов об этом продукте нет',
 ];

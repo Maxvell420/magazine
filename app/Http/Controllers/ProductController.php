@@ -41,7 +41,10 @@ class ProductController
     public function ajaxReviews(int $product_id)
     {
         $product = Product::find($product_id);
-        $reviews = $product->reviews();
+        $reviews = $product->reviews;
+        $reviews->each(function ($item) {
+            $item->setTime();
+        });
         return view('components.products.reviews',compact(['product','reviews']));
     }
     public function ajaxCharacteristics(int $product_id)

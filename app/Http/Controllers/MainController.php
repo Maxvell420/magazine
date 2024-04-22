@@ -61,6 +61,9 @@ class MainController extends Controller
         $productsProperties = json_encode($pageService->getProductsProperties());
         $products = $pageService->getFilteredProducts($request)->take(12);
         $this->pageService->getProductsNames($products,30);
+        $products->each(function ($item){
+            $this->pageService->setPreviewInfo($item,4);
+        });
         $favourites = $this->pageService->getUserFavourites();
         return view('main.dashboard',compact(['categories','subcategories','products','productsProperties','styles','favourites','title']));
     }
@@ -77,6 +80,9 @@ class MainController extends Controller
             foreach ($products as $product){
                 $token = csrf_token();
                 $this->pageService->getProductsNames($products,30);
+                $products->each(function ($item){
+                    $this->pageService->setPreviewInfo($item,4);
+                });
 //            $this->pageService->getModelProperties($product,'properties');
                 $favourites = $this->pageService->getUserFavourites();
                 $result[$product->id] = view('components.products.plate', compact(['product', 'favourites', 'token']))->render();
@@ -101,17 +107,17 @@ class MainController extends Controller
     {
         try {
             $this->pageService->getModelProperties($product,'properties');
+            $this->pageService->setPreviewInfo($product,8);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             return view('main.error',compact(['message']));
         }
-        $properties = $product->additional_properties;
         $favourites = $this->pageService->getUserFavourites();
         $product->loadExternalData();
         $title = trans('routes.titles.main.product',['name'=>$product->name??'']);
         $styles = 'css/main/product.css';
         $reviews = $product->reviews;
-        return view('main.product',compact(['properties','styles','product','favourites','title','reviews']));
+        return view('main.product',compact(['styles','product','favourites','title']));
     }
     public function checkout(Request $request)
     {

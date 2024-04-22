@@ -85,20 +85,20 @@ class PageService
             if ($array){
                 $name = $this->shortenString($array['name'],$length);
                 $item->setAttribute('name',$name);
-                $this->setPreviewInfo($array,$item);
             } else {
                 throw new \Exception(trans('messages.notfound'));
             }
         });
     }
-    private function setPreviewInfo(array $properties,Product $product)
+    public function setPreviewInfo(Product $product,int $length)
     {
+        $properties = json_decode($product->properties,true);
         $previewInfo = [];
         foreach ($properties as $propertyName => $propertyValue){
             if ($propertyName==='name'){
                 continue;
             }
-            if (count($previewInfo)>=3){
+            if (count($previewInfo)>=$length){
                 break;
             }
             $previewInfo[$propertyName]=$propertyValue;

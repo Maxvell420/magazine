@@ -121,7 +121,7 @@
         }
         function updateCartButton(value){
             let button = document.getElementById('cart')
-            button.textContent=translations.cart+ ':' + vaslue
+            button.textContent=translations.cart+ ':' + value
         }
         function getProductsAmount(cart){
             return cart.products.length
@@ -131,6 +131,8 @@
             let charButton = document.getElementById('characteristics')
             let revButton = document.getElementById('reviews')
             charButton.addEventListener('click',async function(){
+                this.classList.add('active')
+                revButton.classList.remove('active')
                 let section = document.querySelector('.productActive');
                 section.innerHTML=''
                 let href = this.getAttribute('data-href')
@@ -138,6 +140,8 @@
                 div.appendChild(data)
             })
             revButton.addEventListener('click',async function(){
+                this.classList.add('active')
+                charButton.classList.remove('active')
                 let section = document.querySelector('.productActive');
                 section.innerHTML=''
                 let href = this.getAttribute('data-href')
@@ -147,7 +151,6 @@
             async function sendAjaxToRetrieveDiv(href){
                 let promise = await fetch(href)
                 let response = await promise.text()
-                console.log(response)
                 if (response){
                     // let data = JSON.parse(response)
                     let tempDiv = document.createElement('div');
