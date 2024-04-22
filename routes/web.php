@@ -74,7 +74,8 @@ Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
     Route::post('order/save',[OrderController::class,'save'])->name('order.save');
     Route::get('order/{order}/show',[MainController::class,'orderShow'])->name('order.show');
     Route::get('product/{product}/show',[MainController::class,'productShow'])->name('main.product');
-    Route::get('product/{product_id}/reviews',[ProductController::class,'productReviews'])->name('product.reviews');
+    Route::get('product/{product_id}/characteristics',[ProductController::class,'ajaxCharacteristics'])->name('product.characteristics');
+    Route::get('product/{product_id}/reviews',[ProductController::class,'ajaxReviews'])->name('product.reviews');
 
     Route::middleware('auth')->group(function (){
         Route::post('review/{product}/save',[\App\Http\Controllers\ReviewController::class,'save'])->name('product.review');

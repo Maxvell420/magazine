@@ -1,4 +1,4 @@
-export function productEventManager (translations){
+;export function productEventManager (translations){
         let cartButton = document.querySelector('.buttons button:first-child')
         let cart = getCookie('cart')
         let parent = cartButton.closest('.product')
@@ -121,11 +121,43 @@ export function productEventManager (translations){
         }
         function updateCartButton(value){
             let button = document.getElementById('cart')
-            button.textContent=translations.cart+ ':' + value
+            button.textContent=translations.cart+ ':' + vaslue
         }
         function getProductsAmount(cart){
             return cart.products.length
         }
+        function activeSectionEvents(){
+            let div = document.querySelector('.productActive')
+            let charButton = document.getElementById('characteristics')
+            let revButton = document.getElementById('reviews')
+            charButton.addEventListener('click',async function(){
+                let section = document.querySelector('.productActive');
+                section.innerHTML=''
+                let href = this.getAttribute('data-href')
+                let data = await sendAjaxToRetrieveDiv(href)
+                div.appendChild(data)
+            })
+            revButton.addEventListener('click',async function(){
+                let section = document.querySelector('.productActive');
+                section.innerHTML=''
+                let href = this.getAttribute('data-href')
+                let data = await sendAjaxToRetrieveDiv(href)
+                div.appendChild(data)
+            })
+            async function sendAjaxToRetrieveDiv(href){
+                let promise = await fetch(href)
+                let response = await promise.text()
+                console.log(response)
+                if (response){
+                    // let data = JSON.parse(response)
+                    let tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = response
+                    return tempDiv.firstChild
+                }
+            }
+            revButton.click()
+        }
+        activeSectionEvents()
 }
 export function replaceUnderScore(){
        let ps = document.querySelectorAll('.properties p')

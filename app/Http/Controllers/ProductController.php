@@ -40,10 +40,20 @@ class ProductController
     }
     public function ajaxReviews(int $product_id)
     {
-
+        $product = Product::find($product_id);
+        $reviews = $product->reviews();
+        return view('components.products.reviews',compact(['product','reviews']));
     }
     public function ajaxCharacteristics(int $product_id)
     {
-
+        $product = Product::find($product_id);
+        try {
+            $this->pageService->getModelProperties($product,'properties');
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            return view('main.error',compact(['message']));
+        }
+        $properties = $product->additional_properties;
+        return view('components.products.characteristics',compact(['product','properties']));
     }
 }

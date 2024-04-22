@@ -30,6 +30,7 @@ return [
             'update'=>'ru.product.update',
             'reviews'=>'ru.product.reviews',
             'review'=>'ru.product.review',
+            'characteristics'=>'ru.product.characteristics',
         ],
         'category'=>[
             'save'=>'ru.category.save',

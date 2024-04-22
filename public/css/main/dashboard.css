@@ -200,23 +200,23 @@ button a{
 }
 .products{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
     padding: 15px;
     grid-template-rows: 300px;
+    grid-row-gap: 40px;
 }
 .products a{
     text-decoration: none;
     color: #000;
-
 }
 .product {
     background: white;
     border: 2px solid transparent;
     display: flex;
     flex-direction: column;
-    padding: 15px;
     border-radius: 10px;
+    padding-left: 15px;
     transition: border-color 0.3s;
     margin-bottom: 10px;
     box-shadow: 2px 2px 5px #d0d0d0;
@@ -227,6 +227,9 @@ button a{
     height: 200px;
     border-radius: 5px; /* Закруглим углы изображения */
     margin-right: 20px; /* Добавим отступ справа от изображения */
+    box-shadow: 2px 2px 5px #d0d0d0;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .productAbout {
@@ -241,29 +244,36 @@ button a{
 }
 
 .productHead {
-    display: flex;
     justify-content: space-between;
+    display: flex;
     margin-bottom: 10px;
-    padding: 10px;
 }
 
 .productHead h3{
-    line-height: 18px;
-    font-size: 18px;
+    line-height: 70px;
+    font-size: 30px;
     margin: 0;
+    text-align: center;
     white-space: nowrap;
 }
-.productHead span {
-    line-height: 18px;
-    font-size: 20px;
+.productPrice{
+    font-size: 30px;
+    line-height: 20px;
     color: #007bff; /* Цвет цены */
+    text-align: end;
+    margin-bottom: 10px;
 }
 .productAddition{
     height: 100%;
-    justify-content: end;
-    align-items: end;
     display: flex;
     flex-direction: column;
+}
+.productProperties{
+    display: flex;
+    flex-direction: column;
+}
+.productProperties span{
+    font-size: 25px;
 }
 .buttons button {
     margin: 10px;
@@ -272,7 +282,7 @@ button a{
     border-radius: 25px;
     padding: 5px;
     border:none;
-    /*background-color: #007bff; !* Цвет кнопок *!*/
+    background-color: rgba(0, 123, 255, 0.5); /* Цвет кнопок */
     color: #fff; /* Цвет текста на кнопках */
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -284,10 +294,6 @@ button a{
 .buttons button img{
     padding: 0px;
     width: 100%;
-}
-.productAbout span {
-    font-size: 14px; /* Размер шрифта текста о добавлении */
-    color: #666; /* Цвет текста о добавлении */
 }
 .buttons{
     display: flex;
