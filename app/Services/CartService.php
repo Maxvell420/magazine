@@ -43,8 +43,6 @@ class CartService
     }
     public function deleteProductsFromCart(Collection $products)
     {
-        $user_id = Auth::id();
-
         $productsToDeleteIds = $products->pluck('id')->toArray();
         $ids = $this->getCartProductIds();
         $remainingProductIds = array_diff_assoc($ids,$productsToDeleteIds);
@@ -54,7 +52,10 @@ class CartService
         ];
 
         $jsonCart = json_encode($cart);
-        $this->updateCartStorage($jsonCart,$user_id);
+        if (Auth::check()){
+            $user_id = Auth::id();
+            $this->updateCartStorage($jsonCart,$user_id);
+        }
         return $this->createNewCartCookie($jsonCart);
     }
 

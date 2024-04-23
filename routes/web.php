@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\SubcategoryController;
+use App\Models\Delivery;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -116,7 +117,6 @@ Route::get('/migrate', function () {
 });
 Route::get('/rollback', function () {
     // Запустить миграции
-    Artisan::call('migrate:rollback');
-
-    return 'Миграции успешно выполнены';
+    Delivery::query()->create(['name'=>'pickup','price'=>0]);
+    Delivery::query()->create(['name'=>'courier','price'=>1000]);
 });

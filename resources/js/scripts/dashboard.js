@@ -89,8 +89,11 @@ function showSubcategories(subcategories,productParams){
             if(Number(subcategories[i]['category_id'])===Number(getNumbersFromString(current.id)[0])){
                 let div = document.createElement('div')
                 let [radio,label] = makeRadioInput(subcategories[i])
-                div.append(label)
-                div.append(radio)
+                let subcategoryDiv = document.createElement('div')
+                subcategoryDiv.className='subcategoryDiv'
+                subcategoryDiv.appendChild(label)
+                subcategoryDiv.appendChild(radio)
+                div.appendChild(subcategoryDiv)
                 div.className='filterCategory'
                 form.append(div)
                 radio.addEventListener('click',function (){
@@ -167,6 +170,8 @@ function filterSpanInputs(params,key){
     // let div = document.createElement('div');
     let i = 1;
     for (let param of params) {
+        let inputsDiv = document.createElement('div')
+        inputsDiv.className='inputsDiv'
         let input = document.createElement('input')
         input.id = key+'_'+i.toString()
         input.name = replaceUnderscoreWithSpace(key)+'[]'
@@ -175,8 +180,9 @@ function filterSpanInputs(params,key){
         let label = document.createElement('label')
         label.setAttribute('for',input.id)
         label.innerText=param;
-        div.appendChild(label)
-        div.appendChild(input)
+        inputsDiv.appendChild(label)
+        inputsDiv.appendChild(input)
+        div.appendChild(inputsDiv)
         i++
     }
     return div

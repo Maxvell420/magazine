@@ -45,8 +45,8 @@
                         </select>
                         <label for="status">{{trans('order.changeStatus')}}</label>
                         <select id="status" name="status">
-                            <option @if($order->status == 0) selected @endif>{{trans('order.orderStatus.0')}}</option>
-                            <option @if($order->status == 1) selected @endif>{{trans('order.orderStatus.1')}}</option>
+                            <option @if($order->status == 0) selected @endif value="0">{{trans('order.orderStatus.0')}}</option>
+                            <option @if($order->status == 1) selected @endif value="1">{{trans('order.orderStatus.1')}}</option>
                         </select>
                         <div></div>
                         <button type="submit">{{trans('form.save')}}</button>
