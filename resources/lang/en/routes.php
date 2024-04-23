@@ -28,6 +28,9 @@ return [
             'like'=>'en.product.like',
             'dislike'=>'en.product.dislike',
             'update'=>'en.product.update',
+            'review'=>'en.product.review',
+            'reviews'=>'en.product.reviews',
+            'characteristics'=>'en.product.characteristics',
         ],
         'category'=>[
             'save'=>'en.category.save',

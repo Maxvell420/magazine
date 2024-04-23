@@ -18,4 +18,7 @@ return [
     'info'=>'Product information',
     'edit'=>'Edit product',
     'propertyDescription'=>'Property description',
+    'reviews'=>'Reviews',
+    'reviewCreate'=>'Send review',
+    'reviewsNone'=>'There are no reviews yet...',
 ];

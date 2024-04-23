@@ -22,7 +22,7 @@ class MainController extends Controller
     }
     public function index()
     {
-        return redirect()->route('en.main.dashboard');
+        return redirect()->route('ru.main.dashboard');
     }
     public function cart()
     {
@@ -109,14 +109,17 @@ class MainController extends Controller
             $this->pageService->getModelProperties($product,'properties');
             $this->pageService->setPreviewInfo($product,8);
         } catch (\Exception $e) {
-            $message = $e->getMessage();
+            if ($e->getMessage() == 'foreach() argument must be of type array|object, null given'){
+                $message = trans('errors.productShowLang');
+            } else{
+                $message = $e->getMessage();
+            }
             return view('main.error',compact(['message']));
         }
         $favourites = $this->pageService->getUserFavourites();
         $product->loadExternalData();
         $title = trans('routes.titles.main.product',['name'=>$product->name??'']);
         $styles = 'css/main/product.css';
-        $reviews = $product->reviews;
         return view('main.product',compact(['styles','product','favourites','title']));
     }
     public function checkout(Request $request)
