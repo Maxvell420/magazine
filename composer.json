@@ -7,7 +7,6 @@
     "require": {
         "php": "8.0.30",
         "ext-curl": "*",
-        "chrome-php/chrome": "^1.11",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "imangazaliev/didom": "^2.0",

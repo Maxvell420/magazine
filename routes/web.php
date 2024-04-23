@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\SubcategoryController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
@@ -35,7 +36,9 @@ Route::middleware('cart')->prefix('en')->name('en.')->group(function (){
     Route::post('order/save',[OrderController::class,'save'])->name('order.save');
     Route::get('order/{order}/show',[MainController::class,'orderShow'])->name('order.show');
     Route::get('product/{product}/show',[MainController::class,'productShow'])->name('main.product');
-    Route::post('product/{product_id}/reviews',[ProductController::class,'productReviews'])->name('product.reviews');
+    Route::get('product/{product_id}/characteristics',[ProductController::class,'ajaxCharacteristics'])->name('product.characteristics');
+    Route::get('product/{product_id}/reviews',[ProductController::class,'ajaxReviews'])->name('product.reviews');
+    Route::post('review/{product}/save',[\App\Http\Controllers\ReviewController::class,'save'])->name('product.review');
 
     Route::middleware('auth')->group(function (){
         Route::post('review/{product}/save',[\App\Http\Controllers\ReviewController::class,'save'])->name('product.review');
@@ -105,4 +108,15 @@ Route::middleware('cart')->prefix('ru')->name('ru.')->group(function (){
         Route::post('/subcategory/{subcategory}/update',[SubcategoryController::class,'update'])->name('subcategory.update');
     });
 });
-Route::get('/dash',[\App\Http\Controllers\JSController::class,'dash'])->name('dash');
+Route::get('/migrate', function () {
+    // Запустить миграции
+    Artisan::call('migrate');
+
+    return 'Миграции успешно выполнены';
+});
+Route::get('/rollback', function () {
+    // Запустить миграции
+    Artisan::call('migrate:rollback');
+
+    return 'Миграции успешно выполнены';
+});

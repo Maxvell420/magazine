@@ -2,9 +2,7 @@
     <div class="wrapper">
         <div class="products">
             @foreach($products as $product)
-                <a href="{{route(trans('routes.names.main.product'),$product)}}">
-                    <x-products.plate :product="$product" :favourites="$favourites"/>
-                </a>
+                    <x-products.plate :product="$product" :favourites="$favourites" :token="csrf_token()"/>
             @endforeach
         </div>
     </div>

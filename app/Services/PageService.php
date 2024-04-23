@@ -86,22 +86,29 @@ class PageService
                 $name = $this->shortenString($array['name'],$length);
                 $item->setAttribute('name',$name);
             } else {
-                throw new \Exception(trans('messages.notfound'));
+                $item->setAttribute('name',trans('messages.notfound'));
+//                throw new \Exception(trans('messages.notfound'));
             }
         });
     }
     public function setPreviewInfo(Product $product,int $length)
     {
         $properties = json_decode($product->properties,true);
-        $previewInfo = [];
-        foreach ($properties as $propertyName => $propertyValue){
-            if ($propertyName==='name'){
-                continue;
+        if (!$properties){
+            $previewInfo['error'] = trans('errors.productShowLang');
+        } else{
+            if (array_key_exists('name',$properties)){
+                unset($properties['name']);
             }
-            if (count($previewInfo)>=$length){
-                break;
+            $previewInfo = [];
+            if ($properties){
+                foreach ($properties as $propertyName => $propertyValue){
+                    if (count($previewInfo)>=$length){
+                        break;
+                    }
+                    $previewInfo[$propertyName]=$propertyValue;
+                }
             }
-            $previewInfo[$propertyName]=$propertyValue;
         }
         $product->setAttribute('previewInfo',$previewInfo);
     }

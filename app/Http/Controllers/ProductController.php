@@ -52,9 +52,17 @@ class ProductController
         $product = Product::find($product_id);
         try {
             $this->pageService->getModelProperties($product,'properties');
+            $properties = $product->additional_properties;
+            if (!$properties){
+                throw new \Exception(trans('errors.productShowLang'));
+            }
         } catch (\Exception $e) {
-            $message = $e->getMessage();
-            return view('main.error',compact(['message']));
+            if ($e->getMessage() == 'foreach() argument must be of type array|object, null given'){
+                $message = trans('errors.productShowLang');
+            } else{
+                $message = $e->getMessage();
+            }
+            return view('components.products.error',compact(['message']));
         }
         $properties = $product->additional_properties;
         return view('components.products.characteristics',compact(['product','properties']));

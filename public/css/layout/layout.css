@@ -1,8 +1,15 @@
 body{
+    width: 100%;
     margin:0;
 }
 body *{
     font-family: Arial,sans-serif;
+}
+.header{
+    width: 100%
+}
+main{
+    width: 100%;
 }
 .header,.adminHeader {
     display: flex;

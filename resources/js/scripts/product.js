@@ -84,9 +84,9 @@
             let img = button.querySelector('img')
             if (productInCart(cart,product)){
                 button.className = 'removeFromCart'
-                img.src='../../../images/buttons/remove-from-cart-icon.svg'
+                img.src='/images/buttons/remove-from-cart-icon.svg'
             } else{
-                img.src='../../../images/buttons/shopping-cart.svg'
+                img.src='/images/buttons/shopping-cart.svg'
                 button.className = 'addToCart'
             }
         }

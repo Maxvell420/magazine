@@ -8,7 +8,7 @@ body{
     padding: 15px;
 }
 .filterWindow {
-    min-width: 400px;
+    min-width: 20%;
     padding: 15px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -192,6 +192,7 @@ button a{
     background-color: #3399ff;
 }
 .dashboardWrapper{
+    width: 100%;
     display: grid;
     grid-column-gap: 0;
     grid-row-gap: 0;
@@ -199,6 +200,7 @@ button a{
     /*background-color: #cccccc;*/
 }
 .products{
+    width: 95%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;

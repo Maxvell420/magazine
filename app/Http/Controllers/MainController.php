@@ -101,6 +101,10 @@ class MainController extends Controller
         $favourites = $products->pluck('id')->toArray();
         $styles = 'css/main/favourites.css';
         $scripts = 'scripts/favourites.js';
+        $this->pageService->getProductsNames($products,30);
+        $products->each(function ($item){
+            $this->pageService->setPreviewInfo($item,4);
+        });
         return view('main.favourites',compact(['products','favourites','styles','scripts','title']));
     }
     public function productShow(Product $product)
@@ -232,7 +236,6 @@ class MainController extends Controller
     public function subcategoryEdit(Subcategory $subcategory)
     {
         $styles = 'css/main/subcategory.css';
-        $title = '';
         $subcategory->load('products');
         try {
             $subcategory->load('products');

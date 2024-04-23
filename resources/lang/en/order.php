@@ -15,4 +15,5 @@ return [
     'changeStatus'=>'Change status',
     'changePayment'=>'Change payment status',
     'orders'=>'Your orders',
+    'none'=>"You don't have any orders"
 ];
