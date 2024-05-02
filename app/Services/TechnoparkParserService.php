@@ -27,26 +27,33 @@ class TechnoparkParserService extends ParserService
     {
         // TODO: Implement saveCookies() method.
     }
+//    Метод моего парсера основной
     public function getContent(Model $model)
     {
+//        В базе данных хранятся ссылки на страницы и флаг были ли они спаршены
         $news = $model::query()->where('parsed','=','false')->get();
         foreach ($news as $item){
+//            для того чтобы не слать слишком много вопросов парсю по 10 ссылок
             if ($this->counter>=10){
+//                При достижении 10 логию что все ок
                 $this->log('ended parsing session successfully');
                 return;
             }
+//            записываю текущую ссылку в , чтобы в случае чего понять где что-то пошло не так
             $this->log("started parsing $item->url");
                 $options = ['headers'=>1,'redirects'=>1,'variable'=>1,'cookies'=>1];
-                $page = $this->getPage($item->url,$options);
-//                file_put_contents('text.txt',$page);
-//                die();
-            $this->target =$item->url;
-//            $page = file_get_contents('text.txt');
+/*
+ * Метод getPage собстенно получает страницу в виде строки делая запрос через curl
+ */
+            $page = $this->getPage($item->url,$options);
+/*
+ * Собстенно методы которые вызываются в зависимости от того что это за страница на сайте (в данном случае парсил категории подкатегории и сам товар)
+ * стоит отметить что в этих методах происходит также заполение новыми ссылками для парсинга и не все ссылки являются нужными, а если и являются нужными то представлены не в полной форме
+ * там происходит их замена на полную ссылку с фильтрацией нужных
+ */
             if ($this->mainPageCheck($item->url)){
                 $this->getCategories($page,$item);
             } else{
-//                echo $page;
-//                die();
                 if ($this->subcategoriesPageCheck($page)){
                     $this->getSubcategories($page,$item);
                 }
@@ -57,12 +64,12 @@ class TechnoparkParserService extends ParserService
                     $this->getProduct($page,$item);
                 }
             }
-
-//            проверка на то страница это новости или ссылка на ajax
+//            Обновляю запись что ссылка спаршена и записываю в блокнот
             $item->update(['parsed'=>1]);
             $this->log("ended parsing $item->url");
             $this->counter++;
             $number = rand(1,5);
+//            Отправляю метод в сон для хоть какой-то эмитации пользователя
             sleep($number);
         }
     }

@@ -120,3 +120,4 @@ Route::get('/rollback', function () {
     Delivery::query()->create(['name'=>'pickup','price'=>0]);
     Delivery::query()->create(['name'=>'courier','price'=>1000]);
 });
+Route::get('filetest',[TestController::class,'test']);

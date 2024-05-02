@@ -70,25 +70,26 @@ class ProductService
         }
         return $products->get();
     }
+//    собственно пример кода с использованием laravel
+//      в данном случае ко мне приходит коллекция продуктов с запросом и метод фильтрует 'дополнительные' свойства каждого продукта' и возвращает что осталось
     public function getFilteredProducts(Request $request, Collection $products):Collection
     {
+//        С запроса беру все ключи кроме перечисленных ниже и если это не пустой массив
         $additionalProperties = $request->except(['subcategory','price','products']);
         if ($additionalProperties){
-            /*
-             * Первый цикл проходит по свойствам из запроса, а во вложенном цикле происходит проверка,
-             * есть ли значение и равно ли оно значению из запроса, при неправильности значение убирается из коллекции
-             */
         $products=$products->filter(function ($product) use ($additionalProperties){
+//          В базе данных я храню все свойства продукта в виде json (неоднозначным решением оказалось по итогу), декодирую его и проверяю каждый каждый продукт на соответствие
                 $properties = json_decode($product->properties);
                 foreach ($additionalProperties as $propertyName => $values){
-                    foreach ($values as $value){
-                        $name = preg_replace('#_#', ' ', $propertyName);
-                        if (!property_exists($properties,$name)){
-                            return false;
-                        }
-                        if (!in_array($properties->$name,$values)){
-                            return false;
-                        }
+//                    Заменяю нижнии подчеркивания в свойствах продуктов (с надеждой что в самом свойстве продукта нет нижнего подчеркивания)
+                    $name = preg_replace('#_#', ' ', $propertyName);
+//                    Собственно проверка на наличие у продукта
+                    if (!property_exists($properties,$name)){
+                        return false;
+                    }
+//                    и проверка на значение свойства
+                    if (!in_array($properties->$name,$values)){
+                        return false;
                     }
                 }
                 return true;

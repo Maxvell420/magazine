@@ -1,23 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Product;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Request;
+use PhpOffice\PhpWord\IOFactory;
 
 class TestController extends Controller
 {
     public function test()
     {
-        $products = Product::all();
-//        $productsInCart = [];
-//        if (array_key_exists('cart',$_COOKIE)){
-//            $cart = $_COOKIE['cart'];
-//            foreach (json_decode($cart)->products as $product_id){
-//                $productsInCart[]=$product_id;
-//            }
-//        }
-        return response()->view('public',compact(['products']));
+        $file1path = 'test/file1.docx';
+        $file1=IOFactory::load($file1path);
+        $sections = $file1->getSections();
+        dd($sections);
+//        $file2path = 'test/file2.docx';
+//        $newFile = 'test/file3.docx';
+//        $mergedZip = new ZipArchive();
+//        $mergedZip->open('test/file2.docx', ZipArchive::CREATE);
+//
+//        $dm = new DocxMerge();
+//        $dm->merge( [
+//            $file1path,
+//            $file2path
+//        ], $newFile);
     }
 }

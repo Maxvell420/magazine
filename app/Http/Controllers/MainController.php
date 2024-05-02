@@ -145,6 +145,7 @@ class MainController extends Controller
     {
         try {
             $products = $this->pageService->getOrderedProducts($order);
+            $this->pageService->getProductsNames($products,30);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             return view('main.notfound',compact(['message']));

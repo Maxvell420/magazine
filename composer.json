@@ -10,11 +10,13 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "imangazaliev/didom": "^2.0",
+        "krustnic/docx-merge": "^1.0",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "phpoffice/phpword": "^1.2",
-        "predis/predis": "^2.2"
+        "predis/predis": "^2.2",
+        "ext-zip": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

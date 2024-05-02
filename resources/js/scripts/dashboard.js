@@ -7,11 +7,11 @@ export function categoryAppend(categories,subcategories,productParams){
                 let div = document.createElement('div')
                 div.id = "category_"+categories[i]['id']
                 div.textContent=categories[i]['name']
+                head.appendChild(div)
                 div.addEventListener('click',function (){
                     addCurrentClass(this)
                     showSubcategories(subcategories,productParams)
                 })
-                head.appendChild(div)
             }
             resizeDiv(head)
         } else{

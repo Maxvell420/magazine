@@ -195,17 +195,19 @@ button a{
     display: flex;
     width: 100%;
     background-color: #3366cc;
-    opacity: 1;
-    overflow-x: auto;
+    overflow-x: scroll;
     transition: opacity 0.3s ease;
 }
 .filterHead div{
+    white-space: nowrap;
     margin: 10px 15px 15px;
-    padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
+    padding: 1em;
     color: white;
     cursor: pointer;
+    font-size: 1.2em;
+    overflow: visible;
 }
 .current{
     background-color: #3399ff;
